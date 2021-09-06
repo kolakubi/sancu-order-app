@@ -25,3 +25,28 @@
 .mal-floar-nav-icon{
     color: rgba(0,0,0,0.6);
 }
+
+.table-keranjang tr th{
+    font-size: 14px;
+}
+
+.table-keranjang tr th:nth-child(2){
+    width: 110px;
+}
+
+.table-keranjang tr th:nth-child(4){
+
+}
+
+.table-keranjang tr td{
+    border-bottom: 0px solid white;
+    text-align: center;
+    
+}
+
+.mal-list-produk-container{
+    background-color: white; 
+    box-shadow: 0px 0px 20px -10px rgba(0,0,0,0.2); 
+    border-radius: 20px; 
+    margin: 15px 3px
+}

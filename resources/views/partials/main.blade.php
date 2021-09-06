@@ -18,7 +18,7 @@
 
     <title>{{ $title }}</title>
   </head>
-  <body>
+  <body style="background-color: #fafcfe">
     
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -26,7 +26,11 @@
         <a class="navbar-brand" href="#">
           <img src="/assets/image/logo-sancu-mini.png" alt="logo sancu" style="max-width: 120px">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        
+        <button class="btn">
+          <i class="bi bi-bell-fill text-light"></i>
+        </button>
+        {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -56,7 +60,7 @@
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
-        </div>
+        </div> --}}
       </div>
     </nav>
 
@@ -77,9 +81,9 @@
           <h6>Rp 5.000.000</h6>
       </div>
       <div class="col-2 d-flex justify-content-center align-items-center">
-          <button class="btn">
+          <a href="/keranjang" class="btn">
               <i class="bi bi-cart mal-floar-nav-icon"></i>
-          </button>
+          </a>
       </div>
   </div>
   <!-- End floating Div -->

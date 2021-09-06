@@ -2,7 +2,7 @@
 
 @section('container')
 
-    <h1 class="mb-3">Produk Sancu</h1>
+    <h2 class="mb-3">Produk Sancu</h2>
 
     <!-- search bar -->
     <div class="row">
@@ -26,26 +26,24 @@
     <!-- end search bar -->
 
     <!-- list produk -->
-    <div class="row p-1 mt-2">
+    <div class="row p-2 mal-list-produk-container">
         <div class="col-4 d-flex justify-content-center align-items-center flex-column">
             <img src="/assets/image/baby-girl-pink-thumb.jpeg" alt="sancu baby girl" style="max-width: 90%">
-            <p class="bg-danger text-light p-1 rounded" style="font-size: 12px">Best Seller</p>
+            <p class="bg-danger text-light p-1 rounded mt-1" style="font-size: 12px">Best Seller</p>
         </div>
         <div class="col-8 d-flex justify-content-center flex-column">
             <h6>Sancu Baby Girl Pink</h6>
             <h6>Rp 11.000</h6>
             <p class="m-0 mb-1">Size: 24, 28, 30, 32, 34, 38</p>
-            <div class="row" style="display: flex; align-items: flex-end; justify-content: flex-end; ">
-                <button class="btn btn-warning" style="max-width: 30%">Beli</button>
+            <div class="row" style="display: flex; align-items: flex-end; justify-content: flex-end;">
+                <a href="/sancu/baby-girl-pink" class="btn btn-warning" style="max-width: 30%">Beli</a>
             </div>
-            
         </div>
     </div>
-    <hr>
     <!-- list produk -->
 
     <!-- list produk -->
-    <div class="row p-1 mt-2">
+    <div class="row p-2 mal-list-produk-container">
         <div class="col-4 d-flex justify-content-center align-items-center flex-column">
             <img src="/assets/image/pika-pika-thumb.jpeg" alt="sancu baby girl" style="max-width: 90%">
             {{-- <p class="bg-danger text-light p-1 rounded" style="font-size: 12px">Best Seller</p> --}}
@@ -55,16 +53,15 @@
             <h6>Rp 11.000</h6>
             <p class="m-0 mb-1">Size: 24, 28, 30, 32, 34, 38</p>
             <div class="row" style="display: flex; align-items: flex-end; justify-content: flex-end; ">
-                <button class="btn btn-warning" style="max-width: 30%">Beli</button>
+                <a href="" class="btn btn-warning" style="max-width: 30%">Beli</a>
             </div>
             
         </div>
     </div>
-    <hr>
     <!-- list produk -->
 
     <!-- list produk -->
-    <div class="row p-1 mt-2">
+    <div class="row p-2 mal-list-produk-container">
         <div class="col-4 d-flex justify-content-center align-items-center flex-column">
             <img src="/assets/image/doraemon-thumb.jpeg" alt="sancu baby girl" style="max-width: 90%">
             <p class="bg-danger text-light p-1 rounded" style="font-size: 12px">Best Seller</p>
@@ -74,16 +71,15 @@
             <h6>Rp 11.000</h6>
             <p class="m-0 mb-1">Size: 24, 28, 30, 32, 34, 38</p>
             <div class="row" style="display: flex; align-items: flex-end; justify-content: flex-end; ">
-                <button class="btn btn-warning" style="max-width: 30%">Beli</button>
+                <a href="" class="btn btn-warning" style="max-width: 30%">Beli</a>
             </div>
             
         </div>
     </div>
-    <hr>
     <!-- list produk -->
 
     <!-- list produk -->
-    <div class="row p-1 mt-2">
+    <div class="row p-2 mal-list-produk-container">
         <div class="col-4 d-flex justify-content-center align-items-center flex-column">
             <img src="/assets/image/dino-thumb.jpeg" alt="sancu baby girl" style="max-width: 90%">
             {{-- <p class="bg-danger text-light p-1 rounded" style="font-size: 12px">Best Seller</p> --}}
@@ -93,11 +89,10 @@
             <h6>Rp 11.000</h6>
             <p class="m-0 mb-1">Size: 24, 28, 30, 32, 34, 38</p>
             <div class="row" style="display: flex; align-items: flex-end; justify-content: flex-end; ">
-                <button class="btn btn-warning" style="max-width: 30%">Beli</button>
+                <a href="" class="btn btn-warning" style="max-width: 30%">Beli</a>
             </div>
             
         </div>
     </div>
-    <hr>
     <!-- list produk -->
 @endsection

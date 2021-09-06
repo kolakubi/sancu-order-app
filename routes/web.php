@@ -24,3 +24,16 @@ Route::get('/sancu', function (){
         'title' => 'Sancu'
     ]);
 });
+
+Route::get('/keranjang', function (){
+    return view('keranjang', [
+        'title' => 'Keranjang'
+    ]);
+});
+
+// dibikin dinamis
+Route::get('/sancu/baby-girl-pink', function (){
+    return view('single-product', [
+        'title' => 'Single Product'
+    ]);
+});
