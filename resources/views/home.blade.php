@@ -39,28 +39,28 @@
     <div class="row">
         <h6>Belanja Apa Hari Ini</h6>
         <div class="col-6 p-1">
-            <a href="/sancu"> 
+            <a href="/category/sancu"> 
                 <div class="mal-home-shadow p-2 rounded">
                     <img src="assets/image/sancu-thumb-home.jpg" alt="sancu" class="img-fluid">
                 </div>
             </a>    
         </div>
         <div class="col-6 p-1">
-            <a href="#"> 
+            <a href="/category/boncu"> 
                 <div class="mal-home-shadow p-2 rounded">
                     <img src="assets/image/boncu-thumb-home.jpg" alt="boncu" class="img-fluid">
                 </div>
             </a>
         </div>
         <div class="col-6 p-1">
-            <a href="#"> 
+            <a href="/category/pretty"> 
                 <div class="mal-home-shadow p-2 rounded">
                     <img src="assets/image/pretty-thumb-home.jpg" alt="pretty" class="img-fluid">
                 </div>
             </a>
         </div>
         <div class="col-6 p-1">
-            <a href="#"> 
+            <a href="/category/xtreme"> 
                 <div class="mal-home-shadow p-2 rounded">
                     <img src="assets/image/xtreme-thumb-home.jpg" alt="xtreme" class="img-fluid">
                 </div>

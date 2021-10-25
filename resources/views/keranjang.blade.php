@@ -165,6 +165,62 @@
         </div>
     </div>
 
+    {{-- Ongkir --}}
+    <div class="container mal-list-produk-container p-5">
+        <h6><strong><i class="bi bi-truck" style="font-size: 2rem;"></i></strong></h6>
+
+        {{-- Alamat --}}
+        <div class="row">
+            <div class="col-5">
+                <h6>Alamat</h6>
+            </div>
+            <div class="col-7">
+                <p class="text-end">Jalan Persahabatan VI no 3-4, Ciracas, Jakarta Timur 13730</p>
+            </div>
+        </div>
+
+        {{-- Ekspedisi --}}
+        <div class="row">
+            <div class="col-5">
+                <h6>Ekspedisi</h6>
+            </div>
+            <div class="col-7">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Indah Cargo</option>
+                    <option value="Dakota">Dakota</option>
+                    <option value="Alif Pratama">Alif Pratama</option>
+                    <option value="Hexa">Hexa</option>
+                </select>
+            </div>
+        </div>
+
+        {{-- Berat total --}}
+        <div class="row mt-4">
+            <div class="col-5">
+                <h6>Berat total</h6>
+            </div>
+            <div class="col-7">
+                <h6 class="text-end"><strong>1.500g</strong></h6>
+            </div>
+        </div>
+
+        {{-- Total --}}
+        <div class="d-flex align-items-center flex-row-reverse mt-4">
+            <h6 class="text-right">Sub Total: <span style="font-weight: bold; font-size: 1.1em">Rp 192.000</span></h6>
+        </div>
+        
+    </div>
+
+    {{-- kode kupon --}}
+    <div class="row mal-list-produk-container p-4">
+        <div class="col-6">
+            <h6>Kode Kupon</h6>
+        </div>
+        <div class="col-6 d-flex align-items-center flex-row-reverse">
+            <input type="text" class="form-control" width="50px"></td>
+        </div>
+    </div>
+
     {{-- total keranjang --}}
     <div class="row mal-list-produk-container p-4">
         <div class="col-6">

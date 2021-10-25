@@ -14,16 +14,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <!-- custom css -->
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">  
 
     <title>{{ $title }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
   <body style="background-color: #fafcfe">
     
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
           <img src="/assets/image/logo-sancu-mini.png" alt="logo sancu" style="max-width: 120px">
         </a>
         
@@ -73,12 +74,12 @@
     <!-- Floating Div -->
     <div class="row mal-float-nav">
       <div class="col-2 d-flex justify-content-center align-items-center">
-          <button class="btn">
+          <a class="btn" href="/profil">
               <i class="bi bi-person mal-floar-nav-icon"></i>
-          </button>
+          </a>
       </div>
       <div class="col-8 d-flex justify-content-center align-items-center">
-          <h6>Rp 5.000.000</h6>
+          <h6>Rp 1.000.000</h6>
       </div>
       <div class="col-2 d-flex justify-content-center align-items-center">
           <a href="/keranjang" class="btn">
@@ -90,7 +91,7 @@
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="/assets/js/main.js"></script>
 
   </body>
 </html>

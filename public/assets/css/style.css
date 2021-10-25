@@ -1,3 +1,9 @@
+body{
+    font-size: 14px;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
 .mal-main-container{
     padding-bottom: 80px;
 }
@@ -16,6 +22,7 @@
     border-top: 1px solid rgba(0,0,0,0.1);
     background-color: white;
     z-index: 999;
+    box-shadow: 0px -7px 14px -3px rgb(0 0 0 / 10%);
 }
 
 .mal-float-nav div{
@@ -49,4 +56,34 @@
     box-shadow: 0px 0px 20px -10px rgba(0,0,0,0.2); 
     border-radius: 20px; 
     margin: 15px 3px
+}
+
+.mal-btn-proses-bayar{
+    border: 1px solid #d12e2e;
+    border-radius: 4px;
+    color: #d12e2e;
+    background-color: white;
+    font-weight: bold;
+}
+
+.mal-btn-proses-diantar{
+    border: 1px solid #4f92ff;
+    border-radius: 4px;
+    color: #4f92ff;
+    background-color: white;
+    font-weight: bold;
+}
+
+
+.mal-btn-proses-selesai{
+    border: 1px solid #5bc912;
+    border-radius: 4px;
+    color: #5bc912;
+    background-color: white;
+    font-weight: bold;
+}
+
+.mal-text-gold{
+    margin-top: -5px;
+    color: #ffc903;
 }
