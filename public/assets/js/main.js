@@ -110,7 +110,7 @@ const hargaSize21 = document.getElementById('harga-size-21').innerHTML;
                 })
                 .then(response => response.text())
                 .then(data => {
-                  console.log('Success:', data);
+                  console.log(data);
                 })
                 .catch(function(error) {
                     console.log(error);
