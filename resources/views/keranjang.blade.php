@@ -206,7 +206,7 @@
 
         {{-- Total --}}
         <div class="d-flex align-items-center flex-row-reverse mt-4">
-            <h6 class="text-right">Sub Total: <span style="font-weight: bold; font-size: 1.1em">Rp 192.000</span></h6>
+            <h6 class="text-right">Sub Total Ongkir: <span style="font-weight: bold; font-size: 1.1em">Rp 192.000</span></h6>
         </div>
         
     </div>
@@ -224,7 +224,7 @@
     {{-- total keranjang --}}
     <div class="row mal-list-produk-container p-4">
         <div class="col-6">
-            <h6>Total Keranjang</h6>
+            <h6>Total Pembelian</h6>
         </div>
         <div class="col-6 d-flex align-items-center flex-row-reverse">
             <span style="font-weight: bold; font-size: 1.2em">Rp 384.000</span>

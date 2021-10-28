@@ -91,8 +91,8 @@ const hargaSize21 = document.getElementById('harga-size-21').innerHTML;
                     }
                 }
 
-                // const dataForAjax2 = JSON.stringify(dataForAjax);
-                // console.log(dataForAjax2);
+                // tampilin overlay loading
+                document.getElementById('mal-loading-overlay').style.display = 'flex';
 
                 // post request
                 let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -110,7 +110,16 @@ const hargaSize21 = document.getElementById('harga-size-21').innerHTML;
                 })
                 .then(response => response.text())
                 .then(data => {
-                  console.log(data);
+                    console.log(data);
+
+                    // reset field jd 0
+                    for(let i=0; i<listInputSize.length; i++){
+                        listInputSize[i].value = 0;
+                        listTotalHargaSize[i].innerHTML = 0;
+                    }
+                    subtotalHarga.innerHTML = 0;
+
+                    location.replace("/keranjang")
                 })
                 .catch(function(error) {
                     console.log(error);

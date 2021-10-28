@@ -18,19 +18,18 @@ class CartController extends Controller
         // ]
         // cara akses
         // return $data[0]['id_produk_detail'];
-        // return count($data);
+        // return $data;
 
-        for($i=0; $i<9; $i++){
-            if($data[$i]['jumlah_produk']){
+        // for($i=0; $i<9; $i++){
+        for($i=0; $i<count((array)$data); $i++){
+            if($data[$i]['jumlah_produk'] !== null){
                 Cart::insert_data($data[$i]);
             }
             else{
                 break;
             }
-            
         }
 
         return 'sukses';
     }
 }
-
