@@ -28,9 +28,13 @@
           <img src="/assets/image/logo-sancu-mini.png" alt="logo sancu" style="max-width: 120px">
         </a>
         
-        <button class="btn">
-          <i class="bi bi-bell-fill text-light"></i>
-        </button>
+        <div class="d-flex flex-row align-items-center justify-content-center p-1">
+          <h6 class="text text-light mb-0">Hi, {{auth()->user()->name}}</h6>
+          <button class="btn">
+            <i class="bi bi-bell-fill text-light"></i>
+          </button>
+        </div>
+        
         {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -79,10 +83,10 @@
           </a>
       </div>
       <div class="col-8 d-flex justify-content-center align-items-center">
-          <h6>Rp 1.000.000</h6>
+          <h6 id="floatdiv-total">0</h6>
       </div>
       <div class="col-2 d-flex justify-content-center align-items-center">
-          <a href="/keranjang" class="btn">
+          <a href="{{ route('keranjang') }}" class="btn">
               <i class="bi bi-cart mal-floar-nav-icon"></i>
           </a>
       </div>
@@ -109,6 +113,7 @@
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="/assets/js/floatdiv.js"></script>
     <script src="/assets/js/main.js"></script>
 
   </body>

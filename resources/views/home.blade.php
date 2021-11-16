@@ -2,6 +2,8 @@
 
 @section('container')
 
+    {{-- @dump(auth()->user()); --}}
+
     <!-- slide -->
     <div class="row mb-5">
         <div class="col-12">

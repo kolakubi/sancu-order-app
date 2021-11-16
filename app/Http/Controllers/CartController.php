@@ -7,7 +7,18 @@ use App\Models\Cart;
 
 class CartController extends Controller
 {
-    //
+    public static function show_cart(){
+
+        // ambil id_user dari session
+        // ambil data cart dari session id_user
+        $cart_items = Cart::show_data(auth()->user()->id);
+
+        return view('keranjang', [
+            'title' => 'Keranjang',
+            'cart_items' => $cart_items
+        ]);
+        
+    }
 
     public static function add_cart(Request $data){
         // data yg didapat
@@ -22,6 +33,7 @@ class CartController extends Controller
 
         // for($i=0; $i<9; $i++){
         for($i=0; $i<count((array)$data); $i++){
+        // for($i=0; $i<sizeof($data); $i++){
             if($data[$i]['jumlah_produk'] !== null){
                 Cart::insert_data($data[$i]);
             }
@@ -31,5 +43,16 @@ class CartController extends Controller
         }
 
         return 'sukses';
+    }
+
+    public static function get_cart_data(){
+        $cart_items = Cart::show_data(auth()->user()->id);
+
+        $subtotal = 0;
+        foreach($cart_items as $item){
+            $subtotal += ($item->jumlah_produk*$item->harga_produk);
+        }
+
+        return 'Rp '.number_format($subtotal, 0);
     }
 }

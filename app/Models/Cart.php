@@ -10,14 +10,17 @@ class Cart extends Model
 {
     use HasFactory;
 
-    public static function insert_data($item){
+    public static function show_data($id_user){
+        return $dataItem = DB::table('carts')
+            ->where('id_user', $id_user)
+            ->join('produks', 'carts.id_produk', '=', 'produks.id')
+            ->join('produk_details', 'carts.id_produk_detail', '=', 'produk_details.id')
+            ->orderBy('carts.id_produk')
+            ->orderBy('produk_details.size', 'DESC')
+            ->get();
+    }
 
-        // return DB::table('carts')->insert([
-        //     'id_produk' => $item['id_produk'],
-        //     'id_produk_detail' => $item['id_produk_detail'],
-        //     'jumlah_produk' => $item['jumlah_produk'],
-        //     'id_user' => 1,
-        // ]);
+    public static function insert_data($item){
 
         // cek dlu apakah ada data dengan id_produk_detail
         $dataItem = DB::table('carts')
@@ -39,7 +42,7 @@ class Cart extends Model
                 'id_produk' => $item['id_produk'],
                 'id_produk_detail' => $item['id_produk_detail'],
                 'jumlah_produk' => $item['jumlah_produk'],
-                'id_user' => 1,
+                'id_user' => auth()->user()->id,
             ]);
         }
     }
