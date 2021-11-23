@@ -12,6 +12,7 @@ class Cart extends Model
 
     public static function show_data($id_user){
         return $dataItem = DB::table('carts')
+            ->select('*', 'carts.id as carts_id')
             ->where('id_user', $id_user)
             ->join('produks', 'carts.id_produk', '=', 'produks.id')
             ->join('produk_details', 'carts.id_produk_detail', '=', 'produk_details.id')
@@ -46,4 +47,56 @@ class Cart extends Model
             ]);
         }
     }
+
+    public static function get_stok_data($id){
+        return $data = DB::table('produk_details')
+            ->where('id', $id)
+            ->first()->jumlah_stok;
+    }
+
+    public static function cek_item_di_cart($id){
+
+        $status = DB::table('carts')
+            ->where('id_produk_detail', $id)
+            ->where('id_user', auth()->user()->id)
+            ->first();
+
+        if($status){
+            return $status;
+        }
+
+        return false;
+        // return $status;
+    }
+
+    public static function add_1_item($id_cart){
+        $id_cart = $id_cart[0];
+        $jumlah_di_cart = DB::table('carts')
+            ->where('id', $id_cart)
+            ->first()->jumlah_produk;
+
+        return DB::table('carts')
+            ->where('id', $id_cart)
+            ->update(['jumlah_produk' => $jumlah_di_cart+1]);
+    }
+
+    public static function decrease_1_item($id_cart){
+        $id_cart = $id_cart[0];
+        $jumlah_di_cart = DB::table('carts')
+            ->where('id', $id_cart)
+            ->first()->jumlah_produk;
+
+        return DB::table('carts')
+            ->where('id', $id_cart)
+            ->update(['jumlah_produk' => $jumlah_di_cart-1]);
+    }
+
+    public static function remove_1_item($id_cart){
+        $id_cart = $id_cart[0];
+
+        return DB::delete('carts')
+            ->where('id', $id_cart)
+            ->delete();
+    }
+
 }

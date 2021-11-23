@@ -24,44 +24,48 @@
         </div>
     </div>
 
-    {{-- form pembelian --}}
-    <div class="row mal-list-produk-container">
-        <div class="col-12">
-            <table class="table text-center">
-                <thead>
-                    <tr>
-                        <th>Size</th>
-                        <th>Harga</th>
-                        <th>Stok<br>(Pack)</th>
-                        <th>Order</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{-- foreach --}}
-                    @foreach ($stoks as $stok)
-                    <tr style={{$stok->jumlah_stok < 1 ? "background-color:rgba(0,0,0,0.1)" : ""}}>
-                        <td>{{ $stok->size }}</td>
-                        <td id="harga-size-{{$stok->size}}">{{  $stok->harga_produk }}</td>
-                        <td>{{ $stok->jumlah_stok }}</td>
-                        <td>
-                            <input type="number" min=0 class="form-control" width="50px" value=0
-                            max={{ $stok->jumlah_stok }}  
-                            id="input-size-{{$stok->size}}" 
-                            data-id-produk-detail={{$stok->id}}
-                            data-id-produk={{$stok->id_produk}}
-                            {{$stok->jumlah_stok < 1 ? "disabled" : ""}}>
-                        </td>
-                        <td id="total-harga-size-{{$stok->size}}">
-                            0
-                        </td>
-                    </tr>
-                    @endforeach
+    {{-- <form action="/produk/addtocart2" method="POST">
+        @csrf --}}
+        {{-- form pembelian --}}
+        <div class="row mal-list-produk-container">
+            <div class="col-12">
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th>Size</th>
+                            <th>Harga</th>
+                            <th>Stok<br>(Pack)</th>
+                            <th>Order</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- foreach --}}
+                        @foreach ($stoks as $stok)
+                        <tr style={{$stok->jumlah_stok < 1 ? "background-color:rgba(0,0,0,0.1)" : ""}}>
+                            <td>{{ $stok->size }}</td>
+                            <td id="harga-size-{{$stok->size}}">{{  $stok->harga_produk }}</td>
+                            <td>{{ $stok->jumlah_stok }}</td>
+                            <td>
+                                <input type="number" min=0 class="form-control" width="50px" value=0
+                                max={{ $stok->jumlah_stok }}  
+                                id="input-size-{{$stok->size}}" 
+                                data-id-produk-detail={{$stok->id}}
+                                data-id-produk={{$stok->id_produk}}
+                                {{$stok->jumlah_stok < 1 ? "disabled" : ""}}
+                                name="{{$stok->id}}">
+                            </td>
+                            <td id="total-harga-size-{{$stok->size}}">
+                                0
+                            </td>
+                        </tr>
+                        @endforeach
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+    
 
     {{-- total --}}
     <div class="row mal-list-produk-container p-4">
@@ -79,8 +83,12 @@
             <a href="/keranjang" class="btn btn-warning col-12" id="tombol-add-to-cart">
                 <i class="bi bi-cart mal-floar-nav-icon"></i> <strong>Tambah ke Keranjang</strong>
             </a>
+            {{-- <button type="submit" class="btn btn-warning col-12">
+                <i class="bi bi-cart mal-floar-nav-icon"></i> <strong>Tambah ke Keranjang</strong>
+            </button> --}}
         </div>
     </div>
+    {{-- </form> --}}
     
     <script>
         const hargaSize21 = document.getElementById('harga-size-21').innerHTML;
@@ -190,7 +198,7 @@
                 // post request
                 let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-                fetch("/produk/addtocart", {
+                fetch("/produk/masscekstok", {
                     headers: {
                         "Content-Type": "application/json",
                         "Accept": "application/json, text-plain, */*",
@@ -204,19 +212,54 @@
                 .then(response => response.text())
                 .then(data => {
                     console.log(data);
+                    // ubah string data ke array
+                    let arrData = data.split(' ');
+                    console.log(arrData);
+                    // cek jika array ada 'melebihi-stok
+                    if(arrData.includes('melebihi-stok')){
+                        // jika ada
+                        alert('item kamu melebihi stok yang ada, cek keranjang belanja!');
 
-                    // reset field jd 0
-                    for(let i=0; i<listInputSize.length; i++){
-                        listInputSize[i].value = 0;
-                        listTotalHargaSize[i].innerHTML = 0;
+                        // hilangkan overlay loading
+                        document.getElementById('mal-loading-overlay').style.display = 'none';
+                    }else{
+
+                        // input item ke keranjang
+                        fetch("/produk/addtocart", {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json, text-plain, */*",
+                                "X-Requested-With": "XMLHttpRequest",
+                                "X-CSRF-TOKEN": token
+                                },
+                            method: "POST", 
+                            credentials: "same-origin",
+                            body: JSON.stringify(dataForAjax)
+                        })
+                        .then(response => response.text())
+                        .then(data => {
+                            console.log(data);
+
+                            if(data == "sukses"){
+                                // reset field jd 0
+                                for(let i=0; i<listInputSize.length; i++){
+                                    listInputSize[i].value = 0;
+                                    listTotalHargaSize[i].innerHTML = 0;
+                                }
+                                subtotalHarga.innerHTML = 0;
+
+                                location.replace("/keranjang")
+                            }
+                        })
+                        .catch(function(error) {
+                            console.log(error);
+                        });
                     }
-                    subtotalHarga.innerHTML = 0;
-
-                    location.replace("/keranjang")
                 })
                 .catch(function(error) {
                     console.log(error);
                 });
+
             }
         })
     </script>

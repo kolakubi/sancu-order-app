@@ -39,9 +39,14 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::get('/produk/{id}', [ProdukController::class, 'show_produk']);
     Route::post('/produk/addtocart', [CartController::class, 'add_cart']);
+    Route::post('/produk/cekstok', [CartController::class, 'cek_stok']);
+    Route::post('/produk/masscekstok', [CartController::class, 'mass_cek_stok']);
 
     Route::get('/keranjang', [CartController::class, 'show_cart'])->name('keranjang');
     Route::get('/keranjang/ajaxget', [CartController::class, 'get_cart_data']);
+    Route::post('/keranjang/add_1_item', [CartController::class, 'add_1_item']);
+    Route::post('/keranjang/decrease_1_item', [CartController::class, 'decrease_1_item']);
+    Route::post('/keranjang/remove_1_item', [CartController::class, 'remove_1_item']);
 });
 
 

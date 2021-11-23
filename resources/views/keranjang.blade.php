@@ -3,6 +3,13 @@
 @section('container')
 
     {{-- @dump($cart_items) --}}
+    @if(!isset($cart_items[0]))
+        <div class="row mal-list-produk-container pt-3">
+            <div class="alert alert-danger" role="alert">
+                Cart Anda Kosong!
+            </div>
+        </div>
+    @endif
 
     <h2>Keranjang Pemesanan</h2>
     @php
@@ -15,7 +22,7 @@
 
         {{-- jika idproduk beda dengan var pembantu --}}
         {{-- buat header table --}}
-        {{-- jadikan var helper = id_produk --}}
+        {{-- jadikan variable helper = id_produk --}}
         @if($item->id_produk != $asd)
 
             @php
@@ -27,7 +34,7 @@
                 
                 {{-- hapus seluruh item --}}
                 <div class="col-12 d-flex align-items-center flex-row-reverse">
-                    <button class="btn btn-danger btn-ms rounded">
+                    <button class="btn btn-danger btn-ms rounded" onclick="deleteAllItem(this)">
                         <i class="bi bi-trash-fill"></i>
                     </button>
                 </div>
@@ -50,8 +57,6 @@
                             </tr>
                         </thead>
                         <tbody>
-            
-            
         @endif
         
         @php
@@ -62,16 +67,23 @@
             <td>{{ $item->size }}</td>
             <td>
                 <div class="d-flex align-items-center justify-content-center">
-                    <button class="btn btn-secondary p-2">-</button>
-                    <input type="number" min=0 value="{{ $item->jumlah_produk }}" class="form-control p-2">
-                    <button class="btn btn-warning p-2">+</button>
+                    {{-- remove button --}}
+                    <button class="btn btn-secondary p-2 remove-button" onclick="decreaseItem(this)"
+                    data-id-cart="{{$item->carts_id}}">-</button>
+                    {{-- input number --}}
+                    <input type="number" min=0 value="{{ $item->jumlah_produk }}" class="form-control px-1 py-2"
+                    data-harga="{{$item->harga_produk}}"
+                    data-id-produk="{{$item->id_produk_detail}}">
+                    {{-- add button --}}
+                    <button class="btn btn-warning p-2 add-button" onclick="increaseItem(this)"
+                    data-id-cart="{{$item->carts_id}}">+</button>
                 </div>
             </td>
             <td><p style="font-size: 14px;">{{ number_format($item->jumlah_produk*$item->harga_produk, 0) }}</p></td>
             <td>
                 {{-- hapus 1 item --}}
-                <button class="btn p-1">
-                    <i class="bi bi-trash-fill"></i>
+                <button class="btn p-1" onclick="deleteItem(this)">
+                    <i class="bi bi-trash-fill delete-item"></i>
                 </button>
             </td>
         </tr>
@@ -266,11 +278,211 @@
             </a>
         </div>
         <div class="col-6">
-            <button class="btn col-12 btn-warning">
+            <button class="btn col-12 btn-warning" 
+            @if(!isset($cart_items[0])) disabled @endif>
                 <i class="bi bi-cart mal-floar-nav-icon"></i> 
                 Checkout
             </button>
         </div>
     </div>
+
+    <script>
+
+        let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        function increaseItem(a){
+            document.getElementById('mal-loading-overlay').style.display = 'flex';
+
+            // target input
+            let inputElem = a.previousElementSibling;
+            let hargaProduk = inputElem.getAttribute('data-harga');
+            let idProduk = inputElem.getAttribute('data-id-produk');
+            let hargaElem = a.parentElement.parentElement.nextElementSibling.firstChild;
+            
+            // ajax ke pengecekan stok
+            fetch("/produk/cekstok", {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json, text-plain, */*",
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRF-TOKEN": token
+                    },
+                method: "POST", 
+                credentials: "same-origin",
+                body: idProduk
+            })
+            .then(response => response.text())
+            .then(data => {
+
+                console.log(data);
+                data = parseInt(data);
+
+                // jika input melebihi stok
+                if(parseInt(inputElem.value) >= data){
+                    alert('pesanan melebihi stok yg ada');
+                    inputElem.value = data;
+
+                    // hide overlay loading
+                    document.getElementById('mal-loading-overlay').style.display = 'none';
+                }
+                else{
+                    //
+                    //
+                    // ajax tambah item satuam
+                    //
+                    //
+                    let idCarts = a.getAttribute('data-id-cart');
+                    console.log(idCarts);
+                    fetch("/keranjang/add_1_item", {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json, text-plain, */*",
+                            "X-Requested-With": "XMLHttpRequest",
+                            "X-CSRF-TOKEN": token
+                            },
+                        method: "POST", 
+                        credentials: "same-origin",
+                        body: JSON.stringify(idCarts)
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        console.log(data);
+
+                        // hide overlay loading
+                        document.getElementById('mal-loading-overlay').style.display = 'none';
+
+                        // update jumlah
+                        inputElem.value = parseInt(inputElem.value)+1;
+                        hargaElem.innerHTML = parseInt(hargaProduk)*parseInt(inputElem.value);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+                    //
+                    //                    
+                    // end ajax tambah item satuam
+                    //
+                    //
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+        }
+        //
+        // end function increaseItem
+        //
+
+        function decreaseItem(a){
+            // show overlay loading
+            document.getElementById('mal-loading-overlay').style.display = 'flex';
+
+            // target input
+            let inputElem = a.nextElementSibling;
+            let hargaProduk = inputElem.getAttribute('data-harga');
+            let hargaElem = a.parentElement.parentElement.nextElementSibling.firstChild;
+            if(inputElem.value > 0){
+                //
+                //
+                // ajax kurangin item satuam
+                //
+                //
+                let idCarts = a.getAttribute('data-id-cart');
+                console.log(idCarts);
+                fetch("/keranjang/decrease_1_item", {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json, text-plain, */*",
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRF-TOKEN": token
+                        },
+                    method: "POST", 
+                    credentials: "same-origin",
+                    body: JSON.stringify(idCarts)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+
+                    // hide overlay loading
+                    document.getElementById('mal-loading-overlay').style.display = 'none';
+
+                    // update jumlah
+                    inputElem.value = parseInt(inputElem.value)-1;
+                    hargaElem.innerHTML = 
+                    
+                    parseInt(hargaProduk)*parseInt(inputElem.value);
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+                //
+                //                    
+                // end ajax kurangin item satuam
+                //
+                //
+            }
+            else{
+                let tableRow = a.parentElement.parentElement.parentElement;
+                let itemDetailId = tableRow.firstElementChild.nextElementSibling.firstElementChild.firstElementChild.getAttribute('data-id-cart');
+
+                console.log(itemDetailId);
+                // hapus data menurut 'data-id-cart'
+                //
+                //                    
+                // end ajax hapus item
+                //
+                //
+                let idCarts = a.getAttribute('data-id-cart');
+                console.log(idCarts);
+                fetch("/keranjang/remove_1_item", {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json, text-plain, */*",
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRF-TOKEN": token
+                        },
+                    method: "POST", 
+                    credentials: "same-origin",
+                    body: JSON.stringify(idCarts)
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+
+                    // hide overlay loading
+                    document.getElementById('mal-loading-overlay').style.display = 'none';
+
+                    // hapus row item
+                    tableRow.remove();
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            }
+        }
+        //
+        // end function decreaseItem
+        //
+
+        function deleteItem(a){
+            let tableRow = a.parentElement.parentElement;
+            let itemDetailId = a.parentElement.previousElementSibling.previousElementSibling.firstElementChild.firstElementChild.nextElementSibling.getAttribute('data-id-produk');
+
+            console.log(itemDetailId);
+            tableRow.remove();
+
+            // ajax hapus item menurut id_produk_detail
+        }
+
+        function deleteAllItem(a){
+            let containerItem = a.parentElement.parentElement;
+
+            containerItem.remove();
+
+            // ajax hapus item menurut id_produk
+        }
+
+    </script>
 
 @endsection
