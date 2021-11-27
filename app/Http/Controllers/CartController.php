@@ -46,26 +46,24 @@ class CartController extends Controller
             else{
                 break;
             }
-            
         }
-
         return 'sukses';
     }
 
-    public static function get_cart_data(){
+    public static function get_cart_total_mount(){
         $cart_items = Cart::show_data(auth()->user()->id);
 
         $subtotal = 0;
         foreach($cart_items as $item){
-            $subtotal += ($item->jumlah_produk*$item->harga_produk);
+            if($item->jumlah_stok > 0){
+                
+                $subtotal += ($item->jumlah_produk*$item->harga_produk);
+            }
         }
 
-        return 'Rp '.number_format($subtotal, 0);
+        // return 'Rp '.number_format($subtotal, 0);
+        return $subtotal;
     }
-
-    // public static function add_cart_2(Request $request){
-    //     dd($request);
-    // }
 
     public static function cek_stok(Request $request){
         // return $request[0];
@@ -99,7 +97,6 @@ class CartController extends Controller
                     else{
                         echo 'item-tdk-ada-di-keranjang ';
                     }
-
                 }
                 else{
                     break;
@@ -122,8 +119,13 @@ class CartController extends Controller
         return $action;
     }
 
-    public static function remove_1_item(REquest $id_cart){
+    public static function remove_1_item(Request $id_cart){
         $action = Cart::remove_1_item($id_cart);
+        return $action;
+    }
+
+    public static function delete_all_items(Request $id_produk){
+        $action = Cart::delete_all_items($id_produk);
         return $action;
     }
 }

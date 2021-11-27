@@ -22,7 +22,6 @@ class Cart extends Model
     }
 
     public static function insert_data($item){
-
         // cek dlu apakah ada data dengan id_produk_detail
         $dataItem = DB::table('carts')
             ->where('id_produk_detail', '=', $item['id_produk_detail'])
@@ -55,7 +54,6 @@ class Cart extends Model
     }
 
     public static function cek_item_di_cart($id){
-
         $status = DB::table('carts')
             ->where('id_produk_detail', $id)
             ->where('id_user', auth()->user()->id)
@@ -93,9 +91,17 @@ class Cart extends Model
 
     public static function remove_1_item($id_cart){
         $id_cart = $id_cart[0];
-
-        return DB::delete('carts')
+        return DB::table('carts')
             ->where('id', $id_cart)
+            ->delete();
+    }
+    
+    public static function delete_all_items($id_produk){
+        $id_produk = $id_produk[0];
+
+        return DB::table('carts')
+            ->where('id_produk', $id_produk)
+            ->where('id_user', auth()->user()->id)
             ->delete();
     }
 

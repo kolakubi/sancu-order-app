@@ -2,24 +2,11 @@
 
 @section('container')
 
-    {{-- @dump(auth()->user()); --}}
+    {{-- @dump($sliders) --}}
 
     <!-- slide -->
     <div class="row mb-5">
-        <div class="col-12">
-            <img src="assets/image/banner-sancu.jpg" alt="" class="img-fluid rounded">
-        </div>
-        <div class="col-12 d-flex align-items-center justify-content-center">
-            <button class="btn p-1">
-                <i class="bi bi-circle-fill" style="font-size: 10px"></i>
-            </button>
-            <button class="btn p-1">
-                <i class="bi bi-circle" style="font-size: 10px"></i>
-            </button>
-            <button class="btn p-1">
-                <i class="bi bi-circle" style="font-size: 10px"></i>
-            </button>
-        </div>
+        @include('partials.slider')
     </div>
 
     <!-- Promo -->

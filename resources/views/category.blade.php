@@ -1,6 +1,14 @@
 @extends('partials.main')
 
 @section('container')
+    <div class="row mal-top-navigator">
+        <div class="col-12 d-flex flex-row align-items-center">
+            <a href="/home" class="text-dark">
+                <i class="bi bi-arrow-left-short" style="font-size: 2.2em"></i>
+            </a>
+            <h5 style="margin: 0 0 0 10px">Home</h5>
+        </div>
+    </div>
 
     <h2 class="mb-3">Produk Sancu</h2>
 

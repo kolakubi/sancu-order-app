@@ -1,7 +1,7 @@
 let token2 = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 let floatDivTotal = document.getElementById('floatdiv-total');
 
-fetch("/keranjang/ajaxget", {
+fetch("/keranjang/get_cart_total_mount", {
     headers: {
         "Content-Type": "application/json",
         "Accept": "application/json, text-plain, */*",
@@ -13,7 +13,7 @@ fetch("/keranjang/ajaxget", {
 })
 .then(response => response.text())
 .then(data => {
-    floatDivTotal.innerHTML = data;
+    floatDivTotal.innerHTML = 'Rp '+data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     // console.log(data);
 
 })

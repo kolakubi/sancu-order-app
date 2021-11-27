@@ -18,4 +18,22 @@ class ProfilController extends Controller
             'title' => 'transaksi'
         ]);
     }
+
+    public static function show_bantuan(){
+        return view('bantuan', [
+            'title' => 'bantuan'
+        ]);
+    }
+
+    public static function show_alamat(){
+        return view('alamat', [
+            'title' => 'alamat'
+        ]);
+    }
+
+    public static function add_alamat(){
+        return view('alamat_add', [
+            'title' => 'tambah alamat'
+        ]);
+    }
 }

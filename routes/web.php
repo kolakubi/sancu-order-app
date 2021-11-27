@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfilController;
 
@@ -36,6 +37,9 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::get('/profil', [ProfilController::class, 'show']);
     Route::get('/profil/transaksi', [ProfilController::class, 'transaksi']);
+    Route::get('/profil/bantuan', [ProfilController::class, 'show_bantuan'])->name('bantuan');
+    Route::get('/profil/alamat', [ProfilController::class, 'show_alamat'])->name('alamat');
+    Route::get('/profil/add_alamat', [ProfilController::class, 'add_alamat'])->name('add_alamat');
 
     Route::get('/produk/{id}', [ProdukController::class, 'show_produk']);
     Route::post('/produk/addtocart', [CartController::class, 'add_cart']);
@@ -43,10 +47,15 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/produk/masscekstok', [CartController::class, 'mass_cek_stok']);
 
     Route::get('/keranjang', [CartController::class, 'show_cart'])->name('keranjang');
-    Route::get('/keranjang/ajaxget', [CartController::class, 'get_cart_data']);
+    Route::get('/keranjang/get_cart_total_mount', [CartController::class, 'get_cart_total_mount']);
     Route::post('/keranjang/add_1_item', [CartController::class, 'add_1_item']);
     Route::post('/keranjang/decrease_1_item', [CartController::class, 'decrease_1_item']);
     Route::post('/keranjang/remove_1_item', [CartController::class, 'remove_1_item']);
+    Route::post('/keranjang/delete_all_items', [CartController::class, 'delete_all_items']);
+
+    Route::post('/coupon/cekdata', [CouponController::class, 'cekdata']);
+
+    
 });
 
 

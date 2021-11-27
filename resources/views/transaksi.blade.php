@@ -2,7 +2,16 @@
 
 @section('container')
 
-    <h3>Transaksi</h3>
+    <div class="row mal-top-navigator">
+        <div class="col-12 d-flex flex-row align-items-center">
+            <a href="/profil" class="text-dark">
+                <i class="bi bi-arrow-left-short" style="font-size: 2.2em"></i>
+            </a>
+            <h5 style="margin: 0 0 0 10px">Profil</h5>
+        </div>
+    </div>
+
+    <h3 class="text-center">Transaksi</h3>
     
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation" style="width: 50%">

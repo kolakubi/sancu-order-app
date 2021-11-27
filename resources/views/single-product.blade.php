@@ -2,7 +2,16 @@
 
 @section('container')
 
-    <h2>{{ $produk->nama_produk }}</h2>
+    <div class="row mal-top-navigator">
+        <div class="col-12 d-flex flex-row align-items-center">
+            <a href="{{ url()->previous() }}" class="text-dark">
+                <i class="bi bi-arrow-left-short" style="font-size: 2.2em"></i>
+            </a>
+            <h5 style="margin: 0 0 0 10px">List Produk</h5>
+        </div>
+    </div>
+
+    <h2 class="text-center">{{ $produk->nama_produk }}</h2>
 
     {{-- image --}}
     <div class="row mal-list-produk-container">
@@ -89,6 +98,9 @@
         </div>
     </div>
     {{-- </form> --}}
+
+    {{-- sweet alert --}}
+    <script src="/assets/sweet-alert/sweetalert2.all.min.js"></script>
     
     <script>
         const hargaSize21 = document.getElementById('harga-size-21').innerHTML;
@@ -174,7 +186,12 @@
                 inputSize38.value == 0 &&
                 inputSize40.value == 0){
                     e.preventDefault();
-                    alert("item kosong");
+                    
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Mohon Pilih Item',
+                        text: 'Tidak ada item yang dipilih',
+                    })
                 }
 
             else{
@@ -218,7 +235,12 @@
                     // cek jika array ada 'melebihi-stok
                     if(arrData.includes('melebihi-stok')){
                         // jika ada
-                        alert('item kamu melebihi stok yang ada, cek keranjang belanja!');
+                        // alert('item kamu melebihi stok yang ada, cek keranjang belanja!');
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Pesanan Melebihi Stok',
+                            text: 'mungkin sudah ada di keranjang kamu!',
+                        })
 
                         // hilangkan overlay loading
                         document.getElementById('mal-loading-overlay').style.display = 'none';
