@@ -105,4 +105,23 @@ class Cart extends Model
             ->delete();
     }
 
+    public static function get_alamat($id_user){
+        return DB::table('alamats')
+            ->where('id_user', $id_user)
+            ->where('utama', 1)
+            ->first();
+    }
+
+    public static function show_data_not_0($id_user){
+        return $dataItem = DB::table('carts')
+            ->select('*', 'carts.id as carts_id')
+            ->where('id_user', $id_user)
+            ->where('jumlah_stok', '>', 0)
+            ->join('produks', 'carts.id_produk', '=', 'produks.id')
+            ->join('produk_details', 'carts.id_produk_detail', '=', 'produk_details.id')
+            ->orderBy('carts.id_produk')
+            ->orderBy('produk_details.size', 'DESC')
+            ->get();
+    }
+
 }

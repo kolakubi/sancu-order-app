@@ -2,7 +2,7 @@
 
 @section('container')
 
-    @dump($cart_items)
+    {{-- @dump($alamat) --}}
     @if(!isset($cart_items[0]))
         <div class="row mal-list-produk-container pt-3">
             <div class="alert alert-danger" role="alert">
@@ -138,51 +138,31 @@
 
     @endforeach
 
-
-    {{-- Ongkir --}}
-    <div class="container mal-list-produk-container p-5">
-        <h6><strong><i class="bi bi-truck" style="font-size: 2rem;"></i></strong></h6>
-
-        {{-- Alamat --}}
+   {{-- Alamat --}}
+    <div class="container mal-list-produk-container p-4">
+        <h6>Alamat Pengiriman</h6>
         <div class="row">
-            <div class="col-5">
-                <h6>Alamat</h6>
+            <div class="col-1">
+                <i class="bi bi-pin-map-fill text-danger" style="font-size: 1.5em"></i>
             </div>
-            <div class="col-7">
-                <p class="text-end">Jalan Persahabatan VI no 3-4, Ciracas, Jakarta Timur 13730</p>
+            <div class="col-10">
+                <p class="">{{$alamat->nama_lengkap}} | {{$alamat->telepon}}<br>
+                    {{$alamat->alamat_lengkap}}, {{$alamat->kecamatan}}, {{$alamat->kota_kabupaten}}, {{$alamat->propinsi}}, {{$alamat->kode_pos}}</p>
+            </div>
+            <div class="col-1 d-flex align-items-center justify-content-center">
+                <i class="bi bi-chevron-right"></i>
             </div>
         </div>
+    </div>
 
-        {{-- Ekspedisi --}}
-        <div class="row">
-            <div class="col-5">
-                <h6>Ekspedisi</h6>
-            </div>
-            <div class="col-7">
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Indah Cargo</option>
-                    <option value="Dakota">Dakota</option>
-                    <option value="Alif Pratama">Alif Pratama</option>
-                    <option value="Hexa">Hexa</option>
-                </select>
-            </div>
+    {{-- Berat total --}}
+    <div class="row mal-list-produk-container p-4">
+        <div class="col-5">
+            <h6>Berat total</h6>
         </div>
-
-        {{-- Berat total --}}
-        <div class="row mt-4">
-            <div class="col-5">
-                <h6>Berat total</h6>
-            </div>
-            <div class="col-7">
-                <h6 class="text-end"><strong>{{number_format($totalBerat)}}g</strong></h6>
-            </div>
+        <div class="col-7">
+            <h6 class="text-end"><strong>{{number_format($totalBerat)}}g</strong></h6>
         </div>
-
-        {{-- Total --}}
-        <div class="d-flex align-items-center flex-row-reverse mt-4">
-            <h6 class="text-right">Sub Total Ongkir: <span style="font-weight: bold; font-size: 1.1em">Rp 192.000</span></h6>
-        </div>
-        
     </div>
 
     {{-- kode kupon --}}
@@ -221,7 +201,7 @@
             <button class="btn col-12 btn-warning" 
             @if(!isset($cart_items[0])) disabled @endif
             id="btn-submit-cart-form"
-            type="submit">
+            type="submit" onclick="checkout()">
                 <i class="bi bi-cart mal-floar-nav-icon"></i> 
                 Checkout
             </button>
@@ -597,6 +577,52 @@
                 //
 
             }, 500);
+        }
+
+        function checkout(){ 
+            // show overlay loading
+            document.getElementById('mal-loading-overlay').style.display = 'flex';
+
+            let idAlamat = {{$alamat->id}}
+            let coupon = document.getElementById('kodeCoupon').value;
+            let berat = {{$totalBerat}}
+            let postData = {
+                'id_alamat': idAlamat,
+                'coupon': coupon,
+                'berat': berat
+            }
+            console.log('id alamat', idAlamat);
+            console.log('coupon', coupon);
+            console.log('berat', berat);
+
+            fetch("/keranjang/checkout", {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json, text-plain, */*",
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRF-TOKEN": token
+                        },
+                    method: "POST", 
+                    credentials: "same-origin",
+                    body: JSON.stringify(postData)
+                })
+            .then(response => response.text())
+            .then(data => {
+                console.log('sukses');
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Order Sukses',
+                    text: 'admin kami akan menghubungi anda untuk info biaya ongkir',
+                }).then((result) => {
+                    window.location.href = "/profil/transaksi";
+                })
+                // hide overlay loading
+                document.getElementById('mal-loading-overlay').style.display = 'none';
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
         }
 
     </script>

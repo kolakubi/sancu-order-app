@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\Order_details;
 
 class CartController extends Controller
 {
@@ -12,10 +14,12 @@ class CartController extends Controller
         // ambil id_user dari session
         // ambil data cart dari session id_user
         $cart_items = Cart::show_data(auth()->user()->id);
+        $alamat = Cart::get_alamat(auth()->user()->id);
 
         return view('keranjang', [
             'title' => 'Keranjang',
-            'cart_items' => $cart_items
+            'cart_items' => $cart_items,
+            'alamat' => $alamat
         ]);
         
     }
@@ -127,5 +131,48 @@ class CartController extends Controller
     public static function delete_all_items(Request $id_produk){
         $action = Cart::delete_all_items($id_produk);
         return $action;
+    }
+
+    public static function checkout(Request $data){
+        // ambil data cart yang stoknya > 0
+        $cartItems = Cart::show_data_not_0(auth()->user()->id);
+        // 
+        // bikin variable baru untuk semua data
+        $checkoutData = [
+            'id_alamat' => $data->id_alamat,
+            'coupon'=> $data->coupon,
+            'berat'=> $data->berat,
+            'cart_items' => $cartItems
+        ];
+        //
+        // posting ke TABLE ORDERS
+        $actionInsert = Order::create([
+            'id_user' => auth()->user()->id,
+            'id_alamat' => $data->id_alamat,
+            'coupon' => $data->coupon,
+            'status' => 'process'
+        ]);
+        // 
+        // ambil ID ORDERS nya
+        $insertId = $actionInsert->id;
+        // 
+        // posting ke TABLE ORDERS DETAIL
+        foreach($cartItems as $item){
+            // posting ke order_details
+            Order_details::create([
+                'id_order' => $insertId,
+                'id_user' => auth()->user()->id,
+                'id_produk_detail' => $item->id_produk_detail,
+                'jumlah_produk' => $item->jumlah_produk,
+                'harga_produk' => $item->harga_produk,
+            ]);
+            // update stok
+            Order_details::Update_stok($item);
+        }
+        //
+        // kosongin semua cart
+        //
+        Cart::where('id_user', auth()->user()->id)->delete();
+        return true;
     }
 }

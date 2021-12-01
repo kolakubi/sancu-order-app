@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Alamat;
 
 class ProfilController extends Controller
 {
@@ -26,8 +27,11 @@ class ProfilController extends Controller
     }
 
     public static function show_alamat(){
+        $listAlamat = Alamat::get_alamat(auth()->user()->id);
+
         return view('alamat', [
-            'title' => 'alamat'
+            'title' => 'alamat',
+            'list_alamat' => $listAlamat
         ]);
     }
 
@@ -35,5 +39,27 @@ class ProfilController extends Controller
         return view('alamat_add', [
             'title' => 'tambah alamat'
         ]);
+    }
+
+    public static function insert_alamat(Request $request){
+        $this_ = new self;
+        // validasi
+        $this_->validate($request, [
+            'nama_penerima' => 'required',
+            'telepon' => 'required',
+            'propinsi' => 'required|not_in:0',
+            'kabupaten' => 'required|not_in:0',
+            'kecamatan' => 'required|not_in:0',
+            'alamat_lengkap' => 'required',
+            'kode_pos' => 'required'
+        ]);
+
+        $action = Alamat::insert_alamat($request);
+
+        if($action){
+            return redirect('/profil/alamat');
+        }
+
+        
     }
 }

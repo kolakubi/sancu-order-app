@@ -11,7 +11,21 @@
     </div>
 </div>
 
-<a style="text-decoration: none; color: #000" href="#">
+@foreach($list_alamat as $alamat)
+<div class="row mal-list-produk-container p-3 d-flex align-items-center">
+    <div class="col-10">
+        <h6>{{$alamat->nama_lengkap}} @if($alamat->utama) <span class="text-danger">[{{'Utama'}}]</span> @endif</h6>
+        <p>{{$alamat->telepon}}<br>
+        {{$alamat->alamat_lengkap}}<br>
+        {{$alamat->kecamatan}}, {{$alamat->kota_kabupaten}}, {{$alamat->propinsi}}, {{$alamat->kode_pos}}</p>
+    </div>
+    <div class="col-2 d-flex align-items-end justify-content-center">
+        <i class="bi bi-pin-map-fill text-danger" style="font-size: 1.5em"></i>
+    </div>
+</div>
+@endforeach
+
+<a style="text-decoration: none; color: #000" href="{{route('add_alamat')}}">
     <div class="row mal-list-produk-container p-3 d-flex align-items-center">
         <div class="col-11">
             <p style="margin: 0;">Tambah Alamat Baru</p>
