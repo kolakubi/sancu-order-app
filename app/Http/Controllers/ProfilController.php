@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Alamat;
+use App\Models\Order;
 
 class ProfilController extends Controller
 {
@@ -15,8 +16,26 @@ class ProfilController extends Controller
     }
 
     public function transaksi(){
+        // get data orders berdasarkan id_user
+        $orders = Order::where('id_user', auth()->user()->id)
+            ->orderBy('id', 'DESC')
+            ->get();
+
         return view('transaksi', [
-            'title' => 'transaksi'
+            'title' => 'transaksi',
+            'orders' => $orders
+        ]);
+    }
+
+    public function transaksi_detail($id){
+
+        $item_detail = Order::get_order_item_detail($id);
+        $alamat = Order::get_alamat($id);
+
+        return view('transaksi-detail', [
+            'title' => 'detail transaksi',
+            'items' => $item_detail,
+            'alamat' => $alamat
         ]);
     }
 

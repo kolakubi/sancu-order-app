@@ -136,6 +136,7 @@ class CartController extends Controller
     public static function checkout(Request $data){
         // ambil data cart yang stoknya > 0
         $cartItems = Cart::show_data_not_0(auth()->user()->id);
+        // return $cartItems;
         // 
         // bikin variable baru untuk semua data
         $checkoutData = [

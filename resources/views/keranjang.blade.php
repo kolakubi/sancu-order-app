@@ -608,7 +608,7 @@
                 })
             .then(response => response.text())
             .then(data => {
-                console.log('sukses');
+                console.log(data);
 
                 Swal.fire({
                     icon: 'success',

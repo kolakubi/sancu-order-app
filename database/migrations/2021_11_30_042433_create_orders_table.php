@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('id_alamat');
             $table->string('coupon')->nullable();
             $table->string('status');
+            $table->integer('ongkir')->default('0');
             $table->timestamps();
         });
     }

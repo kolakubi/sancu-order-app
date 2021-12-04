@@ -25,60 +25,64 @@
 
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-            {{-- list pesanan Aktif --}}
-            <a href="#" style="color: #000; text-decoration: none;">
-                <div class="row p-3 border-bottom" style="background-color: #fff">
-                    <div class="col-11">
-                        <p style="font-size: 0.8em; margin-bottom: -2px;">No Order Pembayaran</p>
-                        <h6>DDC141021-00262</h6>
-                        <p style="font-size: 0.8em; margin-top: -2px; margin-bottom: 4px">14 Pkt 2021</p>
-                        <button class="mal-btn-proses-bayar">
-                            Menunggi Pembayaran
-                        </button>
-                    </div>
-                    <div class="col-1 d-flex align-items-center">
-                        <i class="bi bi-chevron-right" style="font-size: 1.3em"></i>
-                    </div>
-                </div>
-            </a>
+            @if(!isset($ordes[0]))
+                
+            @endif
 
-            <a href="#" style="color: #000; text-decoration: none;">
-                <div class="row p-3 border-bottom" style="background-color: #fff">
-                    <div class="col-11">
-                        <p style="font-size: 0.8em; margin-bottom: -2px;">No Order Pembayaran</p>
-                        <h6>DDC141021-00262</h6>
-                        <p style="font-size: 0.8em; margin-top: -2px; margin-bottom: 4px">14 Pkt 2021</p>
-                        <button class="mal-btn-proses-diantar">
-                            Diantar
-                        </button>
-                    </div>
-                    <div class="col-1 d-flex align-items-center">
-                        <i class="bi bi-chevron-right" style="font-size: 1.3em"></i>
-                    </div>
-                </div>
-            </a>
+            @foreach($orders as $order)
+                @if($order->status != 'selesai')
 
+                <a href="/profil/transaksi_detail/{{$order->id}}" style="color: #000; text-decoration: none;">
+                    <div class="row p-3 border-bottom" style="background-color: #fff">
+                        <div class="col-11">
+                            <p style="font-size: 0.8em; margin-bottom: -2px;">No Order Pembayaran</p>
+                            <h6>{{$order->id}}</h6>
+                            <p style="font-size: 0.8em; margin-top: -2px; margin-bottom: 4px">{{$order->created_at}}</p>
+                            @if($order->status == 'process')
+                                <button class="mal-btn-proses-bayar">
+                                    Menunggu pembayaran
+                                </button>
+                            @elseif($order->status == 'dikirim')
+                                <button class="mal-btn-proses-diantar">
+                                    Dalam pengiriman
+                                </button>
+                            @endif
+                            
+                        </div>
+                        <div class="col-1 d-flex align-items-center">
+                            <i class="bi bi-chevron-right" style="font-size: 1.3em"></i>
+                        </div>
+                    </div>
+                </a>
+                @endif
+            @endforeach
             
         </div>
            
         
         {{-- list riwayat pesanan --}}
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-            <a href="#" style="color: #000; text-decoration: none;">
-                <div class="row p-3 border-bottom" style="background-color: #fff">
-                    <div class="col-11">
-                        <p style="font-size: 0.8em; margin-bottom: -2px;">No Order Pembayaran</p>
-                        <h6>DDC141021-00262</h6>
-                        <p style="font-size: 0.8em; margin-top: -2px; margin-bottom: 4px">14 Pkt 2021</p>
-                        <button class="mal-btn-proses-selesai">
-                            Selesai
-                        </button>
+            
+            @foreach($orders as $order)
+                @if($order->status == 'selesai')
+
+                <a href="/profil/transaksi_detail/{{$order->id}}" style="color: #000; text-decoration: none;">
+                    <div class="row p-3 border-bottom" style="background-color: #fff">
+                        <div class="col-11">
+                            <p style="font-size: 0.8em; margin-bottom: -2px;">No Order Pembayaran</p>
+                            <h6>{{$order->id}}</h6>
+                            <p style="font-size: 0.8em; margin-top: -2px; margin-bottom: 4px">{{$order->created_at}}</p>
+                            <button class="mal-btn-proses-selesai">
+                                Selesai
+                            </button>
+                        </div>
+                        <div class="col-1 d-flex align-items-center">
+                            <i class="bi bi-chevron-right" style="font-size: 1.3em"></i>
+                        </div>
                     </div>
-                    <div class="col-1 d-flex align-items-center">
-                        <i class="bi bi-chevron-right" style="font-size: 1.3em"></i>
-                    </div>
-                </div>
-            </a>
+                </a>
+                @endif
+            @endforeach
         
         </div>
     </div>

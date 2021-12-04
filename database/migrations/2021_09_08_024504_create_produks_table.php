@@ -19,7 +19,6 @@ class CreateProduksTable extends Migration
             $table->text('gambar_url_produk');
             $table->string('tag')->nullable();
             $table->integer('id_category');
-            $table->string('harga_produk');
             $table->text('desktripsi_produk');
             $table->timestamps();
         });
