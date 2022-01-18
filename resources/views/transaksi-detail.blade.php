@@ -24,6 +24,9 @@
         $totalPembelian = 0;
     @endphp
     @foreach($items as $key=>$item)
+        @php
+            $totalPembelian += ($item->jumlah_produk*$item->harga_produk);
+        @endphp
 
         {{-- jika idproduk beda dengan var pembantu --}}
         {{-- buat header table --}}
@@ -31,7 +34,6 @@
         @if($item->id_produk != $asd)
 
             @php
-                $totalPembelian += ($item->jumlah_produk*$item->harga_produk);
                 $asd = $item->id_produk;
                 $subTotalItem = 0;
             @endphp
@@ -112,6 +114,10 @@
                 <td style="width: 50%">: <strong>{{$alamat->id}}</strong></td>
             </tr>
             <tr>
+                <td>Tanggal</td>
+                <td>: <strong>{{$items[0]->tgl_order}}</strong></td>
+            </tr>
+            <tr>
                 <td>Berat Total</td>
                 <td>: <strong>{{number_format($totalBerat, 0)}}g</strong></td>
             </tr>
@@ -146,8 +152,12 @@
                 <td>: <strong>Rp {{number_format($items[0]->ongkir,0)}}</strong></td>
             </tr>
             <tr>
+                <td>Coupon</td>
+                <td>: <strong>{{$items[0]->coupon}}</strong></td>
+            </tr>
+            <tr>
                 <td>Grand Total</td>
-                <td>: <strong>Rp {{number_format($totalPembelian+$items[0]->ongkir, 0)}}</strong></td>
+                <td>: <strong>Rp {{number_format(($totalPembelian+$items[0]->ongkir), 0)}}</strong></td>
             </tr>
         </table>
     </div>

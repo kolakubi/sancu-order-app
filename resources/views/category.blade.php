@@ -24,7 +24,7 @@
                                     <i class="bi bi-search"></i>
                                 </div>
                             </div>
-                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Cari produk di sini . . .">
+                            <input type="text" class="form-control cari" id="inlineFormInputGroup" placeholder="Cari produk di sini . . .">
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
 
     @foreach ($produks as $produk)
         <!-- list produk -->
-        <div class="row p-2 mal-list-produk-container">
+        <div class="row p-2 mal-list-produk-container list-produk" data-nama-produk="{{$produk->nama_produk}}">
             <div class="col-4 d-flex justify-content-center align-items-center flex-column">
                 <img src="{{ $produk->gambar_url_produk }}" alt="{{ $produk->nama_produk }}" style="max-width: 90%">
                 {!! $produk->tag ? '<p class="bg-danger text-light p-1 rounded mt-1" style="font-size: 12px">'.$produk->tag.'</p>' : ''!!}
@@ -61,5 +61,29 @@
             Produk tidak ditemukan
         </div>
     @endif
+
+    <script>
+        const inputCari = document.getElementsByClassName('cari');
+        const elemListProduk = document.getElementsByClassName('list-produk');
+
+        inputCari[0].addEventListener('keyup', (e)=>{
+            let valueCari = inputCari[0].value;
+
+            for(let i=0; i<elemListProduk.length; i++){
+                let namaProduk = elemListProduk[i].getAttribute('data-nama-produk');
+                
+                // if(namaProduk.includes(valueCari)){
+                // if(namaProduk.includes(valueCari)){
+                if(namaProduk.match(valueCari)){
+                    elemListProduk[i].classList.remove('d-none');
+                    console.log(namaProduk);
+                    console.log('ada');
+                }
+                else{
+                    elemListProduk[i].classList.add('d-none');
+                }
+            }
+        })
+    </script>
     
 @endsection
