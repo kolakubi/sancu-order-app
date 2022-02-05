@@ -151,7 +151,7 @@ class CartController extends Controller
             'id_user' => auth()->user()->id,
             'id_alamat' => $data->id_alamat,
             'coupon' => $data->coupon,
-            'status' => 'process'
+            'status' => '1'
         ]);
         // 
         // ambil ID ORDERS nya

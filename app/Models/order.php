@@ -31,4 +31,12 @@ class order extends Model
             ->first();
     }
 
+    public static function get_coupon_info($id){
+        return $data = DB::table('orders')
+            ->select('*')
+            ->join('coupons', 'orders.coupon', '=', 'coupons.name')
+            ->where('orders.id', $id)
+            ->first();
+    }
+
 }

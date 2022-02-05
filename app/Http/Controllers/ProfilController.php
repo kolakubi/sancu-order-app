@@ -30,12 +30,15 @@ class ProfilController extends Controller
     public function transaksi_detail($id){
 
         $item_detail = Order::get_order_item_detail($id);
+        $coupons = Order::get_coupon_info($id);
+        // dd($item_detail);
         $alamat = Order::get_alamat($id);
 
         return view('transaksi-detail', [
             'title' => 'detail transaksi',
             'items' => $item_detail,
-            'alamat' => $alamat
+            'alamat' => $alamat,
+            'coupons' => $coupons
         ]);
     }
 
@@ -78,7 +81,31 @@ class ProfilController extends Controller
         if($action){
             return redirect('/profil/alamat');
         }
+    }
 
-        
+    public static function upload_bukti_bayar(Request $request){
+        // dd($request);
+
+        // $this_ = new self;
+        // // validasi
+        // $this_->validate($request, [
+        //     'file_bukti_bayar' => 'image|file|max:2048'
+        // ]);
+
+        $validateData = $request->validate([
+            'file_bukti_bayar' => 'image|file|max:2048'
+        ]);
+
+        // upload
+        $file_path = $request->file('file_bukti_bayar')->store('bukti_bayar');
+
+        // update DB
+        Order::where('id', $request->orders_id)
+            ->update([
+                'bukti_bayar'=> $file_path,
+                'status' => 3
+            ]);
+
+        return redirect('/profil/transaksi');
     }
 }

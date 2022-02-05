@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('coupon')->nullable();
             $table->string('status');
             $table->integer('ongkir')->default('0');
+            $table->string('bukti_bayar')->nullable();
             $table->timestamps();
         });
     }

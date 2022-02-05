@@ -48,7 +48,7 @@
 
                     </div>
                     <h6>{{$item->nama_produk}}</h6>
-                    <table class="table text-center table-keranjang">
+                    <table class="table text-center table-keranjang table-sm">
                         <thead>
                             <tr>
                                 <th>Size</th>
@@ -153,13 +153,69 @@
             </tr>
             <tr>
                 <td>Coupon</td>
-                <td>: <strong>{{$items[0]->coupon}}</strong></td>
+                <td>: <strong>{{$coupons != null ? $coupons->name : '-'}}</strong></td>
+            </tr>
+            <tr>
+                <td>Potongan Coupon</td>
+                <td>: 
+                    <strong>( 
+                        Rp{{$coupons ? number_format($coupons->potongan*$totalJumlahItem, 0) : '-'}} )</strong>
+                
+                </td>
             </tr>
             <tr>
                 <td>Grand Total</td>
-                <td>: <strong>Rp {{number_format(($totalPembelian+$items[0]->ongkir), 0)}}</strong></td>
+                <td>: 
+                    <strong>Rp 
+                        {{
+                            number_format((
+                                $totalPembelian+
+                                $items[0]->ongkir-
+                                ($coupons ? $coupons->potongan*$totalJumlahItem : 0)
+                            ), 0)
+                        }}
+                    </strong>
+                </td>
             </tr>
         </table>
     </div>
+
+    @if($items[0]->status == '2' || $items[0]->status == '3')
+    {{-- bukti bayar --}}
+    <div class="row mal-list-produk-container p-3 d-flex align-items-center">
+        <div class="col-12 text-center">
+            <strong>Upload bukti pembayaran</strong>
+            <br>
+            <p>File yang dibolehkan: JPG, JPEG, PNG</p>
+            <i class="bi bi-cloud-upload-fill" style="font-size: 45px; color: #13a176"></i>
+            <br>
+            <form method="post" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="orders_id" value="{{$alamat->id}}">
+                <input class="form-control" type="file" name="file_bukti_bayar" required>
+
+                @error('file_bukti_bayar')
+                    <div class="alert alert-danger" role="alert">
+                        {{$message}}
+                    </div>
+                @enderror
+
+                <span>Max Size: 2MB</span>
+                <br>
+                <br>
+
+                <button type="submit" class="btn btn-success">Upload</button>
+            </form>
+            <br>
+        </div>
+        <hr>
+        @if($items[0]->status == '3' && $coupons->bukti_bayar != null)
+            <div class="col-12 text-center">
+                <p>Bukti pembayaran berikut sedang dalam pemeriksaan</p>
+                <img class="img-fluid" src="/storage/{{$coupons->bukti_bayar}}" alt="bukti pembayaran distributor">
+            </div>
+        @endif
+    </div>
+    @endif
 
 @endsection

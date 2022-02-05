@@ -30,7 +30,7 @@
             @endif
 
             @foreach($orders as $order)
-                @if($order->status != 'selesai')
+                @if($order->status != '5')
 
                 <a href="/profil/transaksi_detail/{{$order->id}}" style="color: #000; text-decoration: none;">
                     <div class="row p-3 border-bottom" style="background-color: #fff">
@@ -38,13 +38,21 @@
                             <p style="font-size: 0.8em; margin-bottom: -2px;">No Order Pembayaran</p>
                             <h6>{{$order->id}}</h6>
                             <p style="font-size: 0.8em; margin-top: -2px; margin-bottom: 4px">{{$order->created_at}}</p>
-                            @if($order->status == 'process')
+                            @if($order->status == '1')
                                 <button class="mal-btn-proses-bayar">
-                                    Menunggu pembayaran
+                                    Menunggu ongkir
                                 </button>
-                            @elseif($order->status == 'dikirim')
+                            @elseif($order->status == '2')
                                 <button class="mal-btn-proses-diantar">
-                                    Dalam pengiriman
+                                    Proses
+                                </button>
+                            @elseif($order->status == '3')
+                                <button class="mal-btn-proses-diantar">
+                                    Konfirmasi Pembayaran
+                                </button>
+                            @elseif($order->status == '4')
+                                <button class="mal-btn-proses-diantar">
+                                    Dikirim
                                 </button>
                             @endif
                             
@@ -64,7 +72,7 @@
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             
             @foreach($orders as $order)
-                @if($order->status == 'selesai')
+                @if($order->status == '5')
 
                 <a href="/profil/transaksi_detail/{{$order->id}}" style="color: #000; text-decoration: none;">
                     <div class="row p-3 border-bottom" style="background-color: #fff">

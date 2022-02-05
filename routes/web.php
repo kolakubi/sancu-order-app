@@ -40,9 +40,12 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/profil/alamat', [ProfilController::class, 'show_alamat'])->name('alamat');
     Route::get('/profil/add_alamat', [ProfilController::class, 'add_alamat'])->name('add_alamat');
     Route::post('/alamat/insert_alamat', [ProfilController::class, 'insert_alamat'])->name('insert_alamat');
+    // Route::post('/profil/transaksi_detail/upload_bukti_bayar', [ProfilController::class, 'upload_bukti_bayar'])->name('upload_bukti_bayar');
+    
 
     Route::get('/profil/transaksi', [ProfilController::class, 'transaksi']);
     Route::get('/profil/transaksi_detail/{id}', [ProfilController::class, 'transaksi_detail']);
+    Route::post('/profil/transaksi_detail/{id}', [ProfilController::class, 'upload_bukti_bayar']);
 
     Route::get('/produk/{id}', [ProdukController::class, 'show_produk']);
     Route::post('/produk/addtocart', [CartController::class, 'add_cart']);
