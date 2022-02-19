@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Order_details;
+use App\Models\Kartu_stok;
 
 class CartController extends Controller
 {
@@ -169,6 +170,14 @@ class CartController extends Controller
             ]);
             // update stok
             Order_details::Update_stok($item);
+
+            // update kartu stok
+            Kartu_stok::create([
+                'id_order' => $insertId,
+                'id_produk_detail' => $item->id_produk_detail,
+                'status' => 'out',
+                'keterangan' => 'order agen',
+            ]);
         }
         //
         // kosongin semua cart

@@ -46,6 +46,8 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/profil/transaksi', [ProfilController::class, 'transaksi']);
     Route::get('/profil/transaksi_detail/{id}', [ProfilController::class, 'transaksi_detail']);
     Route::post('/profil/transaksi_detail/{id}', [ProfilController::class, 'upload_bukti_bayar']);
+    Route::post('/profil/transaksi/selesai', [ProfilController::class, 'transaksi_selesai'])->name('transaksi_selesai');
+    Route::post('/profil/transaksi/batal', [ProfilController::class, 'transaksi_batal'])->name('transaksi_batal');
 
     Route::get('/produk/{id}', [ProdukController::class, 'show_produk']);
     Route::post('/produk/addtocart', [CartController::class, 'add_cart']);

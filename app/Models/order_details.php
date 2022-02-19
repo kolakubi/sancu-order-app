@@ -27,4 +27,17 @@ class order_details extends Model
             ->where('id', $item->id_produk_detail)
             ->update(['jumlah_stok' => $stok_baru]);
     }
+
+    public static function Update_stok_tambah($item){
+        // ambil stok saat ini
+        $stok_sekarang = DB::table('produk_details')
+            ->where('id', $item->id_produk_detail)
+            ->first()->jumlah_stok;
+        // kurangin stok yg dibeli
+        $stok_baru = $stok_sekarang+$item->jumlah_produk;
+
+        return DB::table('produk_details')
+            ->where('id', $item->id_produk_detail)
+            ->update(['jumlah_stok' => $stok_baru]);
+    }
 }

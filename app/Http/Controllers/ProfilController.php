@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Alamat;
 use App\Models\Order;
+use App\Models\Kartu_stok;
+use App\Models\Order_details;
 
 class ProfilController extends Controller
 {
@@ -31,8 +33,9 @@ class ProfilController extends Controller
 
         $item_detail = Order::get_order_item_detail($id);
         $coupons = Order::get_coupon_info($id);
-        // dd($item_detail);
+        // dd($coupons);
         $alamat = Order::get_alamat($id);
+        // dd($alamat);
 
         return view('transaksi-detail', [
             'title' => 'detail transaksi',
@@ -84,21 +87,12 @@ class ProfilController extends Controller
     }
 
     public static function upload_bukti_bayar(Request $request){
-        // dd($request);
-
-        // $this_ = new self;
-        // // validasi
-        // $this_->validate($request, [
-        //     'file_bukti_bayar' => 'image|file|max:2048'
-        // ]);
-
         $validateData = $request->validate([
             'file_bukti_bayar' => 'image|file|max:2048'
         ]);
 
         // upload
         $file_path = $request->file('file_bukti_bayar')->store('bukti_bayar');
-
         // update DB
         Order::where('id', $request->orders_id)
             ->update([
@@ -108,4 +102,41 @@ class ProfilController extends Controller
 
         return redirect('/profil/transaksi');
     }
+
+    public function transaksi_selesai(Request $request){
+        // update DB
+        Order::where('id', $request->orders_id)
+            ->update([
+                'status' => 5
+            ]);
+
+        return redirect('/profil/transaksi');
+    }
+
+    public function transaksi_batal(Request $request){
+        // update status order
+        // jadi 0
+        Order::where('id', $request->orders_id)
+            ->update([
+                'status' => 0
+            ]);
+        // ambil detail produk
+        $detail_item = Order::get_order_item_detail($request->orders_id);
+        // update kartu stok
+        foreach($detail_item as $item){
+            Kartu_stok::create([
+                'id_order' => $item->id_order,
+                'id_produk_detail' => $item->id_produk_detail,
+                'status' => 'in',
+                'keterangan' => 'pembatalan order agen',
+            ]);
+
+            // update stok items
+            // tambah
+            Order_details::Update_stok_tambah($item);
+        }
+        
+        return redirect('/profil/transaksi');
+    }
+
 }

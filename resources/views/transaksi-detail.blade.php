@@ -2,6 +2,10 @@
 
 @section('container')
 
+@php
+    $urlStorage = 'http://127.0.0.2:8001';
+@endphp
+
     {{-- @dump($items) --}}
 
     <div class="row mal-top-navigator">
@@ -180,8 +184,24 @@
         </table>
     </div>
 
+    {{-- batalkan order --}}
+    @if($items[0]->status == '1')
+    <div class="row mal-list-produk-container p-3 d-flex align-items-center">
+        <div class="col-12 text-center">
+            <form action="{{route('transaksi_batal')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="orders_id" value="{{$alamat->id}}">
+                <button type="submit" class="btn btn-danger">Batalkan Pesanan</button>
+                <br>
+                klik jika kamu ingin membatalkan pesanan ini
+            </form>
+            <br>
+        </div>
+    </div>
+    @endif
+
+    {{-- Upload bukti bayar --}}
     @if($items[0]->status == '2' || $items[0]->status == '3')
-    {{-- bukti bayar --}}
     <div class="row mal-list-produk-container p-3 d-flex align-items-center">
         <div class="col-12 text-center">
             <strong>Upload bukti pembayaran</strong>
@@ -189,10 +209,10 @@
             <p>File yang dibolehkan: JPG, JPEG, PNG</p>
             <i class="bi bi-cloud-upload-fill" style="font-size: 45px; color: #13a176"></i>
             <br>
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" id="form_bukti_bayar">
                 @csrf
                 <input type="hidden" name="orders_id" value="{{$alamat->id}}">
-                <input class="form-control" type="file" name="file_bukti_bayar" required>
+                <input class="form-control mal-file-input" type="file" name="file_bukti_bayar" required>
 
                 @error('file_bukti_bayar')
                     <div class="alert alert-danger" role="alert">
@@ -204,18 +224,93 @@
                 <br>
                 <br>
 
-                <button type="submit" class="btn btn-success">Upload</button>
+                {{-- <button type="submit" class="btn btn-success">Upload</button> --}}
             </form>
             <br>
         </div>
         <hr>
-        @if($items[0]->status == '3' && $coupons->bukti_bayar != null)
+        @if($items[0]->status == '3' && $alamat->bukti_bayar != null)
             <div class="col-12 text-center">
                 <p>Bukti pembayaran berikut sedang dalam pemeriksaan</p>
-                <img class="img-fluid" src="/storage/{{$coupons->bukti_bayar}}" alt="bukti pembayaran distributor">
+                <img class="img-thumbnail" src="/storage/{{$alamat->bukti_bayar}}" alt="bukti pembayaran distributor">
             </div>
         @endif
+    </div>
+
+    {{-- overlay prgress upload --}}
+    <div id="mal-progress-bar-container" style="z-index: 999999; display: none; align-items: center; justify-content: center; flex-direction: column; background-color: rgba(0,0,0,0.7); position: fixed; top:0; right: 0; bottom: 0; left: 0; height: vh">
+        <h4 class="text-center text-light">file sedang di upload</h4>
+        <div class="progress" style="height: 40px; width: 300px">
+            <div class="progress-bar progress-bar-striped" id="mal-progress-bar" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+
+    {{-- sweet alert --}}
+    <script src="/assets/sweet-alert/sweetalert2.all.min.js"></script>
+
+    <script>
+        const formBuktiBayar = document.getElementById('form_bukti_bayar');
+        let fileInput = formBuktiBayar.querySelector('.mal-file-input');
+
+        fileInput.onchange = ({target}) => {
+            let file = target.files[0];
+            if(file){
+                let fileName = file.name;
+                console.log(fileName);
+                uploadFile(fileName);
+            }
+        }
+
+        function uploadFile(name){
+            let malProgressBar = document.getElementById('mal-progress-bar');
+            let malProgressBarContainer = document.getElementById('mal-progress-bar-container');
+            malProgressBarContainer.style.display = 'flex';
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '/profil/transaksi_detail/{{$alamat->id}}');
+            xhr.upload.addEventListener('progress', ({loaded, total})=>{
+                let fileLoaded = Math.floor((loaded/total) *100);
+                let fileTotal = Math.floor(total / 1000);
+
+                malProgressBar.style.width = fileLoaded+'%';
+
+                if(fileLoaded == 100){
+                    malProgressBarContainer.style.display = 'none';
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Upload Sukses',
+                    }).then((result) => {
+                        location.reload();
+                    })
+                }
+            });
+            let formData = new FormData(formBuktiBayar);
+            xhr.send(formData);
+        }
+        console.log('hellow');
+    </script>
+
+    @endif
+
+    {{-- info resi --}}
+    @if($items[0]->status == '4')
+    <div class="row mal-list-produk-container p-3 d-flex align-items-center">
+        <div class="col-12 text-center">
+            <h5>Selamat! order kamu telah dikirim</h5>
+            <img class="img-thumbnail" src="{{$urlStorage}}/storage/{{$items[0]->resi}}" alt="resi pengiriman distributor">
+            <p>Resi pengiriman</p>
+
+            <form action="{{route('transaksi_selesai')}}" method="post">
+                @csrf
+                <input type="hidden" name="orders_id" value="{{$alamat->id}}">
+                <br>
+                <button type="submit" class="btn btn-danger">Pesanan diterima</button>
+                <br><br>
+                <span class="mt-2">Silakan klik tombol setelah kamu menerima pesanan</span>
+            </form>
+        </div>
     </div>
     @endif
 
 @endsection
+

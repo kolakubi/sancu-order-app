@@ -4,26 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrdersTable extends Migration
+class CreateKartuStoksTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    // protected $guarded = [];
-
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('kartu_stoks', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_user');
-            $table->string('id_alamat');
-            $table->string('coupon')->nullable();
+            $table->integer('id_produk_detail');
             $table->string('status');
-            $table->integer('ongkir')->default('0');
-            $table->string('bukti_bayar')->nullable();
-            $table->string('resi')->nullable();
+            $table->string('keterangan');
             $table->timestamps();
         });
     }
@@ -35,6 +29,6 @@ class CreateOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('kartu_stoks');
     }
 }
