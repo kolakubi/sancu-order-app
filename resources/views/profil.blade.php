@@ -25,6 +25,8 @@
 
     {{-- menu --}}
     <div class="row mal-list-produk-container">
+
+        {{-- transaksi --}}
         <a href="/profil/transaksi" style="color: #000; text-decoration: none; border-bottom: 0.5px solid rgba(0,0,0,0.1)">
             <div class="row p-3">
                 <div class="col-1">
@@ -32,6 +34,21 @@
                 </div>
                 <div class="col-10 d-flex align-items-center">
                     <h6 class="ps-2">Transaksi</h6>
+                </div>
+                <div class="col-1">
+                    <i class="bi bi-chevron-right" style="font-size: 1.3em"></i>
+                </div>
+            </div>
+        </a>
+
+        {{-- total pembelian --}}
+        <a href="{{route('total_pembelian')}}" style="color: #000; text-decoration: none; border-bottom: 0.5px solid rgba(0,0,0,0.1)">
+            <div class="row p-3">
+                <div class="col-1">
+                    <i class="bi bi-bar-chart-line" style="font-size: 1.5em"></i>
+                </div>
+                <div class="col-10 d-flex align-items-center">
+                    <h6 class="ps-2">Total pembelian</h6>
                 </div>
                 <div class="col-1">
                     <i class="bi bi-chevron-right" style="font-size: 1.3em"></i>

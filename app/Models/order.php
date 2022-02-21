@@ -39,4 +39,18 @@ class order extends Model
             ->first();
     }
 
+    public function get_data_order_by_category_and_date($id_user, $id_category, $tanggal_dari, $tanggal_sampai){
+        return $data = DB::table('orders')
+            ->select('*')
+            ->join('order_details', 'order_details.id_order', '=', 'orders.id')
+            ->join('produk_details', 'order_details.id_produk_detail', '=', 'produk_details.id')
+            ->join('produks', 'produk_details.id_produk', '=', 'produks.id')
+            ->where('produks.id_category', $id_category)
+            ->where('orders.status', 5) // status sudah selesai
+            ->where('orders.id_user', $id_user)
+            ->whereDate('orders.created_at', '>=', $tanggal_dari)
+            ->whereDate('orders.created_at', '<=', $tanggal_sampai)
+            ->get();
+    }
+
 }

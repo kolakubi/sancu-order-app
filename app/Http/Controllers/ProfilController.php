@@ -45,6 +45,70 @@ class ProfilController extends Controller
         ]);
     }
 
+    public function total_pembelian(){
+        return view('total_pembelian', [
+            'title' => 'Total Pembelian',
+            'sancu' => 0,
+            'boncu' => 0,
+            'pretty' => 0,
+            'xtreme' => 0
+        ]);
+    }
+
+    public function get_total_pembelian(Request $request){
+        // dd($request);
+        $tanggal_dari = $request->tanggaldari;
+        $tanggal_sampai = $request->tanggalsampai;
+        $id_user = auth()->user()->id;
+        $id_category = '1';
+
+        $jumlah_produk_sancu = 0;
+        $jumlah_produk_boncu = 0;
+        $jumlah_produk_pretty = 0;
+        $jumlah_produk_xtreme = 0;
+
+        $dataSancu = Order::get_data_order_by_category_and_date($id_user, '1', $tanggal_dari, $tanggal_sampai);
+        // jika ada data sancu
+        if($dataSancu->count() > 0){
+            foreach($dataSancu as $sancu){
+                $jumlah_produk_sancu += $sancu->jumlah_produk;
+            }
+        }
+
+        $data_boncu = Order::get_data_order_by_category_and_date($id_user, '2', $tanggal_dari, $tanggal_sampai);
+        // jika ada data boncu
+        if($data_boncu->count() > 0){
+            foreach($data_boncu as $boncu){
+                $jumlah_produk_boncu += $boncu->jumlah_produk;
+            }
+        }
+
+        $data_pretty = Order::get_data_order_by_category_and_date($id_user, '3', $tanggal_dari, $tanggal_sampai);
+        // jika ada data pretty
+        if($data_pretty->count() > 0){
+            foreach($data_pretty as $pretty){
+                $jumlah_produk_pretty += $pretty->jumlah_produk;
+            }
+        }
+
+        $data_xtreme = Order::get_data_order_by_category_and_date($id_user, '4', $tanggal_dari, $tanggal_sampai);
+        // jika ada data xtreme
+        if($data_xtreme->count() > 0){
+            foreach($data_xtreme as $xtreme){
+                $jumlah_produk_xtreme += $xtreme->jumlah_produk;
+            }
+        }
+
+        return view('total_pembelian', [
+            'title' => 'Total Pembelian',
+            'sancu' => $jumlah_produk_sancu,
+            'boncu' => $jumlah_produk_boncu,
+            'pretty' => $jumlah_produk_pretty,
+            'xtreme' => $jumlah_produk_xtreme
+        ]);
+
+    }
+
     public static function show_bantuan(){
         return view('bantuan', [
             'title' => 'bantuan'
