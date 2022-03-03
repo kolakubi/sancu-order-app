@@ -137,6 +137,7 @@ class CartController extends Controller
     public static function checkout(Request $data){
         // ambil data cart yang stoknya > 0
         $cartItems = Cart::show_data_not_0(auth()->user()->id);
+        // dd($cartItems);
         // return $cartItems;
         // 
         // bikin variable baru untuk semua data
@@ -160,6 +161,13 @@ class CartController extends Controller
         // 
         // posting ke TABLE ORDERS DETAIL
         foreach($cartItems as $item){
+            // jika jumlah order lebih besar
+            // dari pada stok tersedia
+            // maka yg dipakai stok yg tersedia
+            if($item->jumlah_produk > $item->jumlah_stok){
+                $item->jumlah_produk = $item->jumlah_stok;
+            }
+
             // posting ke order_details
             Order_details::create([
                 'id_order' => $insertId,

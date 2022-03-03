@@ -33,18 +33,6 @@ class LoginController extends Controller
             session(['login' => true]);
             return redirect('/home');
         }
-
-        //  cek apakah ada email
-        // $data = User::where('email', $request->email)->firstOrFail();
-
-        // if($data){
-        //     // cek hash password
-        //     if(Hash::check($request->password, $data->password)){
-        //         // set session
-        //         session(['login' => true]);
-        //         return redirect('/home');
-        //     }
-        // }
         
         return redirect('/')->with('message', 'email atau password salah');
     }
