@@ -28,7 +28,8 @@ Route::get('/logout', [LoginController::class, 'logout']);
 // Route::group(['middleware'=>'CekLoginMiddleware'], function(){
 Route::group(['middleware'=>'auth'], function(){
     Route::get('/home', [HomeController::class, 'show']);
-
+    
+    Route::get('/produk2/{id}', [ProdukController::class, 'show_produk2']);
     Route::get('/category/{cath}', [ProdukController::class, 'show_categories']);
     Route::get('/category', function(){
         header('location: /', true, 301);
@@ -43,7 +44,6 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/profil/totalpembelian', [ProfilController::class, 'total_pembelian'])->name('total_pembelian');
     Route::post('/profil/totalpembelian', [ProfilController::class, 'get_total_pembelian']);
     // Route::post('/profil/transaksi_detail/upload_bukti_bayar', [ProfilController::class, 'upload_bukti_bayar'])->name('upload_bukti_bayar');
-    
 
     Route::get('/profil/transaksi', [ProfilController::class, 'transaksi']);
     Route::get('/profil/transaksi_detail/{id}', [ProfilController::class, 'transaksi_detail']);
@@ -51,9 +51,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/profil/transaksi/selesai', [ProfilController::class, 'transaksi_selesai'])->name('transaksi_selesai');
     Route::post('/profil/transaksi/batal', [ProfilController::class, 'transaksi_batal'])->name('transaksi_batal');
 
-    
-
-    Route::get('/produk/{id}', [ProdukController::class, 'show_produk']);
+    // Route::get('/produk/{id}', [ProdukController::class, 'show_produk']);
     Route::post('/produk/addtocart', [CartController::class, 'add_cart']);
     Route::post('/produk/cekstok', [CartController::class, 'cek_stok']);
     Route::post('/produk/masscekstok', [CartController::class, 'mass_cek_stok']);
@@ -65,11 +63,8 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/keranjang/remove_1_item', [CartController::class, 'remove_1_item']);
     Route::post('/keranjang/delete_all_items', [CartController::class, 'delete_all_items']);
     Route::post('/keranjang/checkout', [CartController::class, 'checkout']);
-    
 
     Route::post('/coupon/cekdata', [CouponController::class, 'cekdata']);
-
-    
 });
 
 
