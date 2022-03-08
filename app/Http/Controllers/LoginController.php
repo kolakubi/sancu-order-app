@@ -30,8 +30,19 @@ class LoginController extends Controller
             return back()->with('message', 'email atau password salah');
         }
         else{
-            session(['login' => true]);
-            return redirect('/home');
+            //cek jika role = admin
+            $cek_admin = User::where([
+                'email'=>$request->email, 
+                'role' => 'db'
+                ])->get();
+
+            if(count($cek_admin) > 0){
+                session(['login' => true]);
+                return redirect('/home');
+            }
+            else{
+                return back()->with('message', 'email atau password salah');
+            }
         }
         
         return redirect('/')->with('message', 'email atau password salah');

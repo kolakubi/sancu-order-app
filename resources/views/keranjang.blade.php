@@ -2,6 +2,10 @@
 
 @section('container')
 
+    @php
+        $id_alamat = $alamat == null ? 0 : $alamat->id;
+    @endphp
+
     {{-- @dump($alamat) --}}
     @if(!isset($cart_items[0]))
         <div class="row mal-list-produk-container pt-3">
@@ -138,6 +142,7 @@
 
     @endforeach
 
+    @if($alamat != null)
    {{-- Alamat --}}
     <div class="container mal-list-produk-container p-4">
         <h6>Alamat Pengiriman</h6>
@@ -150,10 +155,28 @@
                     {{$alamat->alamat_lengkap}}, {{$alamat->kecamatan}}, {{$alamat->kota_kabupaten}}, {{$alamat->propinsi}}, {{$alamat->kode_pos}}</p>
             </div>
             <div class="col-1 d-flex align-items-center justify-content-center">
-                <i class="bi bi-chevron-right"></i>
+                <a href="{{route('alamat')}}">
+                    <i class="bi bi-chevron-right"></i>
+                </a>
             </div>
         </div>
     </div>
+    @else
+    <div class="container mal-list-produk-container p-4">
+        <h6>Alamat Pengiriman</h6>
+        <div class="alert alert-danger" role="alert">
+            <div class="row">
+                <div class="col-7">
+                    Kamu belum input alamat!
+                </div>
+                <div class="col-5">
+                    <a href="{{route('alamat')}}" class="btn btn-sm btn-danger">Tambah Alamat +</a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    @endif
 
     {{-- Berat total --}}
     <div class="row mal-list-produk-container p-4">
@@ -583,7 +606,20 @@
             // show overlay loading
             document.getElementById('mal-loading-overlay').style.display = 'flex';
 
-            let idAlamat = {{$alamat->id}}
+            let idAlamat = {{$id_alamat}};
+            // jika belum isi alamat
+            if(idAlamat == 0){
+                window.location.href = "/profil/alamat";
+                return false;
+                // Swal.fire({
+                //     icon: 'error',
+                //     title: 'Mohon isi alamat anda',
+                //     text: 'Tidak bisa melakukan checkout',
+                // }).then((result) => {
+                    
+                // })
+            }
+
             let coupon = document.getElementById('kodeCoupon').value;
             let berat = {{$totalBerat}}
             let postData = {

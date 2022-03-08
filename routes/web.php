@@ -40,6 +40,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/profil/bantuan', [ProfilController::class, 'show_bantuan'])->name('bantuan');
     Route::get('/profil/alamat', [ProfilController::class, 'show_alamat'])->name('alamat');
     Route::get('/profil/add_alamat', [ProfilController::class, 'add_alamat'])->name('add_alamat');
+    Route::get('/profil/alamat_utama/{id}', [ProfilController::class, 'alamat_utama']);
     Route::post('/alamat/insert_alamat', [ProfilController::class, 'insert_alamat'])->name('insert_alamat');
     Route::get('/profil/totalpembelian', [ProfilController::class, 'total_pembelian'])->name('total_pembelian');
     Route::post('/profil/totalpembelian', [ProfilController::class, 'get_total_pembelian']);

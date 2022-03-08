@@ -111,9 +111,16 @@
     let elemPropinsiHidden = document.getElementById('elemPropinsiHidden');
     let elemKabupatenHidden = document.getElementById('elemKabupatenHidden');
     let elemKecamatanHidden = document.getElementById('elemKecamatanHidden');
-    let apiUrl = 'https://x.rajaapi.com/poe';
-    let token = '';
-    fetch(apiUrl, {
+
+    ///////////////////////////////////////////////////
+    // sumber api
+    // https://farizdotid.com/blog/dokumentasi-api-daerah-indonesia/
+    let apiUrlPropinsi = 'https://dev.farizdotid.com/api/daerahindonesia/provinsi';
+    let apiUrlKabupaten = 'https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=';
+    let apiUrlKecamata = 'https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=';
+
+    // get propinsi
+    fetch(apiUrlPropinsi, {
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json, text-plain, */*",
@@ -123,31 +130,13 @@
         credentials: "same-origin",
     })
     .then(response => response.json())
-    .then(data => {
-        console.log(data);
-
-        token = data.token;
-        console.log(token);
-
-        // ambil propinsi
-        fetch('https://x.rajaapi.com/MeP7c5ne'+token+'/m/wilayah/provinsi', {
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json, text-plain, */*",
-                "X-Requested-With": "XMLHttpRequest",
-                },
-            method: "GET", 
-            credentials: "same-origin",
-        })
-        .then(response => response.json())
-        .then(propinsi => {
-            console.log(propinsi);
-            // reset option
-            elemPropinsi.innerHTML = '';
-            propinsi.data.forEach(element => {
-                elemPropinsi.innerHTML += 
-                '<option value="'+element.id+'">'+element.name+'</option>'
-            });
+    .then(propinsi => {
+        console.log(propinsi);
+        // reset option
+        elemPropinsi.innerHTML = '';
+        propinsi.provinsi.forEach(element => {
+            elemPropinsi.innerHTML += 
+            '<option value="'+element.id+'">'+element.nama+'</option>'
         });
     });
 
@@ -158,9 +147,10 @@
         // show overlay loading
         document.getElementById('mal-loading-overlay').style.display = 'flex';
         let idPropinsiDipilih = elemPropinsi.value;
-        elemPropinsiHidden.value = elemPropinsi.options[elemPropinsi.selectedIndex].text;
+        console.log('id propinsi ='+idPropinsiDipilih);
 
-        fetch('https://x.rajaapi.com/MeP7c5ne'+token+'/m/wilayah/kabupaten?idpropinsi='+idPropinsiDipilih, {
+        elemPropinsiHidden.value = elemPropinsi.options[elemPropinsi.selectedIndex].text;
+        fetch(apiUrlKabupaten+''+idPropinsiDipilih, {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json, text-plain, */*",
@@ -175,9 +165,9 @@
             // reset option
             elemKabupaten.innerHTML = '<option value=0>-- Kota/Kabupaten --</option>';
             elemKecamatan.innerHTML = '<option value=0>-- Kecamatan --</option>';
-            kabupaten.data.forEach(element => {
+            kabupaten.kota_kabupaten.forEach(element => {
                 elemKabupaten.innerHTML += 
-                '<option value="'+element.id+'">'+element.name+'</option>'
+                '<option value="'+element.id+'">'+element.nama+'</option>'
             });
             // hide overlay loading
             document.getElementById('mal-loading-overlay').style.display = 'none';
@@ -193,7 +183,7 @@
         let idKabupatenDipilih = elemKabupaten.value;
         elemKabupatenHidden.value = elemKabupaten.options[elemKabupaten.selectedIndex].text;
 
-        fetch('https://x.rajaapi.com/MeP7c5ne'+token+'/m/wilayah/kecamatan?idkabupaten='+idKabupatenDipilih, {
+        fetch(apiUrlKecamata+''+idKabupatenDipilih, {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json, text-plain, */*",
@@ -207,9 +197,9 @@
             console.log(kecamatan);
             // reset option
             elemKecamatan.innerHTML = '<option value=0>-- Kecamatan --</option>';
-            kecamatan.data.forEach(element => {
+            kecamatan.kecamatan.forEach(element => {
                 elemKecamatan.innerHTML += 
-                '<option value="'+element.id+'">'+element.name+'</option>'
+                '<option value="'+element.id+'">'+element.nama+'</option>'
             });
             // hide overlay loading
             document.getElementById('mal-loading-overlay').style.display = 'none';
@@ -219,6 +209,8 @@
     elemKecamatan.addEventListener('change', (e)=>{
         elemKecamatanHidden.value = elemKecamatan.options[elemKecamatan.selectedIndex].text;
     })
+
+    /////////////////////////////////////////////////
     
 </script>
 

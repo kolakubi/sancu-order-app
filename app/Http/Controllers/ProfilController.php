@@ -150,6 +150,12 @@ class ProfilController extends Controller
         }
     }
 
+    public static function alamat_utama($id){
+        Alamat::alamat_utama($id);
+
+        return redirect('/profil/alamat');
+    }
+
     public static function upload_bukti_bayar(Request $request){
         $validateData = $request->validate([
             'file_bukti_bayar' => 'image|file|max:2048'
