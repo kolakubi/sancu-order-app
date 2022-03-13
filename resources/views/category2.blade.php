@@ -39,7 +39,7 @@
         <!-- list produk -->
         <div class="row p-2 mal-list-produk-container list-produk" data-nama-produk="{{$produk->nama_produk}}">
             <div class="col-4 d-flex justify-content-center align-items-center flex-column">
-                <img src="{{ $produk->gambar_url_produk }}" alt="{{ $produk->nama_produk }}" style="max-width: 90%">
+                <img src="{{$server_host}}{{ $produk->gambar_url_produk }}" alt="{{ $produk->nama_produk }}" style="max-width: 90%">
                 {!! $produk->tag ? '<p class="bg-danger text-light p-1 rounded mt-1" style="font-size: 12px">'.$produk->tag.'</p>' : ''!!}
                 
             </div>

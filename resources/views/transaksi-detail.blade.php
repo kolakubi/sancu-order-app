@@ -2,10 +2,6 @@
 
 @section('container')
 
-@php
-    $urlStorage = 'http://127.0.0.2:8001';
-@endphp
-
     {{-- @dump($items) --}}
 
     <div class="row mal-top-navigator">
@@ -45,7 +41,7 @@
             <div class="row mal-list-produk-container pt-3">
 
                 <div class="col-2">
-                    <img src="{{$item->gambar_url_produk}}" alt="sancu baby girl" class="img-fluid">
+                    <img src="{{$server_host}}{{$item->gambar_url_produk}}" alt="sancu baby girl" class="img-fluid">
                 </div>
                 <div class="col-10">
                     <div class="row">
@@ -254,12 +250,38 @@
 
         fileInput.onchange = ({target}) => {
             let file = target.files[0];
+            console.log(file);
             if(file){
                 let fileName = file.name;
                 console.log(fileName);
-                uploadFile(fileName);
+                // cek tipe file
+                if(file.type == 'image/png' || file.type == 'image/jpeg' || file.type == 'image/jpg' ){
+
+                    // cek size
+                    if(file.size > (1000*1000*2)){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'File Lebih Besar Dari 2MB',
+                        });
+
+                        return false;
+                    }
+                    else{
+                        uploadFile(fileName);
+                    }
+                }
+                else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Bukan File Image',
+                    });
+
+                    return false;
+                }
             }
         }
+        
+        
 
         function uploadFile(name){
             let malProgressBar = document.getElementById('mal-progress-bar');
@@ -297,7 +319,7 @@
     <div class="row mal-list-produk-container p-3 d-flex align-items-center">
         <div class="col-12 text-center">
             <h5>Selamat! order kamu telah dikirim</h5>
-            <img class="img-thumbnail" src="{{$urlStorage}}/storage/{{$items[0]->resi}}" alt="resi pengiriman distributor">
+            <img class="img-thumbnail" src="{{$server_host}}{{$items[0]->resi}}" alt="resi pengiriman distributor">
             <p>Resi pengiriman</p>
 
             <form action="{{route('transaksi_selesai')}}" method="post">

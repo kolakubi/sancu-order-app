@@ -7,10 +7,17 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Order_details;
 use App\Models\Kartu_stok;
+use App\Models\Config;
 
 class CartController extends Controller
 {
-    public static function show_cart(){
+    private $server_host;
+
+    public function __construct(){
+        $this->server_host=Config::where('nama', 'server_host')->get()[0]->nilai.'storage/';
+    }
+
+    public function show_cart(){
 
         // ambil id_user dari session
         // ambil data cart dari session id_user
@@ -20,7 +27,8 @@ class CartController extends Controller
         return view('keranjang', [
             'title' => 'Keranjang',
             'cart_items' => $cart_items,
-            'alamat' => $alamat
+            'alamat' => $alamat,
+            'server_host' => $this->server_host
         ]);
         
     }

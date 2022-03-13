@@ -16,7 +16,7 @@
     {{-- image --}}
     <div class="row mal-list-produk-container">
         <div class="col-12 ">
-            <img src="{{ $produk->gambar_url_produk }}" alt="{{ $produk->nama_produk }}" class="img-fluid">
+            <img src="{{$server_host}}{{ $produk->gambar_url_produk }}" alt="{{ $produk->nama_produk }}" class="img-fluid">
         </div>
     </div>
 

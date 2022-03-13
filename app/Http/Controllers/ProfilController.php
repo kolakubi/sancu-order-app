@@ -7,9 +7,15 @@ use App\Models\Alamat;
 use App\Models\Order;
 use App\Models\Kartu_stok;
 use App\Models\Order_details;
+use App\Models\Config;
 
 class ProfilController extends Controller
 {
+    private $server_host;
+
+    public function __construct(){
+        $this->server_host=Config::where('nama', 'server_host')->get()[0]->nilai.'storage/';
+    }
     //
     public function show(){
         return view('profil', [
@@ -41,7 +47,8 @@ class ProfilController extends Controller
             'title' => 'detail transaksi',
             'items' => $item_detail,
             'alamat' => $alamat,
-            'coupons' => $coupons
+            'coupons' => $coupons,
+            'server_host' =>$this->server_host
         ]);
     }
 
@@ -104,7 +111,7 @@ class ProfilController extends Controller
             'sancu' => $jumlah_produk_sancu,
             'boncu' => $jumlah_produk_boncu,
             'pretty' => $jumlah_produk_pretty,
-            'xtreme' => $jumlah_produk_xtreme
+            'xtreme' => $jumlah_produk_xtreme,
         ]);
 
     }

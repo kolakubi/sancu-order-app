@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="col-2">
-                    <img src="{{$item->gambar_url_produk}}" alt="sancu baby girl" class="img-fluid">
+                    <img src="{{$server_host}}{{$item->gambar_url_produk}}" alt="sancu baby girl" class="img-fluid">
                 </div>
                 <div class="col-10">
                     <div class="row">
@@ -93,7 +93,8 @@
                     name="input-{{$item->id_produk_detail}}-{{$item->carts_id}}">
                     {{-- add button --}}
                     <button class="btn btn-warning p-2 add-button" onclick="increaseItem(this)"
-                    data-id-cart="{{$item->carts_id}}">+</button>
+                    data-id-cart="{{$item->carts_id}}"
+                    data-harga="{{$item->harga_produk}}">+</button>
                 </div>
                 @if($item->jumlah_stok == 0) 
                     <span class="text-danger fw-bold">Variasi habis</span>
@@ -223,6 +224,7 @@
         <div class="col-6">
             <button class="btn col-12 btn-warning" 
             @if(!isset($cart_items[0])) disabled @endif
+            @if($alamat == null) disabled @endif
             id="btn-submit-cart-form"
             type="submit" onclick="checkout()">
                 <i class="bi bi-cart mal-floar-nav-icon"></i> 
@@ -244,7 +246,8 @@
             let inputElem = a.previousElementSibling;
             let hargaProduk = inputElem.getAttribute('data-harga');
             let idProduk = inputElem.getAttribute('data-id-produk');
-            let hargaElem = a.parentElement.parentElement.nextElementSibling.firstChild;
+            // let hargaElem = a.parentElement.parentElement.nextElementSibling.firstChild;
+            let hargaElem = a.parentElement.parentElement.nextElementSibling.firstElementChild;
             
             // ajax ke pengecekan stok
             fetch("/produk/cekstok", {
@@ -299,10 +302,11 @@
                         console.log(data);
                         // update jumlah
                         inputElem.value = parseInt(inputElem.value)+1;
-                        hargaElem.innerHTML = parseInt(hargaProduk)*parseInt(inputElem.value);
-                         // hide overlay loading
-                         document.getElementById('mal-loading-overlay').style.display = 'none';
-                         // update total pembayaran
+                        hargaElem.innerHTML = (parseInt(hargaProduk)*parseInt(inputElem.value)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        // console.log(parseInt(hargaProduk)*parseInt(inputElem.value));
+                        // hide overlay loading
+                        document.getElementById('mal-loading-overlay').style.display = 'none';
+                        // update total pembayaran
                         updateTotalPembayaran();
                     })
                     .catch(function(error) {
@@ -330,7 +334,7 @@
             // target input
             let inputElem = a.nextElementSibling;
             let hargaProduk = inputElem.getAttribute('data-harga');
-            let hargaElem = a.parentElement.parentElement.nextElementSibling.firstChild;
+            let hargaElem = a.parentElement.parentElement.nextElementSibling.firstElementChild;
             if(inputElem.value > 0){
                 //
                 //
@@ -356,7 +360,7 @@
 
                     // update jumlah
                     inputElem.value = parseInt(inputElem.value)-1;
-                    hargaElem.innerHTML = parseInt(hargaProduk)*parseInt(inputElem.value);
+                    hargaElem.innerHTML = (parseInt(hargaProduk)*parseInt(inputElem.value)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     // hide overlay loading
                     document.getElementById('mal-loading-overlay').style.display = 'none';
                     // update total pembayaran

@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produk;
+use App\Models\Config;
 
 class ProdukController extends Controller
 {
+    private $server_host;
+
+    public function __construct(){
+        $this->server_host=Config::where('nama', 'server_host')->get()[0]->nilai.'storage/';
+    }
+
     public function show_categories($cath){
         if($cath == 'sancu'){
             $cath = 1;
@@ -23,7 +30,8 @@ class ProdukController extends Controller
 
         return view('category2', [
             'title' => $cath,
-            'produks' => Produk::show_categories($cath)
+            'produks' => Produk::show_categories($cath),
+            'server_host' => $this->server_host
         ]);
     }
 
@@ -39,7 +47,8 @@ class ProdukController extends Controller
         return view('single-product2', [
             'title' => 'single product',
             'produk' => Produk::find($id),
-            'stoks' => Produk::show_stok($id)
+            'stoks' => Produk::show_stok($id),
+            'server_host' => $this->server_host
         ]);
     }
     ///////////////////////////////////////////////////////
