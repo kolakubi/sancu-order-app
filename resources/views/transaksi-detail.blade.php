@@ -163,6 +163,16 @@
                 
                 </td>
             </tr>
+            @if($alamat->potongan_harga_langsung)
+                <tr>
+                    <td>Potongan Harga Langsung</td>
+                    <td>: <strong>Rp {{number_format($alamat->potongan_harga_langsung, 0)}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Keterangan</td>
+                    <td>: <strong>{{$alamat->keterangan_potongan_harga_langsung}}</strong></td>
+                </tr>
+            @endif
             <tr>
                 <td>Grand Total</td>
                 <td>: 
@@ -171,7 +181,8 @@
                             number_format((
                                 $totalPembelian+
                                 $items[0]->ongkir-
-                                ($coupons ? $coupons->potongan*$totalJumlahItem : 0)
+                                ($coupons ? $coupons->potongan*$totalJumlahItem : 0)-
+                                $alamat->potongan_harga_langsung
                             ), 0)
                         }}
                     </strong>
@@ -280,8 +291,6 @@
                 }
             }
         }
-        
-        
 
         function uploadFile(name){
             let malProgressBar = document.getElementById('mal-progress-bar');
