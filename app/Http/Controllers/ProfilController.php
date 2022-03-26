@@ -202,10 +202,10 @@ class ProfilController extends Controller
         // update kartu stok
         foreach($detail_item as $item){
             Kartu_stok::create([
-                'id_order' => $item->id_order,
                 'id_produk_detail' => $item->id_produk_detail,
                 'status' => 'in',
-                'keterangan' => 'pembatalan order agen',
+                'jumlah' => $item->jumlah_produk,
+                'keterangan' => 'pembatalan order agen no #'.$item->id_order,
             ]);
 
             // update stok items

@@ -189,10 +189,10 @@ class CartController extends Controller
 
             // update kartu stok
             Kartu_stok::create([
-                'id_order' => $insertId,
                 'id_produk_detail' => $item->id_produk_detail,
                 'status' => 'out',
-                'keterangan' => 'order agen',
+                'jumlah' => $item->jumlah_produk,
+                'keterangan' => 'order agen nomor #'.$insertId,
             ]);
         }
         //

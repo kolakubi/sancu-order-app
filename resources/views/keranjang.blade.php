@@ -18,7 +18,7 @@
     <h2>Keranjang Pemesanan</h2>
     @php
         $asd = 0;
-        $no=0;
+        // $no=0;
         $subTotalItem = 0;
         $totalBerat = 0;
         $totalJumlahItem = 0;
