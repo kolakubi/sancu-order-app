@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Feb 2022 pada 14.59
+-- Waktu pembuatan: 29 Mar 2022 pada 12.53
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.5
 
@@ -39,7 +39,7 @@ CREATE TABLE `alamats` (
   `kecamatan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_kecamatan` int(11) NOT NULL,
   `alamat_lengkap` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `detail` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `detail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `kode_pos` int(11) NOT NULL,
   `utama` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -53,7 +53,16 @@ CREATE TABLE `alamats` (
 INSERT INTO `alamats` (`id`, `id_user`, `nama_lengkap`, `telepon`, `propinsi`, `id_propinsi`, `kota_kabupaten`, `id_kota_kabupaten`, `kecamatan`, `id_kecamatan`, `alamat_lengkap`, `detail`, `kode_pos`, `utama`, `created_at`, `updated_at`) VALUES
 (3, 1, 'Mal', '085611223344', 'SUMATERA UTARA', 12, 'KABUPATEN TAPANULI SELATAN', 1203, 'ANGKOLA TIMUR', 1203070, 'Jalan kelapa dua wetan III ciracas', 'Pagar coklat', 13730, 1, NULL, NULL),
 (4, 1, 'Agus', '081122334455', 'RIAU', 14, 'KABUPATEN KUANTAN SINGINGI', 1401, 'SENTAJO RAYA', 1401031, 'Jalan jambi', 'pagar tinggi besar', 13730, 0, NULL, NULL),
-(5, 1, 'Joko', '0811223344556', 'SUMATERA BARAT', 13, 'KABUPATEN SOLOK', 1303, 'HILIRAN GUMANTI', 1303051, 'Pulau bali', 'dekat pantai', 13470, 0, NULL, NULL);
+(5, 1, 'Joko', '0811223344556', 'SUMATERA BARAT', 13, 'KABUPATEN SOLOK', 1303, 'HILIRAN GUMANTI', 1303051, 'Pulau bali', 'dekat pantai', 13470, 0, NULL, NULL),
+(14, 3, 'Adam', '081290723643', 'Riau', 14, 'Kabupaten Indragiri Hulu', 1402, 'Rengat Barat', 1402050, 'Jl. Al-Iman No. 23 Rt/Rw. 005/009, Kelapa Dua Wetan\r\nCiracas', NULL, 13730, 1, NULL, NULL),
+(15, 3, 'Idris', '081290723643', 'Jawa Timur', 35, 'Kabupaten Jombang', 3517, 'Ploso', 3517180, 'Jl. Al-Iman No. 23 Rt/Rw. 005/009, Kelapa Dua Wetan\r\nCiracas', 'Pagar putih bulat', 13730, 0, NULL, NULL),
+(16, 3, 'Isa', '081122334455', 'Kepulauan Bangka Belitung', 19, 'Kabupaten Bangka Barat', 1903, 'Mentok', 1903030, 'Jl. Al-Iman No. 23 Rt/Rw. 005/009, Kelapa Dua Wetan\r\nCiracas', NULL, 13730, 0, NULL, NULL),
+(17, 3, 'Ilyas', '081290723643', 'Gorontalo', 75, 'Kabupaten Gorontalo', 7502, 'Boliyohuto', 7502040, 'Jl. Al-Iman No. 23 Rt/Rw. 005/009, Kelapa Dua Wetan\r\nCiracas', NULL, 13730, 0, NULL, NULL),
+(18, 3, 'Zakaria', '081290723643', 'Maluku Utara', 82, 'Kota Ternate', 8271, 'Moti', 8271011, 'Jl. Al-Iman No. 23 Rt/Rw. 005/009, Kelapa Dua Wetan\r\nCiracas', NULL, 13730, 0, NULL, NULL),
+(19, 3, 'Nuh', '081290723643', 'Sumatera Selatan', 16, 'Kabupaten Musi Rawas', 1605, 'Tuah Negeri', 1605072, 'Jl. Al-Iman No. 23 Rt/Rw. 005/009, Kelapa Dua Wetan\r\nCiracas', NULL, 13730, 0, NULL, NULL),
+(20, 4, 'Yusuf', '081122334455', 'Dki Jakarta', 31, 'Kota Jakarta Pusat', 3173, 'Senen', 3173030, 'Jl. Al-Iman No. 23 Rt/Rw. 005/009, Kelapa Dua Wetan\r\nCiracas', NULL, 13730, 1, NULL, NULL),
+(21, 5, 'Firman', '0812312312312', 'Dki Jakarta', 31, 'Kota Jakarta Timur', 3172, 'Ciracas', 3172020, 'Jalan persahabatan VI no 3', 'Pagar putih bulat', 13730, 1, NULL, NULL),
+(22, 6, 'Minerva', '081122334455', 'Lampung', 18, 'Kabupaten Mesuji', 1811, 'Panca Jaya', 1811030, 'Lampung aja', NULL, 22345, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -70,6 +79,13 @@ CREATE TABLE `carts` (
   `id_user` int(11) NOT NULL,
   `jumlah_produk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `carts`
+--
+
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`, `id_produk`, `id_produk_detail`, `id_user`, `jumlah_produk`) VALUES
+(218, '2022-03-28 04:36:27', '2022-03-28 04:36:27', 7769, 776921, 6, 10);
 
 -- --------------------------------------------------------
 
@@ -89,10 +105,32 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `nama_category`, `created_at`, `updated_at`) VALUES
-(1, 'sancu', '2022-01-28 02:14:28', '2022-01-28 02:14:28'),
+(1, 'sancu', '2022-01-28 02:14:28', '2022-03-22 04:55:59'),
 (2, 'boncu', '2022-01-28 02:14:28', '2022-01-28 02:14:28'),
 (3, 'pretty', '2022-01-28 02:14:28', '2022-01-28 02:14:28'),
-(4, 'xtreme', '2022-01-28 02:14:28', '2022-01-28 02:14:28');
+(4, 'xtreme', '2022-01-28 02:14:28', '2022-01-28 02:14:28'),
+(5, 'pelengkap', '2022-03-22 04:40:05', '2022-03-22 04:40:05'),
+(6, 'Korea KR1', '2022-03-27 21:47:50', '2022-03-27 21:47:50');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `configs`
+--
+
+CREATE TABLE `configs` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `nilai` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `configs`
+--
+
+INSERT INTO `configs` (`id`, `nama`, `nilai`) VALUES
+(1, 'server_host', 'http://127.0.0.1:8000/'),
+(2, 'client_host', 'http://127.0.0.2:8000/');
 
 -- --------------------------------------------------------
 
@@ -105,7 +143,9 @@ CREATE TABLE `coupons` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `keterangan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `potongan` int(11) NOT NULL,
+  `masa_mulai` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `masa_aktif` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `tipe` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -114,9 +154,12 @@ CREATE TABLE `coupons` (
 -- Dumping data untuk tabel `coupons`
 --
 
-INSERT INTO `coupons` (`id`, `name`, `keterangan`, `potongan`, `masa_aktif`, `created_at`, `updated_at`) VALUES
-(1, 'SANCU2021', 'diskon ulang tahun sancu', 500, '2021-11-25 03:36:34', NULL, NULL),
-(3, 'SANCU20221', 'potongan 1000 per pasang', 1000, '2022-02-10 02:54:25', NULL, NULL);
+INSERT INTO `coupons` (`id`, `name`, `keterangan`, `potongan`, `masa_mulai`, `masa_aktif`, `tipe`, `created_at`, `updated_at`) VALUES
+(1, 'SANCU2021', 'diskon ulang tahun sancu', 500, '0000-00-00 00:00:00', '2021-11-25 03:36:34', '', NULL, NULL),
+(3, 'SANCU20221', 'potongan 1000 per pasang', 1000, '0000-00-00 00:00:00', '2022-02-10 02:54:25', '', NULL, NULL),
+(4, 'SANCU20222', 'potongan Rp500', 500, '0000-00-00 00:00:00', '2022-02-28 01:31:52', '', NULL, NULL),
+(5, 'SANCUFEB22', 'diskon sancu februari 2022', 1000, '2022-03-04 17:00:00', '2022-03-22 17:00:00', 'nominal', '2022-03-05 06:48:55', '2022-03-05 06:48:55'),
+(6, 'SANCUFEB221', 'diskon sancu februari 2022', 1000, '2022-03-04 17:00:00', '2022-03-29 17:00:00', 'nominal', '2022-03-05 06:50:11', '2022-03-05 06:50:11');
 
 -- --------------------------------------------------------
 
@@ -133,6 +176,191 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kartu_stoks`
+--
+
+CREATE TABLE `kartu_stoks` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_produk_detail` int(11) NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jumlah` int(11) NOT NULL DEFAULT 0,
+  `keterangan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `kartu_stoks`
+--
+
+INSERT INTO `kartu_stoks` (`id`, `id_produk_detail`, `status`, `jumlah`, `keterangan`, `created_at`, `updated_at`) VALUES
+(1, 357, 'out', 0, 'order agen', '2022-02-08 04:58:59', '2022-02-08 04:58:59'),
+(2, 353, 'out', 0, 'order agen', '2022-02-08 04:58:59', '2022-02-08 04:58:59'),
+(3, 352, 'out', 0, 'order agen', '2022-02-08 04:58:59', '2022-02-08 04:58:59'),
+(4, 351, 'out', 0, 'order agen', '2022-02-08 04:58:59', '2022-02-08 04:58:59'),
+(7, 357, 'in', 0, 'pembatalan order agen', '2022-02-08 05:25:41', '2022-02-08 05:25:41'),
+(8, 353, 'in', 0, 'pembatalan order agen', '2022-02-08 05:25:41', '2022-02-08 05:25:41'),
+(9, 352, 'in', 0, 'pembatalan order agen', '2022-02-08 05:25:41', '2022-02-08 05:25:41'),
+(10, 351, 'in', 0, 'pembatalan order agen', '2022-02-08 05:25:41', '2022-02-08 05:25:41'),
+(11, 3, 'out', 0, 'order agen', '2022-02-08 18:34:09', '2022-02-08 18:34:09'),
+(12, 2, 'out', 0, 'order agen', '2022-02-08 18:34:09', '2022-02-08 18:34:09'),
+(13, 39, 'out', 0, 'order agen', '2022-02-08 18:34:09', '2022-02-08 18:34:09'),
+(14, 38, 'out', 0, 'order agen', '2022-02-08 18:34:09', '2022-02-08 18:34:09'),
+(15, 55, 'out', 0, 'order agen', '2022-02-08 18:34:09', '2022-02-08 18:34:09'),
+(16, 54, 'out', 0, 'order agen', '2022-02-08 18:34:09', '2022-02-08 18:34:09'),
+(17, 102, 'out', 0, 'order agen', '2022-02-19 03:18:56', '2022-02-19 03:18:56'),
+(18, 101, 'out', 0, 'order agen', '2022-02-19 03:18:56', '2022-02-19 03:18:56'),
+(19, 2, 'out', 0, 'order agen', '2022-02-24 05:53:56', '2022-02-24 05:53:56'),
+(20, 2, 'in', 0, 'pembatalan order agen', '2022-02-24 05:54:52', '2022-02-24 05:54:52'),
+(21, 301, 'out', 0, 'order agen', '2022-03-03 06:59:55', '2022-03-03 06:59:55'),
+(22, 301, 'in', 0, 'pembatalan order agen', '2022-03-03 07:00:28', '2022-03-03 07:00:28'),
+(23, 301, 'out', 0, 'order agen', '2022-03-03 07:24:02', '2022-03-03 07:24:02'),
+(24, 196632, 'out', 0, 'order agen', '2022-03-05 03:54:10', '2022-03-05 03:54:10'),
+(25, 196630, 'out', 0, 'order agen', '2022-03-05 03:54:10', '2022-03-05 03:54:10'),
+(26, 196632, 'in', 0, 'pembatalan order agen', '2022-03-05 03:54:29', '2022-03-05 03:54:29'),
+(27, 196630, 'in', 0, 'pembatalan order agen', '2022-03-05 03:54:29', '2022-03-05 03:54:29'),
+(28, 102, 'out', 0, 'order agen', '2022-03-05 06:50:51', '2022-03-05 06:50:51'),
+(29, 3, 'out', 0, 'order agen', '2022-03-08 04:30:28', '2022-03-08 04:30:28'),
+(30, 2, 'out', 0, 'order agen', '2022-03-08 04:30:28', '2022-03-08 04:30:28'),
+(31, 2, 'out', 0, 'order agen', '2022-03-08 04:33:47', '2022-03-08 04:33:47'),
+(32, 40, 'out', 0, 'order agen', '2022-03-12 02:08:20', '2022-03-12 02:08:20'),
+(33, 34, 'out', 0, 'order agen', '2022-03-12 02:08:20', '2022-03-12 02:08:20'),
+(34, 32, 'out', 0, 'order agen', '2022-03-12 02:08:20', '2022-03-12 02:08:20'),
+(35, 107, 'out', 0, 'order agen', '2022-03-12 02:08:20', '2022-03-12 02:08:20'),
+(36, 104, 'out', 0, 'order agen', '2022-03-12 02:08:20', '2022-03-12 02:08:20'),
+(37, 102, 'out', 0, 'order agen', '2022-03-12 02:08:20', '2022-03-12 02:08:20'),
+(38, 83, 'out', 0, 'order agen', '2022-03-12 02:38:09', '2022-03-12 02:38:09'),
+(39, 28, 'out', 0, 'order agen', '2022-03-12 04:17:18', '2022-03-12 04:17:18'),
+(40, 43, 'out', 0, 'order agen', '2022-03-12 04:17:18', '2022-03-12 04:17:18'),
+(41, 196630, 'out', 0, 'order agen', '2022-03-12 04:17:18', '2022-03-12 04:17:18'),
+(42, 148440, 'out', 0, 'order agen', '2022-03-13 04:17:05', '2022-03-13 04:17:05'),
+(43, 776928, 'out', 0, 'order agen', '2022-03-13 04:17:05', '2022-03-13 04:17:05'),
+(44, 776924, 'out', 0, 'order agen', '2022-03-13 04:17:05', '2022-03-13 04:17:05'),
+(45, 776921, 'out', 0, 'order agen', '2022-03-13 04:17:05', '2022-03-13 04:17:05'),
+(46, 174, 'out', 0, 'order agen', '2022-03-13 04:46:51', '2022-03-13 04:46:51'),
+(47, 173, 'out', 0, 'order agen', '2022-03-13 04:46:51', '2022-03-13 04:46:51'),
+(48, 171, 'out', 0, 'order agen', '2022-03-13 04:46:51', '2022-03-13 04:46:51'),
+(49, 148442, 'out', 0, 'order agen', '2022-03-13 04:46:51', '2022-03-13 04:46:51'),
+(50, 148441, 'out', 0, 'order agen', '2022-03-13 04:46:51', '2022-03-13 04:46:51'),
+(51, 196632, 'out', 0, 'order agen', '2022-03-13 04:46:51', '2022-03-13 04:46:51'),
+(52, 196630, 'out', 0, 'order agen', '2022-03-13 04:46:52', '2022-03-13 04:46:52'),
+(53, 776924, 'out', 0, 'order agen', '2022-03-13 04:46:52', '2022-03-13 04:46:52'),
+(54, 776921, 'out', 0, 'order agen', '2022-03-13 04:46:52', '2022-03-13 04:46:52'),
+(55, 11, 'out', 0, 'order agen', '2022-03-13 20:05:38', '2022-03-13 20:05:38'),
+(56, 148441, 'out', 0, 'order agen', '2022-03-13 20:05:38', '2022-03-13 20:05:38'),
+(57, 61533536, 'out', 0, 'order agen', '2022-03-13 20:05:38', '2022-03-13 20:05:38'),
+(58, 776921, 'out', 0, 'order agen', '2022-03-13 20:05:38', '2022-03-13 20:05:38'),
+(59, 182, 'out', 0, 'order agen', '2022-03-19 02:09:01', '2022-03-19 02:09:01'),
+(60, 181, 'out', 0, 'order agen', '2022-03-19 02:09:01', '2022-03-19 02:09:01'),
+(61, 182, 'in', 0, 'pembatalan order agen', '2022-03-19 05:26:36', '2022-03-19 05:26:36'),
+(62, 182, 'in', 0, 'pembatalan order agen', '2022-03-19 05:27:34', '2022-03-19 05:27:34'),
+(63, 182, 'in', 0, 'pembatalan order agen', '2022-03-19 05:28:53', '2022-03-19 05:28:53'),
+(64, 181, 'in', 0, 'pembatalan order agen', '2022-03-19 05:28:53', '2022-03-19 05:28:53'),
+(65, 86, 'out', 0, 'order agen', '2022-03-24 01:56:13', '2022-03-24 01:56:13'),
+(66, 85, 'out', 0, 'order agen', '2022-03-24 01:56:13', '2022-03-24 01:56:13'),
+(67, 84, 'out', 0, 'order agen', '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(68, 113, 'out', 0, 'order agen', '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(69, 112, 'out', 0, 'order agen', '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(70, 111, 'out', 0, 'order agen', '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(71, 148443, 'out', 0, 'order agen', '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(72, 148442, 'out', 0, 'order agen', '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(73, 148441, 'out', 0, 'order agen', '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(74, 61533940, 'out', 0, 'order agen', '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(75, 61533738, 'out', 0, 'order agen', '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(76, 61533536, 'out', 0, 'order agen', '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(77, 776928, 'out', 0, 'order agen', '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(78, 776924, 'out', 0, 'order agen', '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(79, 776921, 'out', 0, 'order agen', '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(80, 13, 'out', 10, 'order agen nomor #50', '2022-03-26 05:12:33', '2022-03-26 05:12:33'),
+(81, 12, 'out', 10, 'order agen nomor #50', '2022-03-26 05:12:33', '2022-03-26 05:12:33'),
+(82, 11, 'out', 10, 'order agen nomor #50', '2022-03-26 05:12:33', '2022-03-26 05:12:33'),
+(83, 13, 'in', 10, 'pembatalan order agen no #50', '2022-03-26 05:14:46', '2022-03-26 05:14:46'),
+(84, 12, 'in', 10, 'pembatalan order agen no #50', '2022-03-26 05:14:46', '2022-03-26 05:14:46'),
+(85, 11, 'in', 10, 'pembatalan order agen no #50', '2022-03-26 05:14:46', '2022-03-26 05:14:46'),
+(86, 86, 'in', 6, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(87, 85, 'in', 5, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(88, 84, 'in', 4, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(89, 113, 'in', 3, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(90, 112, 'in', 2, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(91, 111, 'in', 1, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(92, 148443, 'in', 6, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(93, 148442, 'in', 6, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(94, 148441, 'in', 6, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(95, 61533940, 'in', 6, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(96, 61533738, 'in', 6, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(97, 61533536, 'in', 6, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(98, 776928, 'in', 5, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(99, 776924, 'in', 5, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(100, 776921, 'in', 5, 'pembatalan order agen no #49', '2022-03-26 05:18:37', '2022-03-26 05:18:37'),
+(101, 1, 'in', 40, 'Stok masuk', '2022-03-26 05:24:51', '2022-03-26 05:24:51'),
+(102, 2, 'in', 40, 'Stok masuk', '2022-03-26 05:24:51', '2022-03-26 05:24:51'),
+(103, 3, 'in', 40, 'Stok masuk', '2022-03-26 05:24:51', '2022-03-26 05:24:51'),
+(104, 4, 'in', 10, 'Stok masuk', '2022-03-26 05:24:51', '2022-03-26 05:24:51'),
+(105, 5, 'in', 0, 'Stok masuk', '2022-03-26 05:24:51', '2022-03-26 05:24:51'),
+(106, 6, 'in', 0, 'Stok masuk', '2022-03-26 05:24:51', '2022-03-26 05:24:51'),
+(107, 7, 'in', 0, 'Stok masuk', '2022-03-26 05:24:51', '2022-03-26 05:24:51'),
+(108, 8, 'in', 0, 'Stok masuk', '2022-03-26 05:24:51', '2022-03-26 05:24:51'),
+(109, 9, 'in', 0, 'Stok masuk', '2022-03-26 05:24:51', '2022-03-26 05:24:51'),
+(110, 10, 'in', 0, 'Stok masuk', '2022-03-26 05:24:51', '2022-03-26 05:24:51'),
+(111, 1, 'in', 1, 'Stok masuk', '2022-03-26 05:36:07', '2022-03-26 05:36:07'),
+(112, 2, 'in', 2, 'Stok masuk', '2022-03-26 05:36:07', '2022-03-26 05:36:07'),
+(113, 3, 'in', 3, 'Stok masuk', '2022-03-26 05:36:07', '2022-03-26 05:36:07'),
+(114, 4, 'in', 4, 'Stok masuk', '2022-03-26 05:36:07', '2022-03-26 05:36:07'),
+(115, 5, 'in', 0, 'Stok masuk', '2022-03-26 05:36:07', '2022-03-26 05:36:07'),
+(116, 6, 'in', 0, 'Stok masuk', '2022-03-26 05:36:07', '2022-03-26 05:36:07'),
+(117, 7, 'in', 0, 'Stok masuk', '2022-03-26 05:36:07', '2022-03-26 05:36:07'),
+(118, 8, 'in', 0, 'Stok masuk', '2022-03-26 05:36:07', '2022-03-26 05:36:07'),
+(119, 9, 'in', 0, 'Stok masuk', '2022-03-26 05:36:07', '2022-03-26 05:36:07'),
+(120, 10, 'in', 0, 'Stok masuk', '2022-03-26 05:36:07', '2022-03-26 05:36:07'),
+(121, 1, 'in', 5, 'Stok masuk', '2022-03-26 05:37:53', '2022-03-26 05:37:53'),
+(122, 2, 'in', 5, 'Stok masuk', '2022-03-26 05:37:53', '2022-03-26 05:37:53'),
+(123, 3, 'in', 5, 'Stok masuk', '2022-03-26 05:37:53', '2022-03-26 05:37:53'),
+(124, 4, 'in', 5, 'Stok masuk', '2022-03-26 05:37:53', '2022-03-26 05:37:53'),
+(125, 7, 'in', 5, 'Stok masuk', '2022-03-26 05:38:08', '2022-03-26 05:38:08'),
+(126, 8, 'in', 5, 'Stok masuk', '2022-03-26 05:38:08', '2022-03-26 05:38:08'),
+(127, 10, 'in', 10, 'Stok masuk', '2022-03-26 05:38:08', '2022-03-26 05:38:08'),
+(128, 1, 'out', 6, 'Stok Hilang/Rusak', '2022-03-26 06:05:36', '2022-03-26 06:05:36'),
+(129, 2, 'out', 7, 'Stok Hilang/Rusak', '2022-03-26 06:05:36', '2022-03-26 06:05:36'),
+(130, 3, 'out', 8, 'Stok Hilang/Rusak', '2022-03-26 06:05:36', '2022-03-26 06:05:36'),
+(131, 1, 'out', 10, 'order agen nomor #51', '2022-03-27 07:26:23', '2022-03-27 07:26:23'),
+(132, 148441, 'out', 10, 'order agen nomor #51', '2022-03-27 07:26:23', '2022-03-27 07:26:23'),
+(133, 14, 'out', 10, 'order agen nomor #52', '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(134, 11, 'out', 10, 'order agen nomor #52', '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(135, 52, 'out', 10, 'order agen nomor #52', '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(136, 51, 'out', 10, 'order agen nomor #52', '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(137, 148443, 'out', 10, 'order agen nomor #52', '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(138, 148441, 'out', 10, 'order agen nomor #52', '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(139, 196632, 'out', 5, 'order agen nomor #52', '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(140, 196630, 'out', 10, 'order agen nomor #52', '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(141, 1, 'in', 5, 'Stok masuk', '2022-03-27 21:43:11', '2022-03-27 21:43:11'),
+(142, 2, 'out', 5, 'Stok Hilang/Rusak', '2022-03-27 21:44:17', '2022-03-27 21:44:17');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `log_items`
+--
+
+CREATE TABLE `log_items` (
+  `id` int(11) NOT NULL,
+  `id_produk_detail` int(11) NOT NULL,
+  `keterangan` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `log_items`
+--
+
+INSERT INTO `log_items` (`id`, `id_produk_detail`, `keterangan`, `created_at`, `updated_at`) VALUES
+(1, 1, 'perubahan harga dari 16000 menjadi -> 15000', '2022-03-27 07:04:19', '2022-03-27 07:04:19'),
+(2, 11, 'perubahan harga dari 16000 menjadi -> 14000', '2022-03-27 07:05:00', '2022-03-27 07:05:00'),
+(3, 1, 'perubahan harga dari 15000 menjadi -> 16000', '2022-03-27 21:45:41', '2022-03-27 21:45:41');
 
 -- --------------------------------------------------------
 
@@ -164,7 +392,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (12, '2021_11_25_033556_create_slide_banners_table', 7),
 (13, '2021_11_29_023043_create_alamats_table', 8),
 (14, '2021_11_30_042433_create_orders_table', 9),
-(15, '2021_12_01_024407_create_order_details_table', 10);
+(15, '2021_12_01_024407_create_order_details_table', 10),
+(16, '2022_02_08_111541_create_kartu_stoks_table', 11);
 
 -- --------------------------------------------------------
 
@@ -179,7 +408,11 @@ CREATE TABLE `orders` (
   `coupon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ongkir` int(11) NOT NULL DEFAULT 0,
+  `ekspedisi` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `potongan_harga_langsung` int(11) NOT NULL DEFAULT 0,
+  `keterangan_potongan_harga_langsung` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `bukti_bayar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `resi` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -188,10 +421,31 @@ CREATE TABLE `orders` (
 -- Dumping data untuk tabel `orders`
 --
 
-INSERT INTO `orders` (`id`, `id_user`, `id_alamat`, `coupon`, `status`, `ongkir`, `bukti_bayar`, `created_at`, `updated_at`) VALUES
-(29, 1, '3', NULL, '1', 0, NULL, '2022-01-28 01:06:51', '2022-01-28 01:06:51'),
-(30, 1, '3', NULL, '1', 0, NULL, '2022-02-01 19:44:20', '2022-02-01 19:44:20'),
-(31, 1, '3', 'SANCU20221', '3', 70000, 'bukti_bayar/bCBA33VL02CcLOygo72MyIY2DOFB40rbYXIbZJIO.png', '2022-02-01 19:57:19', '2022-02-05 06:16:16');
+INSERT INTO `orders` (`id`, `id_user`, `id_alamat`, `coupon`, `status`, `ongkir`, `ekspedisi`, `potongan_harga_langsung`, `keterangan_potongan_harga_langsung`, `bukti_bayar`, `resi`, `created_at`, `updated_at`) VALUES
+(29, 1, '3', NULL, '5', 300000, NULL, 0, '', 'bukti_bayar/SN2uq5nsAIayAQ60EEZVSGOYPmIoFVZ0N01pBjnA.png', 'resi/dlGlKLiQZojozvhlBY6AZZqnqet2dozsdISPL8VX.jpg', '2022-01-28 01:06:51', '2022-02-06 05:29:02'),
+(30, 1, '3', NULL, '0', 0, NULL, 0, '', NULL, NULL, '2022-02-01 19:44:20', '2022-02-01 19:44:20'),
+(31, 1, '3', 'SANCU20221', '5', 70000, NULL, 0, '', 'bukti_bayar/bCBA33VL02CcLOygo72MyIY2DOFB40rbYXIbZJIO.png', 'resi/JxvEHvXFPlAHa1V8Op9Kytq12lbP6XBOzThYgiCQ.jpg', '2022-02-01 19:57:19', '2022-02-06 04:16:28'),
+(32, 1, '3', NULL, '0', 0, NULL, 0, '', NULL, NULL, '2022-02-08 04:58:59', '2022-02-08 05:25:41'),
+(33, 1, '3', 'SANCU20222', '5', 120000, NULL, 0, '', 'bukti_bayar/QH5gnBEACGx7KY27OrauIlWIH2W4v603WnxONGKr.jpg', 'resi/3i33MIGFGJUVSdzRlMcWFRG1XFzEIVj7d4ZtKZ4j.jpg', '2022-02-08 18:34:09', '2022-02-08 18:46:31'),
+(34, 1, '3', NULL, '3', 200000, NULL, 0, '', 'bukti_bayar/Jp8H8X2mGqTjCu2AX66f9BYEfHoAfjy2dK4zNavc.jpg', NULL, '2022-02-19 03:18:56', '2022-02-21 18:24:12'),
+(35, 1, '3', NULL, '0', 0, NULL, 0, '', NULL, NULL, '2022-02-24 05:53:56', '2022-02-24 05:54:52'),
+(36, 1, '3', NULL, '0', 0, NULL, 0, '', NULL, NULL, '2022-03-03 06:59:55', '2022-03-03 07:00:28'),
+(37, 1, '3', NULL, '1', 0, NULL, 0, '', NULL, NULL, '2022-03-03 07:24:02', '2022-03-03 07:24:02'),
+(38, 1, '3', NULL, '0', 0, NULL, 0, '', NULL, NULL, '2022-03-05 03:54:10', '2022-03-05 03:54:29'),
+(39, 1, '3', 'SANCUFEB221', '1', 0, NULL, 0, '', NULL, NULL, '2022-03-05 06:50:51', '2022-03-05 06:50:51'),
+(40, 3, '0', NULL, '1', 0, NULL, 0, '', NULL, NULL, '2022-03-08 04:30:28', '2022-03-08 04:30:28'),
+(41, 3, '0', NULL, '2', 40000, NULL, 0, '', NULL, NULL, '2022-03-08 04:33:47', '2022-03-12 02:05:28'),
+(42, 3, '15', NULL, '5', 40000, NULL, 0, '', 'bukti_bayar/v4oaeQ00VBaBKmViRGeWGGoxjbWfjswfCiv5j58d.jpg', 'resi/RrsknmINiVwJbTvXNsXtaSkoIigd3CE9oAlSlHdj.jpg', '2022-03-12 02:08:20', '2022-03-12 02:37:20'),
+(43, 3, '16', NULL, '3', 50000, NULL, 0, '', 'bukti_bayar/bVEL0qfmNo0yVc649nPcRYmLsy8APgIzIeXeqj41.png', NULL, '2022-03-12 02:38:09', '2022-03-12 02:54:30'),
+(44, 4, '20', NULL, '5', 10000, NULL, 0, '', 'bukti_bayar/LF2eY9l2wZKSLlU4aLx17w3jmbDQ1xMoNpzf1zA9.png', 'resi/JBBw2m0iLRau5yrYA9ioC7Yrvix1CJfkRG9Ive7u.jpg', '2022-03-12 04:17:18', '2022-03-12 04:28:38'),
+(45, 4, '20', NULL, '4', 30000, NULL, 0, '', 'bukti_bayar/lNErM2bcdl1BwUl9oM6b1fI46TmjgIDNi9daPPmg.jpg', 'resi/igCMHoLA01Pn5all15WqY6RX1M88GR7ZweTvPB0k.jpg', '2022-03-13 04:17:05', '2022-03-13 04:41:11'),
+(46, 3, '16', NULL, '3', 240000, 'Indah Cargo', 10000, 'bonus dari sancu', 'bukti_bayar/QGccnANI7Jv29WoVScBMP0f1VtS0YAn52Btt0Dw0.jpg', NULL, '2022-03-13 04:46:51', '2022-03-19 06:34:21'),
+(47, 5, '21', NULL, '5', 250000, NULL, 0, '', 'bukti_bayar/sBmzwmxEpNRm0CqInzJxAXOxKztVnakKRNGpooZl.jpg', 'resi/rypBpVhBxbux1H1z62OX2oYZlf3YSRYdNeoT4wbs.jpg', '2022-03-13 20:05:38', '2022-03-13 20:17:54'),
+(48, 3, '14', NULL, '0', 0, NULL, 30000, '', NULL, NULL, '2022-03-19 02:09:01', '2022-03-19 05:28:53'),
+(49, 3, '14', 'SANCUFEB221', '0', 100000, 'Indah Cargoo', 50000, 'bonus dari sancu', NULL, NULL, '2022-03-24 01:56:13', '2022-03-26 05:18:37'),
+(50, 6, '22', NULL, '0', 0, NULL, 0, NULL, NULL, NULL, '2022-03-26 05:12:33', '2022-03-26 05:14:46'),
+(51, 6, '22', NULL, '1', 0, NULL, 0, NULL, NULL, NULL, '2022-03-27 07:26:23', '2022-03-27 07:26:23'),
+(52, 6, '22', NULL, '2', 100000, 'Indah Cargo', 300000, 'diskon promo', NULL, NULL, '2022-03-27 21:24:48', '2022-03-27 21:47:11');
 
 -- --------------------------------------------------------
 
@@ -235,7 +489,85 @@ INSERT INTO `order_details` (`id`, `id_order`, `id_produk_detail`, `jumlah_produ
 (77, 31, 45, 3, 17000, 1, '2022-02-01 19:57:19', '2022-02-01 19:57:19'),
 (78, 31, 42, 3, 16000, 1, '2022-02-01 19:57:19', '2022-02-01 19:57:19'),
 (79, 31, 177, 3, 18500, 1, '2022-02-01 19:57:19', '2022-02-01 19:57:19'),
-(80, 31, 173, 9, 17000, 1, '2022-02-01 19:57:19', '2022-02-01 19:57:19');
+(80, 31, 173, 9, 17000, 1, '2022-02-01 19:57:19', '2022-02-01 19:57:19'),
+(81, 32, 357, 5, 18500, 1, '2022-02-08 04:58:59', '2022-02-08 04:58:59'),
+(82, 32, 353, 5, 17000, 1, '2022-02-08 04:58:59', '2022-02-08 04:58:59'),
+(83, 32, 352, 5, 16000, 1, '2022-02-08 04:58:59', '2022-02-08 04:58:59'),
+(84, 32, 351, 5, 16000, 1, '2022-02-08 04:58:59', '2022-02-08 04:58:59'),
+(85, 33, 3, 10, 17000, 1, '2022-02-08 18:34:09', '2022-02-08 18:34:09'),
+(86, 33, 2, 5, 16000, 1, '2022-02-08 18:34:09', '2022-02-08 18:34:09'),
+(87, 33, 39, 20, 20000, 1, '2022-02-08 18:34:09', '2022-02-08 18:34:09'),
+(88, 33, 38, 15, 20000, 1, '2022-02-08 18:34:09', '2022-02-08 18:34:09'),
+(89, 33, 55, 10, 17000, 1, '2022-02-08 18:34:09', '2022-02-08 18:34:09'),
+(90, 33, 54, 10, 17000, 1, '2022-02-08 18:34:09', '2022-02-08 18:34:09'),
+(91, 34, 102, 10, 16000, 1, '2022-02-19 03:18:56', '2022-02-19 03:18:56'),
+(92, 34, 101, 10, 16000, 1, '2022-02-19 03:18:56', '2022-02-19 03:18:56'),
+(93, 35, 2, 40, 16000, 1, '2022-02-24 05:53:56', '2022-02-24 05:53:56'),
+(94, 36, 301, 40, 16000, 1, '2022-03-03 06:59:55', '2022-03-03 06:59:55'),
+(95, 37, 301, 30, 16000, 1, '2022-03-03 07:24:02', '2022-03-03 07:24:02'),
+(96, 38, 196632, 10, 12000, 1, '2022-03-05 03:54:10', '2022-03-05 03:54:10'),
+(97, 38, 196630, 10, 10000, 1, '2022-03-05 03:54:10', '2022-03-05 03:54:10'),
+(98, 39, 102, 10, 16000, 1, '2022-03-05 06:50:51', '2022-03-05 06:50:51'),
+(99, 40, 3, 10, 17000, 3, '2022-03-08 04:30:28', '2022-03-08 04:30:28'),
+(100, 40, 2, 10, 16000, 3, '2022-03-08 04:30:28', '2022-03-08 04:30:28'),
+(101, 41, 2, 20, 16000, 3, '2022-03-08 04:33:47', '2022-03-08 04:33:47'),
+(102, 42, 40, 10, 20000, 3, '2022-03-12 02:08:20', '2022-03-12 02:08:20'),
+(103, 42, 34, 10, 17000, 3, '2022-03-12 02:08:20', '2022-03-12 02:08:20'),
+(104, 42, 32, 10, 16000, 3, '2022-03-12 02:08:20', '2022-03-12 02:08:20'),
+(105, 42, 107, 10, 18500, 3, '2022-03-12 02:08:20', '2022-03-12 02:08:20'),
+(106, 42, 104, 5, 17000, 3, '2022-03-12 02:08:20', '2022-03-12 02:08:20'),
+(107, 42, 102, 10, 16000, 3, '2022-03-12 02:08:20', '2022-03-12 02:08:20'),
+(108, 43, 83, 40, 17000, 3, '2022-03-12 02:38:09', '2022-03-12 02:38:09'),
+(109, 44, 28, 21, 20000, 4, '2022-03-12 04:17:18', '2022-03-12 04:17:18'),
+(110, 44, 43, 50, 17000, 4, '2022-03-12 04:17:18', '2022-03-12 04:17:18'),
+(111, 44, 196630, 6, 10000, 4, '2022-03-12 04:17:18', '2022-03-12 04:17:18'),
+(112, 45, 148440, 100, 40000, 4, '2022-03-13 04:17:05', '2022-03-13 04:17:05'),
+(113, 45, 776928, 21, 12000, 4, '2022-03-13 04:17:05', '2022-03-13 04:17:05'),
+(114, 45, 776924, 10, 12000, 4, '2022-03-13 04:17:05', '2022-03-13 04:17:05'),
+(115, 45, 776921, 50, 12000, 4, '2022-03-13 04:17:05', '2022-03-13 04:17:05'),
+(116, 46, 174, 10, 17000, 3, '2022-03-13 04:46:51', '2022-03-13 04:46:51'),
+(117, 46, 173, 10, 17000, 3, '2022-03-13 04:46:51', '2022-03-13 04:46:51'),
+(118, 46, 171, 10, 16000, 3, '2022-03-13 04:46:51', '2022-03-13 04:46:51'),
+(119, 46, 148442, 10, 40000, 3, '2022-03-13 04:46:51', '2022-03-13 04:46:51'),
+(120, 46, 148441, 10, 40000, 3, '2022-03-13 04:46:51', '2022-03-13 04:46:51'),
+(121, 46, 196632, 10, 12000, 3, '2022-03-13 04:46:51', '2022-03-13 04:46:51'),
+(122, 46, 196630, 10, 10000, 3, '2022-03-13 04:46:52', '2022-03-13 04:46:52'),
+(123, 46, 776924, 10, 12000, 3, '2022-03-13 04:46:52', '2022-03-13 04:46:52'),
+(124, 46, 776921, 10, 12000, 3, '2022-03-13 04:46:52', '2022-03-13 04:46:52'),
+(125, 47, 11, 5, 16000, 5, '2022-03-13 20:05:38', '2022-03-13 20:05:38'),
+(126, 47, 148441, 5, 40000, 5, '2022-03-13 20:05:38', '2022-03-13 20:05:38'),
+(127, 47, 61533536, 5, 21000, 5, '2022-03-13 20:05:38', '2022-03-13 20:05:38'),
+(128, 47, 776921, 5, 12000, 5, '2022-03-13 20:05:38', '2022-03-13 20:05:38'),
+(129, 48, 182, 5, 16000, 3, '2022-03-19 02:09:01', '2022-03-19 02:09:01'),
+(130, 48, 181, 10, 16000, 3, '2022-03-19 02:09:01', '2022-03-19 02:09:01'),
+(131, 49, 86, 6, 18500, 3, '2022-03-24 01:56:13', '2022-03-24 01:56:13'),
+(132, 49, 85, 5, 17000, 3, '2022-03-24 01:56:13', '2022-03-24 01:56:13'),
+(133, 49, 84, 4, 17000, 3, '2022-03-24 01:56:13', '2022-03-24 01:56:13'),
+(134, 49, 113, 3, 17000, 3, '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(135, 49, 112, 2, 16000, 3, '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(136, 49, 111, 1, 16000, 3, '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(137, 49, 148443, 6, 50000, 3, '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(138, 49, 148442, 6, 40000, 3, '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(139, 49, 148441, 6, 40000, 3, '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(140, 49, 61533940, 6, 21000, 3, '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(141, 49, 61533738, 6, 21000, 3, '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(142, 49, 61533536, 6, 21000, 3, '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(143, 49, 776928, 5, 12000, 3, '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(144, 49, 776924, 5, 12000, 3, '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(145, 49, 776921, 5, 12000, 3, '2022-03-24 01:56:14', '2022-03-24 01:56:14'),
+(146, 50, 13, 10, 17000, 6, '2022-03-26 05:12:33', '2022-03-26 05:12:33'),
+(147, 50, 12, 10, 16000, 6, '2022-03-26 05:12:33', '2022-03-26 05:12:33'),
+(148, 50, 11, 10, 16000, 6, '2022-03-26 05:12:33', '2022-03-26 05:12:33'),
+(149, 51, 1, 10, 15000, 6, '2022-03-27 07:26:23', '2022-03-27 07:26:23'),
+(150, 51, 148441, 10, 40000, 6, '2022-03-27 07:26:23', '2022-03-27 07:26:23'),
+(151, 52, 14, 10, 17000, 6, '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(152, 52, 11, 10, 14000, 6, '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(153, 52, 52, 10, 16000, 6, '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(154, 52, 51, 10, 16000, 6, '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(155, 52, 148443, 10, 50000, 6, '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(156, 52, 148441, 10, 40000, 6, '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(157, 52, 196632, 5, 12000, 6, '2022-03-27 21:24:48', '2022-03-27 21:24:48'),
+(158, 52, 196630, 10, 10000, 6, '2022-03-27 21:24:48', '2022-03-27 21:24:48');
 
 -- --------------------------------------------------------
 
@@ -279,7 +611,7 @@ CREATE TABLE `produks` (
   `gambar_url_produk` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `tag` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_category` int(11) NOT NULL,
-  `desktripsi_produk` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `desktripsi_produk` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -289,41 +621,45 @@ CREATE TABLE `produks` (
 --
 
 INSERT INTO `produks` (`id`, `nama_produk`, `gambar_url_produk`, `tag`, `id_category`, `desktripsi_produk`, `created_at`, `updated_at`) VALUES
-(1, 'Sancu Dolphin', '/assets/image/thumbnail/dolphin-thumb.jpeg', NULL, 1, '', '2022-01-28 03:08:05', '2022-01-28 03:08:05'),
-(11, 'Sancu Samurai', '/assets/image/thumbnail/samurai-thumb.jpeg', NULL, 1, '', '2022-01-28 06:24:02', '2022-01-28 06:24:02'),
-(21, 'Sancu Kodok hijau', '/assets/image/thumbnail/kodok-hijau-thumb.jpeg', NULL, 1, '', '2022-01-28 06:24:02', '2022-01-28 06:24:02'),
-(31, 'Sancu Finger Boy Kuning', '/assets/image/thumbnail/finger-boy-kuning-thumb.jpeg', NULL, 1, '', '2022-01-28 06:25:05', '2022-01-28 06:25:05'),
-(41, 'Sancu Sheep', '/assets/image/thumbnail/sheep-thumb.jpeg', NULL, 1, '', '2022-01-28 06:25:05', '2022-01-28 06:25:05'),
-(51, 'Sancu Cars Biru', '/assets/image/thumbnail/cars-biru-thumb.jpeg', NULL, 1, '', '2022-01-28 06:26:04', '2022-01-28 06:26:04'),
-(61, 'Sancu Toycop', '/assets/image/thumbnail/toycop-thumb.jpeg', NULL, 1, '', '2022-01-28 06:26:04', '2022-01-28 06:26:04'),
-(71, 'Sancu Pika-Pika', '/assets/image/thumbnail/pika-pika-thumb.jpeg', NULL, 1, '', '2022-01-28 06:27:01', '2022-01-28 06:27:01'),
-(81, 'Sancu Hudson Jessica', '/assets/image/thumbnail/hudson-thumb.jpeg', NULL, 1, '', '2022-01-28 06:27:01', '2022-01-28 06:27:01'),
-(101, 'Sancu Among Astro', '/assets/image/thumbnail/among-astro-thumb.jpeg', 'New Model', 1, '', '2022-01-28 06:28:22', '2022-01-28 06:28:22'),
-(111, 'Sancu Robot Merah', '/assets/image/thumbnail/robot-merah-thumb.jpeg', NULL, 1, '', '2022-01-28 06:28:22', '2022-01-28 06:28:22'),
-(121, 'Sancu George Monkey', '/assets/image/thumbnail/george-monkey-thumb.jpeg', NULL, 1, '', '2022-01-28 06:29:36', '2022-01-28 06:29:36'),
-(131, 'Sancu Doraemon', '/assets/image/thumbnail/doraemon-thumb.jpeg', 'Best Seller', 1, '', '2022-01-28 06:29:36', '2022-01-28 06:29:36'),
-(141, 'Sancu Cars Merah', '/assets/image/thumbnail/cars-biru-thumb.jpeg', NULL, 1, '', '2022-01-28 06:30:36', '2022-01-28 06:30:36'),
-(151, 'Sancu Cheese Kid', '/assets/image/thumbnail/cheese-kid-thumb.jpeg', NULL, 1, '', '2022-01-28 06:30:36', '2022-01-28 06:30:36'),
-(161, 'Sancu Boboy Boy', '/assets/image/thumbnail/boboy-boy-thumb.jpeg', 'Best Seller', 1, '', '2022-01-28 06:31:40', '2022-01-28 06:31:40'),
-(171, 'Sancu Baby Girl Pink', '/assets/image/thumbnail/baby-girl-pink-thumb.jpeg', 'Best Seller', 1, '', '2022-01-28 06:31:40', '2022-01-28 06:31:40'),
-(181, 'Sancu Kitty Ungu', '/assets/image/thumbnail/kitty-ungu-thumb.jpeg', NULL, 1, '', '2022-01-28 06:32:37', '2022-01-28 06:32:37'),
-(191, 'Sancu Kitty Merah', '/assets/image/thumbnail/kitty-merah-thumb.jpeg', NULL, 1, '', '2022-01-28 06:32:37', '2022-01-28 06:32:37'),
-(201, 'Sancu Spidi', '/assets/image/thumbnail/spidi-thumb.jpeg', 'Best Seller', 1, '', '2022-01-28 06:33:44', '2022-01-28 06:33:44'),
-(211, 'Sancu Ninja Boy', '/assets/image/thumbnail/ninja-boy-thumb.jpeg', NULL, 1, '', '2022-01-28 06:33:44', '2022-01-28 06:33:44'),
-(221, 'Sancu Baby Girl Ungu', '/assets/image/thumbnail/baby-girl-ungu-thumb.jpeg', 'Best Seller', 1, '', '2022-01-28 06:34:41', '2022-01-28 06:34:41'),
-(231, 'Sancu Baby Bear', '/assets/image/thumbnail/baby-bear-thumb.jpeg', NULL, 1, '', '2022-01-28 06:34:41', '2022-01-28 06:34:41'),
-(241, 'Sancu Little Girl Marsha', '/assets/image/thumbnail/little-girl-thumb.jpeg', NULL, 1, '', '2022-01-28 06:35:38', '2022-01-28 06:35:38'),
-(251, 'Sancu Princess', '/assets/image/thumbnail/princess-thumb.jpeg', 'Best Seller', 1, '', '2022-01-28 06:35:38', '2022-01-28 06:35:38'),
-(261, 'Sancu Bang Jarwo', '/assets/image/thumbnail/bang-jarwo-thumb.jpeg', NULL, 1, '', '2022-01-28 06:36:33', '2022-01-28 06:36:33'),
-(271, 'Sancu Gatot Kaca', '/assets/image/thumbnail/gatot-kaca-thumb.jpeg', NULL, 1, '', '2022-01-28 06:36:33', '2022-01-28 06:36:33'),
-(281, 'Sancu Thomas Train', '/assets/image/thumbnail/thomas-train-thumb.jpeg', NULL, 1, '', '2022-01-28 06:37:37', '2022-01-28 06:37:37'),
-(291, 'Sancu Dino', '/assets/image/thumbnail/dino-thumb.jpeg', 'New Product', 1, '', '2022-01-28 06:37:37', '2022-01-28 06:37:37'),
-(301, 'Sancu Superman', '/assets/image/thumbnail/superman-thumb.jpeg', NULL, 1, '', '2022-01-28 06:38:35', '2022-01-28 06:38:35'),
-(311, 'Sancu Batman', '/assets/image/thumbnail/batman-thumb.jpeg', NULL, 1, '', '2022-01-28 06:38:35', '2022-01-28 06:38:35'),
-(321, 'Sancu Little Pony Ungu', '/assets/image/thumbnail/little-pony-ungu-thumb.jpeg', NULL, 1, '', '2022-01-28 06:39:35', '2022-01-28 06:39:35'),
-(331, 'Sancu Sofia', '/assets/image/thumbnail/sofia-thumb.jpeg', NULL, 1, '', '2022-01-28 06:39:35', '2022-01-28 06:39:35'),
-(341, 'Sancu Udin Idin', '/assets/image/thumbnail/udin-idin-thumb.jpeg', 'Best Seller', 1, '', '2022-01-28 06:40:49', '2022-01-28 06:40:49'),
-(351, 'Sancu Little Bus Tayo', '/assets/image/thumbnail/little-bus-thumb.jpeg', NULL, 1, '', '2022-01-28 06:40:49', '2022-01-28 06:40:49');
+(1, 'Sancu Dolphin', 'produk/thumbnail/dolphin-thumb.jpeg', NULL, 1, '', '2022-01-28 03:08:05', '2022-03-27 21:45:41'),
+(11, 'Sancu Samurai', 'produk/thumbnail/samurai-thumb.jpeg', NULL, 1, '', '2022-01-28 06:24:02', '2022-03-27 07:05:00'),
+(21, 'Sancu Kodok hijau', 'produk/thumbnail/kodok-hijau-thumb.jpeg', NULL, 1, '', '2022-01-28 06:24:02', '2022-01-28 06:24:02'),
+(31, 'Sancu Finger Boy Kuning', 'produk/thumbnail/finger-boy-kuning-thumb.jpeg', NULL, 1, '', '2022-01-28 06:25:05', '2022-01-28 06:25:05'),
+(41, 'Sancu Sheep', 'produk/thumbnail/sheep-thumb.jpeg', NULL, 1, '', '2022-01-28 06:25:05', '2022-01-28 06:25:05'),
+(51, 'Sancu Cars Biru', 'produk/thumbnail/cars-biru-thumb.jpeg', NULL, 1, '', '2022-01-28 06:26:04', '2022-03-03 01:07:54'),
+(61, 'Sancu Toycop', 'produk/thumbnail/toycop-thumb.jpeg', NULL, 1, '', '2022-01-28 06:26:04', '2022-01-28 06:26:04'),
+(71, 'Sancu Pika-Pika', 'produk/thumbnail/pika-pika-thumb.jpeg', NULL, 1, '', '2022-01-28 06:27:01', '2022-01-28 06:27:01'),
+(81, 'Sancu Hudson Jessica', 'produk/thumbnail/hudson-thumb.jpeg', NULL, 1, '', '2022-01-28 06:27:01', '2022-01-28 06:27:01'),
+(101, 'Sancu Among Astro', 'produk/thumbnail/among-astro-thumb.jpeg', 'New Model', 1, '', '2022-01-28 06:28:22', '2022-01-28 06:28:22'),
+(111, 'Sancu Robot Merah', 'produk/thumbnail/robot-merah-thumb.jpeg', NULL, 1, '', '2022-01-28 06:28:22', '2022-01-28 06:28:22'),
+(121, 'Sancu George Monkey', 'produk/thumbnail/george-monkey-thumb.jpeg', NULL, 1, '', '2022-01-28 06:29:36', '2022-01-28 06:29:36'),
+(131, 'Sancu Doraemon', 'produk/thumbnail/doraemon-thumb.jpeg', 'Best Seller', 1, '', '2022-01-28 06:29:36', '2022-01-28 06:29:36'),
+(141, 'Sancu Cars Merah', 'produk/thumbnail/cars-biru-thumb.jpeg', NULL, 1, '', '2022-01-28 06:30:36', '2022-01-28 06:30:36'),
+(151, 'Sancu Cheese Kid', 'produk/thumbnail/cheese-kid-thumb.jpeg', NULL, 1, '', '2022-01-28 06:30:36', '2022-01-28 06:30:36'),
+(161, 'Sancu Boboy Boy', 'produk/thumbnail/boboy-boy-thumb.jpeg', 'Best Seller', 1, '', '2022-01-28 06:31:40', '2022-01-28 06:31:40'),
+(171, 'Sancu Baby Girl Pink', 'produk/thumbnail/baby-girl-pink-thumb.jpeg', 'Best Seller', 1, '', '2022-01-28 06:31:40', '2022-01-28 06:31:40'),
+(181, 'Sancu Kitty Ungu', 'produk/thumbnail/kitty-ungu-thumb.jpeg', NULL, 1, '', '2022-01-28 06:32:37', '2022-01-28 06:32:37'),
+(191, 'Sancu Kitty Merah', 'produk/thumbnail/kitty-merah-thumb.jpeg', NULL, 1, '', '2022-01-28 06:32:37', '2022-01-28 06:32:37'),
+(201, 'Sancu Spidi', 'produk/thumbnail/spidi-thumb.jpeg', 'Best Seller', 1, '', '2022-01-28 06:33:44', '2022-01-28 06:33:44'),
+(211, 'Sancu Ninja Boy', 'produk/thumbnail/ninja-boy-thumb.jpeg', NULL, 1, '', '2022-01-28 06:33:44', '2022-01-28 06:33:44'),
+(221, 'Sancu Baby Girl Ungu', 'produk/thumbnail/baby-girl-ungu-thumb.jpeg', 'Best Seller', 1, '', '2022-01-28 06:34:41', '2022-01-28 06:34:41'),
+(231, 'Sancu Baby Bear', 'produk/thumbnail/baby-bear-thumb.jpeg', NULL, 1, '', '2022-01-28 06:34:41', '2022-01-28 06:34:41'),
+(241, 'Sancu Little Girl Marsha', 'produk/thumbnail/little-girl-thumb.jpeg', NULL, 1, '', '2022-01-28 06:35:38', '2022-01-28 06:35:38'),
+(251, 'Sancu Princess', 'produk/thumbnail/princess-thumb.jpeg', 'Best Seller', 1, '', '2022-01-28 06:35:38', '2022-01-28 06:35:38'),
+(261, 'Sancu Bang Jarwo', 'produk/thumbnail/bang-jarwo-thumb.jpeg', NULL, 1, '', '2022-01-28 06:36:33', '2022-01-28 06:36:33'),
+(271, 'Sancu Gatot Kaca', 'produk/thumbnail/gatot-kaca-thumb.jpeg', NULL, 1, '', '2022-01-28 06:36:33', '2022-01-28 06:36:33'),
+(281, 'Sancu Thomas Train', 'produk/thumbnail/thomas-train-thumb.jpeg', NULL, 1, '', '2022-01-28 06:37:37', '2022-01-28 06:37:37'),
+(291, 'Sancu Dino', 'produk/thumbnail/dino-thumb.jpeg', 'New Product', 1, '', '2022-01-28 06:37:37', '2022-01-28 06:37:37'),
+(301, 'Sancu Superman', 'produk/thumbnail/superman-thumb.jpeg', NULL, 1, '', '2022-01-28 06:38:35', '2022-03-03 07:19:29'),
+(311, 'Sancu Batman', 'produk/thumbnail/batman-thumb.jpeg', NULL, 1, '', '2022-01-28 06:38:35', '2022-01-28 06:38:35'),
+(321, 'Sancu Little Pony Ungu', 'produk/thumbnail/little-pony-ungu-thumb.jpeg', NULL, 1, '', '2022-01-28 06:39:35', '2022-01-28 06:39:35'),
+(331, 'Sancu Sofia', 'produk/thumbnail/sofia-thumb.jpeg', NULL, 1, '', '2022-01-28 06:39:35', '2022-01-28 06:39:35'),
+(341, 'Sancu Udin Idin', 'produk/thumbnail/udin-idin-thumb.jpeg', 'Best Seller', 1, '', '2022-01-28 06:40:49', '2022-01-28 06:40:49'),
+(351, 'Sancu Little Bus Tayo', 'produk/thumbnail/little-bus-thumb.jpeg', NULL, 1, '', '2022-01-28 06:40:49', '2022-01-28 06:40:49'),
+(1484, 'Xtreme Gunung Water', 'produk/thumbnail/aoksdpaowjdpoajwfoj.jpg', NULL, 4, NULL, '2022-03-12 04:28:27', '2022-03-12 04:28:27'),
+(1966, 'Pretty Polos Merah', 'produk/thumbnail/9hnZ5fLDHMc3VE8EfncrBnFMaAEyphQX3u9FLe8o.jpg', NULL, 3, NULL, '2022-03-03 06:52:51', '2022-03-03 06:52:51'),
+(6153, 'Pretty Korea', 'produk/thumbnail/KAZOcDPVLXxwCf7GoMtCtmdd1tS69rKna0UZlbDs.jpg', NULL, 3, NULL, '2022-03-13 19:58:40', '2022-03-13 19:58:40'),
+(7769, 'Boncu Spider TPR', 'produk/thumbnail/zvQYfpaUNgtHtpJrEVNdlbb86T2NHdFS4FeFriNP.jpg', NULL, 2, NULL, '2022-03-13 03:57:07', '2022-03-13 04:14:32');
 
 -- --------------------------------------------------------
 
@@ -332,7 +668,7 @@ INSERT INTO `produks` (`id`, `nama_produk`, `gambar_url_produk`, `tag`, `id_cate
 --
 
 CREATE TABLE `produk_details` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` int(20) UNSIGNED NOT NULL,
   `id_produk` int(11) NOT NULL,
   `size` int(11) NOT NULL,
   `jumlah_stok` int(11) NOT NULL,
@@ -347,26 +683,26 @@ CREATE TABLE `produk_details` (
 --
 
 INSERT INTO `produk_details` (`id`, `id_produk`, `size`, `jumlah_stok`, `harga_produk`, `berat`, `created_at`, `updated_at`) VALUES
-(1, 1, 21, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 1, 24, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 1, 28, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 1, 30, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(5, 1, 32, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(6, 1, 34, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, 1, 36, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(8, 1, 38, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(9, 1, 40, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(10, 1, 42, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(11, 11, 21, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(12, 11, 24, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(13, 11, 28, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(14, 11, 30, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(15, 11, 32, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(16, 11, 34, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(17, 11, 36, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(18, 11, 38, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(19, 11, 40, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(20, 11, 42, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(1, 1, 21, 35, 16000, 300, '0000-00-00 00:00:00', '2022-03-27 21:45:41'),
+(2, 1, 24, 35, 16000, 300, '0000-00-00 00:00:00', '2022-03-27 21:45:41'),
+(3, 1, 28, 40, 17000, 300, '0000-00-00 00:00:00', '2022-03-27 21:45:41'),
+(4, 1, 30, 19, 17000, 300, '0000-00-00 00:00:00', '2022-03-27 21:45:41'),
+(5, 1, 32, 0, 17000, 300, '0000-00-00 00:00:00', '2022-03-27 21:45:41'),
+(6, 1, 34, 0, 18500, 300, '0000-00-00 00:00:00', '2022-03-27 21:45:41'),
+(7, 1, 36, 5, 18500, 300, '0000-00-00 00:00:00', '2022-03-27 21:45:41'),
+(8, 1, 38, 5, 24000, 300, '0000-00-00 00:00:00', '2022-03-27 21:45:41'),
+(9, 1, 40, 0, 20000, 300, '0000-00-00 00:00:00', '2022-03-27 21:45:41'),
+(10, 1, 42, 10, 22000, 300, '0000-00-00 00:00:00', '2022-03-27 21:45:41'),
+(11, 11, 21, 40, 14000, 300, '0000-00-00 00:00:00', '2022-03-27 07:05:00'),
+(12, 11, 24, 55, 16000, 300, '0000-00-00 00:00:00', '2022-03-27 07:05:00'),
+(13, 11, 28, 55, 17000, 300, '0000-00-00 00:00:00', '2022-03-27 07:05:00'),
+(14, 11, 30, 40, 17000, 300, '0000-00-00 00:00:00', '2022-03-27 07:05:00'),
+(15, 11, 32, 50, 17000, 300, '0000-00-00 00:00:00', '2022-03-27 07:05:00'),
+(16, 11, 34, 50, 18500, 300, '0000-00-00 00:00:00', '2022-03-27 07:05:00'),
+(17, 11, 36, 50, 18500, 300, '0000-00-00 00:00:00', '2022-03-27 07:05:00'),
+(18, 11, 38, 50, 20000, 300, '0000-00-00 00:00:00', '2022-03-27 07:05:00'),
+(19, 11, 40, 50, 20000, 300, '0000-00-00 00:00:00', '2022-03-27 07:05:00'),
+(20, 11, 42, 50, 20000, 300, '0000-00-00 00:00:00', '2022-03-27 07:05:00'),
 (21, 21, 21, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (22, 21, 24, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (23, 21, 28, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -374,22 +710,22 @@ INSERT INTO `produk_details` (`id`, `id_produk`, `size`, `jumlah_stok`, `harga_p
 (25, 21, 32, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (26, 21, 34, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (27, 21, 36, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(28, 21, 38, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(28, 21, 38, 29, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (29, 21, 40, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (30, 21, 42, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (31, 31, 21, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(32, 31, 24, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(32, 31, 24, 40, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (33, 31, 28, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(34, 31, 30, 38, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(34, 31, 30, 28, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (35, 31, 32, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (36, 31, 34, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (37, 31, 36, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(38, 31, 38, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(39, 31, 40, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(40, 31, 42, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(38, 31, 38, 35, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(39, 31, 40, 30, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(40, 31, 42, 40, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (41, 41, 21, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (42, 41, 24, 44, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(43, 41, 28, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(43, 41, 28, 0, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (44, 41, 30, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (45, 41, 32, 44, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (46, 41, 34, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -397,16 +733,16 @@ INSERT INTO `produk_details` (`id`, `id_produk`, `size`, `jumlah_stok`, `harga_p
 (48, 41, 38, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (49, 41, 40, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (50, 41, 42, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(51, 51, 21, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(52, 51, 24, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(53, 51, 28, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(54, 51, 30, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(55, 51, 32, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(56, 51, 34, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(57, 51, 36, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(58, 51, 38, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(59, 51, 40, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(60, 51, 42, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(51, 51, 21, 40, 16000, 300, '0000-00-00 00:00:00', '2022-03-03 01:07:54'),
+(52, 51, 24, 40, 16000, 300, '0000-00-00 00:00:00', '2022-03-03 01:07:54'),
+(53, 51, 28, 50, 17000, 300, '0000-00-00 00:00:00', '2022-03-03 01:07:54'),
+(54, 51, 30, 60, 17000, 300, '0000-00-00 00:00:00', '2022-03-03 01:07:54'),
+(55, 51, 32, 40, 17000, 300, '0000-00-00 00:00:00', '2022-03-03 01:07:54'),
+(56, 51, 34, 50, 18500, 300, '0000-00-00 00:00:00', '2022-03-03 01:07:54'),
+(57, 51, 36, 50, 18500, 300, '0000-00-00 00:00:00', '2022-03-03 01:07:54'),
+(58, 51, 38, 50, 20000, 300, '0000-00-00 00:00:00', '2022-03-03 01:07:54'),
+(59, 51, 40, 50, 20000, 300, '0000-00-00 00:00:00', '2022-03-03 01:07:54'),
+(60, 51, 42, 50, 30000, 300, '0000-00-00 00:00:00', '2022-03-03 01:07:54'),
 (61, 61, 21, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (62, 61, 24, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (63, 61, 28, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -429,7 +765,7 @@ INSERT INTO `produk_details` (`id`, `id_produk`, `size`, `jumlah_stok`, `harga_p
 (80, 71, 42, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (81, 81, 21, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (82, 81, 24, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(83, 81, 28, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(83, 81, 28, 10, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (84, 81, 30, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (85, 81, 32, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (86, 81, 34, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -437,13 +773,13 @@ INSERT INTO `produk_details` (`id`, `id_produk`, `size`, `jumlah_stok`, `harga_p
 (88, 81, 38, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (89, 81, 40, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (90, 81, 42, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(101, 101, 21, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(102, 101, 24, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(101, 101, 21, 40, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(102, 101, 24, 20, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (103, 101, 28, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(104, 101, 30, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(104, 101, 30, 45, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (105, 101, 32, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (106, 101, 34, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(107, 101, 36, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(107, 101, 36, 40, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (108, 101, 38, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (109, 101, 40, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (110, 101, 42, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -507,10 +843,10 @@ INSERT INTO `produk_details` (`id`, `id_produk`, `size`, `jumlah_stok`, `harga_p
 (168, 161, 38, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (169, 161, 40, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (170, 161, 42, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(171, 171, 21, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(171, 171, 21, 40, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (172, 171, 24, 46, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(173, 171, 28, 28, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(174, 171, 30, 45, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(173, 171, 28, 18, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(174, 171, 30, 35, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (175, 171, 32, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (176, 171, 34, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (177, 171, 36, 44, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -637,16 +973,16 @@ INSERT INTO `produk_details` (`id`, `id_produk`, `size`, `jumlah_stok`, `harga_p
 (298, 291, 38, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (299, 291, 40, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (300, 291, 42, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(301, 301, 21, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(302, 301, 24, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(303, 301, 28, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(304, 301, 30, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(305, 301, 32, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(306, 301, 34, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(307, 301, 36, 50, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(308, 301, 38, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(309, 301, 40, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(310, 301, 42, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(301, 301, 21, 0, 16000, 300, '0000-00-00 00:00:00', '2022-03-03 07:19:29'),
+(302, 301, 24, 50, 16000, 300, '0000-00-00 00:00:00', '2022-03-03 07:19:29'),
+(303, 301, 28, 50, 17000, 300, '0000-00-00 00:00:00', '2022-03-03 07:19:29'),
+(304, 301, 30, 50, 17000, 300, '0000-00-00 00:00:00', '2022-03-03 07:19:29'),
+(305, 301, 32, 50, 17000, 300, '0000-00-00 00:00:00', '2022-03-03 07:19:29'),
+(306, 301, 34, 50, 18500, 300, '0000-00-00 00:00:00', '2022-03-03 07:19:29'),
+(307, 301, 36, 50, 18500, 300, '0000-00-00 00:00:00', '2022-03-03 07:19:29'),
+(308, 301, 38, 50, 20000, 300, '0000-00-00 00:00:00', '2022-03-03 07:19:29'),
+(309, 301, 40, 50, 20000, 300, '0000-00-00 00:00:00', '2022-03-03 07:19:29'),
+(310, 301, 42, 50, 20000, 300, '0000-00-00 00:00:00', '2022-03-03 07:19:29'),
 (311, 311, 21, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (312, 311, 24, 50, 16000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (313, 311, 28, 50, 17000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -696,7 +1032,22 @@ INSERT INTO `produk_details` (`id`, `id_produk`, `size`, `jumlah_stok`, `harga_p
 (357, 351, 36, 39, 18500, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (358, 351, 38, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (359, 351, 40, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(360, 351, 42, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(360, 351, 42, 50, 20000, 300, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(148440, 1484, 40, 0, 40000, 300, '2022-03-12 04:28:27', '2022-03-12 04:28:27'),
+(148441, 1484, 41, 85, 40000, 300, '2022-03-12 04:28:27', '2022-03-12 04:28:27'),
+(148442, 1484, 42, 90, 40000, 300, '2022-03-12 04:28:27', '2022-03-12 04:28:27'),
+(148443, 1484, 43, 80, 50000, 300, '2022-03-12 04:28:27', '2022-03-12 04:28:27'),
+(196630, 1966, 30, 74, 10000, 300, '2022-03-03 06:52:51', '2022-03-03 06:52:51'),
+(196632, 1966, 32, 75, 12000, 300, '2022-03-03 06:52:51', '2022-03-03 06:52:51'),
+(196634, 1966, 34, 80, 14000, 300, '2022-03-03 06:52:51', '2022-03-03 06:52:51'),
+(196636, 1966, 36, 0, 16000, 300, '2022-03-03 06:52:51', '2022-03-03 06:52:51'),
+(776921, 7769, 21, 35, 12000, 200, '2022-03-13 03:57:07', '2022-03-13 04:14:32'),
+(776924, 7769, 24, 50, 12000, 200, '2022-03-13 03:57:07', '2022-03-13 04:14:32'),
+(776928, 7769, 28, 59, 12000, 200, '2022-03-13 03:57:07', '2022-03-13 04:14:32'),
+(776930, 7769, 30, 0, 11000, 250, '2022-03-13 03:57:07', '2022-03-13 04:14:32'),
+(61533536, 6153, 3536, 95, 21000, 100, '2022-03-13 19:58:40', '2022-03-13 19:58:40'),
+(61533738, 6153, 3738, 100, 21000, 100, '2022-03-13 19:58:40', '2022-03-13 19:58:40'),
+(61533940, 6153, 3940, 100, 21000, 100, '2022-03-13 19:58:40', '2022-03-13 19:58:40');
 
 -- --------------------------------------------------------
 
@@ -738,6 +1089,7 @@ CREATE TABLE `status_pesanan` (
 --
 
 INSERT INTO `status_pesanan` (`id`, `keterangan`) VALUES
+(0, 'Dibatalkan'),
 (1, 'Menunggu Ongkir'),
 (2, 'Telah di Proses'),
 (3, 'Konfirmasi Pembayaran'),
@@ -769,9 +1121,12 @@ CREATE TABLE `stoks` (
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telepon` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -781,8 +1136,38 @@ CREATE TABLE `users` (
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Mal', 'sancuwebmaster@gmail.com', NULL, '$2y$10$biM64gpgFkXnws.gTJfaLOCh9hN.7Fo39i4ibj6F4Q8A4hShoXNtm', '9d5to1BpaUj2hAaNz63mOXHuGgoI33jUi0OVG3c0K8csqSflBD', '2021-11-04 23:37:42', '2021-11-04 23:37:42');
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `password`, `role`, `telepon`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Mala', 'malcorp', 'sancuwebmaster@gmail.com', NULL, '$2y$10$A.LnrmNZVvAobf1C7ermmeIEm4ZiDKLycWM5BxklHv2BHhu0GlULy', 'admin', '62856112233440', '9d5to1BpaUj2hAaNz63mOXHuGgoI33jUi0OVG3c0K8csqSflBD', '2021-11-04 23:37:42', '2022-03-22 06:29:11'),
+(3, 'Tes akun Distributor 1', 'sancu1', 'sancu1@gmail.com', NULL, '$2y$10$vIBh9lRWYG1JHMpB.eZo.ejjd7SiBErtVpdPI./QQn73fQL7LR0pG', 'db', '6281284658324', NULL, '2022-03-07 06:10:45', '2022-03-22 06:30:34'),
+(4, 'Yusuf', 'sancu2', 'sancu2@gmail.com', NULL, '$2y$10$/MNvdW8igpfoTuECnw4GD.xfOyiDLjdyGPy0qTLbGroGtPP2fqYgG', 'db', '6281233445566', NULL, '2022-03-12 02:55:44', '2022-03-22 06:29:24'),
+(5, 'Firman', 'mal123', 'sancu3@gmail.com', NULL, '$2y$10$TqYgsVbM7GmJe5hjf.OHSe6Icu6l3f3NXUkxPrfthc1v.vZnlYhC6', 'db', '6281290723643', NULL, '2022-03-13 19:54:27', '2022-03-22 06:29:31'),
+(6, 'Tes akun Distributor 4', 'sancu4', 'sancu4@gmail.com', NULL, '$2y$10$I.sCcyUml5souhHVFZWw7u8hsHiY1DPg88OxBT7Po49dE5fuuzBzO', 'db', '6281233445566', NULL, '2022-03-24 01:51:24', '2022-03-24 01:51:24');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `whatsapps`
+--
+
+CREATE TABLE `whatsapps` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `text` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `whatsapps`
+--
+
+INSERT INTO `whatsapps` (`id`, `nama`, `text`, `created_at`, `updated_at`) VALUES
+(0, 'dibatalkan', 'Halo {{$order->name}}, order anda dibatalkan', NULL, NULL),
+(1, 'Menunggu Ongkir', 'menunggu ongkir', NULL, '2022-03-22 06:12:28'),
+(2, 'Di proses', 'order sudah di proses', NULL, '2022-03-22 06:12:28'),
+(3, 'Konfirmasi pembayaran', 'pembayaran sedang kami validasi', NULL, '2022-03-22 06:12:28'),
+(4, 'Dikirim', 'pesanan anda sudah dikirim silakan cek resi', NULL, '2022-03-22 06:12:28'),
+(5, 'selesai', 'pesanan sudah selesai', NULL, '2022-03-22 06:12:28');
 
 --
 -- Indexes for dumped tables
@@ -807,6 +1192,12 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `configs`
+--
+ALTER TABLE `configs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `coupons`
 --
 ALTER TABLE `coupons`
@@ -819,6 +1210,18 @@ ALTER TABLE `coupons`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indeks untuk tabel `kartu_stoks`
+--
+ALTER TABLE `kartu_stoks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `log_items`
+--
+ALTER TABLE `log_items`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `migrations`
@@ -890,6 +1293,12 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Indeks untuk tabel `whatsapps`
+--
+ALTER TABLE `whatsapps`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -897,25 +1306,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `alamats`
 --
 ALTER TABLE `alamats`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT untuk tabel `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=219;
 
 --
 -- AUTO_INCREMENT untuk tabel `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT untuk tabel `configs`
+--
+ALTER TABLE `configs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `coupons`
 --
 ALTER TABLE `coupons`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
@@ -924,22 +1339,34 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `kartu_stoks`
+--
+ALTER TABLE `kartu_stoks`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+
+--
+-- AUTO_INCREMENT untuk tabel `log_items`
+--
+ALTER TABLE `log_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT untuk tabel `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
@@ -951,13 +1378,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT untuk tabel `produks`
 --
 ALTER TABLE `produks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=352;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7962;
 
 --
 -- AUTO_INCREMENT untuk tabel `produk_details`
 --
 ALTER TABLE `produk_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=361;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61533941;
 
 --
 -- AUTO_INCREMENT untuk tabel `slide_banners`
@@ -975,7 +1402,7 @@ ALTER TABLE `stoks`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

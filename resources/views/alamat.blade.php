@@ -29,7 +29,7 @@
     </div>
     @if(!$alamat->utama)
     <div class="row">
-        <div class="col-4">
+        <div class="col-6">
             <a href="/profil/alamat_utama/{{$alamat->id}}"class="btn btn-sm btn-success text-white">Jadikan utama</a>
         </div>
         

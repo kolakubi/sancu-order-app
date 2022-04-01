@@ -90,7 +90,7 @@
                     <input type="number" min=0 value="{{ $item->jumlah_produk }}" class="form-control px-1 py-2"
                     data-harga="{{$item->harga_produk}}"
                     data-id-produk="{{$item->id_produk_detail}}"
-                    name="input-{{$item->id_produk_detail}}-{{$item->carts_id}}">
+                    name="input-{{$item->id_produk_detail}}-{{$item->carts_id}}" readonly>
                     {{-- add button --}}
                     <button class="btn btn-warning p-2 add-button" onclick="increaseItem(this)"
                     data-id-cart="{{$item->carts_id}}"

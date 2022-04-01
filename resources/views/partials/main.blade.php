@@ -33,9 +33,9 @@
         
         <div class="d-flex flex-row align-items-center justify-content-center p-1">
           <h6 class="text text-light mb-0">Hi, {{auth()->user()->name}}</h6>
-          <button class="btn">
-            <i class="bi bi-bell-fill text-light"></i>
-          </button>
+          <a href="/logout" class="btn">
+            <i class="bi bi-box-arrow-in-right text-light" style="font-size: 1.3em"></i>
+          </a>
         </div>
         
       </div>

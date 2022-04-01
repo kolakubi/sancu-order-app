@@ -16,8 +16,8 @@
 
     {{-- image --}}
     <div class="row mal-list-produk-container p-3">
-        <div class="col-12 ">
-            <img src="/assets/image/profil-foto-thumb.jpg" class="img-fluid rounded-circle mt-3">
+        <div class="col-12 d-flex flex-column align-items-center justify-content-center ">
+            <img src="/assets/image/logo-sancu-app-1.jpg" class="img-fluid rounded-circle mt-3" style="max-width: 200px;">
             <h5 class="text-center mt-2">{{auth()->user()->name}}</h5>
             <h6 class="text-center mal-text-gold">Member Gold</h6>
         </div>
