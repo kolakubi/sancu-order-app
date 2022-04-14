@@ -46,7 +46,16 @@
                 <span class="text-danger" style="margin-top: -5px">{{$message}}</span>
               @enderror
               <div class="form-group mb-3">
-                <input type="password" class="form-control p-2 @error('password') border border-danger @enderror" id="exampleInputPassword1" placeholder="Password" name="password">
+                <div class="input-group" id="toggle-password">
+                  <input type="password" class="form-control p-2 @error('password') border border-danger @enderror" id="passwordInput" placeholder="Password" name="password">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text" style="height: 100%">
+                      <a href="" id="eye"><i class="bi bi-eye-slash"></i></a>
+                    </div>
+                    
+                  </div>
+                </div>
+                
               </div>
               <button type="submit" class="btn btn-primary p-2" style="width: 100%; ">Submit</button>
           </form>
@@ -55,12 +64,39 @@
 
         </div>
 
-        
     </div>
 
-    
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script>
+      function togglePassword(){
+        const elemToggle = document.getElementById('toggle-password');
+        const eye = document.getElementById('eye');
+        const eyeLogo = eye.firstElementChild;
+        const passwordInput = document.getElementById('passwordInput');
+
+        eye.addEventListener('click', (e)=>{
+          e.preventDefault();
+          // ganti logo
+          if(eyeLogo.classList.contains('bi-eye-slash')){
+            eyeLogo.classList.remove('bi-eye-slash');
+            eyeLogo.classList.add('bi-eye-fill');
+          }
+          else{
+            eyeLogo.classList.remove('bi-eye-fill');
+            eyeLogo.classList.add('bi-eye-slash');
+          }
+          // ganti type input
+          if(passwordInput.type == 'password'){
+            passwordInput.type = 'text';
+          }
+          else{
+            passwordInput.type = 'password';
+          }
+        })
+      }
+
+      togglePassword()
+    </script>
 </body>
 
 </html>

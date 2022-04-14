@@ -203,6 +203,33 @@
         </div>
     </div>
 
+    {{-- Dropship --}}
+    <div class="row mal-list-produk-container p-4">
+        <div class="row">
+            <div class="col-6">
+                <h6>Dropship</h6>
+            </div>
+            <div class="col-6 d-flex align-items-center flex-row-reverse">
+                <div>
+                    <input class="form-check-input" type="checkbox" value="" id="dropshipToggle">
+                </div>
+            </div>
+        </div>
+        <div class="row" id="dropshipForm" style="display: none;">
+            <div class="col-12">
+                <div class="form-group mb-2">
+                    <input type="text" class="form-control" placeholder="Nama Penerima..." id="dropshipNama">
+                </div>
+                <div class="form-group mb-2">
+                    <input type="text" class="form-control" placeholder="Telepon..." id="dropshipTelepon">
+                </div>
+                <div class="form-group mb-2">
+                    <textarea type="text" class="form-control" placeholder="Alamat..." rows="6" id="dropshipAlamat"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- total keranjang --}}
     <div class="row mal-list-produk-container p-4">
         <div class="col-6">
@@ -239,6 +266,22 @@
     <script>
         let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         let potonganCoupon = 0;
+
+        function dropship(){
+            const dropshipToggle = document.getElementById('dropshipToggle');
+            const dropshipForm = document.getElementById('dropshipForm');
+
+            dropshipToggle.addEventListener('change', (e)=>{
+                if(dropshipToggle.checked){
+                    dropshipForm.style.display = 'block';
+                }
+                else{
+                    dropshipForm.style.display = 'none';
+                }
+            })
+            
+        }
+        dropship();
 
         function increaseItem(a){
             document.getElementById('mal-loading-overlay').style.display = 'flex';
@@ -606,7 +649,58 @@
             }, 500);
         }
 
+        function checkDropshipData(){
+            const dropshipToggle = document.getElementById('dropshipToggle');
+
+            if(dropshipToggle.checked){
+                const dropshipNama = document.getElementById('dropshipNama').value;
+                const dropshipTelepon = document.getElementById('dropshipTelepon').value;
+                const dropshipAlamat = document.getElementById('dropshipAlamat').value;
+
+                if(dropshipNama == '' || dropshipTelepon == '' || dropshipAlamat == ''){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Data Dropship Tidak Lengkap',
+                        text: 'Mohon lengkapi data ',
+                    })
+
+                    return false;
+                }
+
+                return {
+                    'status' : 1,
+                    'nama' : dropshipNama,
+                    'telepon' : dropshipTelepon,
+                    'alamat' : dropshipAlamat
+                }
+            }
+        }
+
         function checkout(){ 
+
+            //
+            // dropship
+            //
+            let dropship = {
+                'status' : 0,
+                'nama' : '',
+                'telepon' : '',
+                'alamat' : ''
+            };
+            const dropshipToggle = document.getElementById('dropshipToggle');
+            
+            if(dropshipToggle.checked){
+                if(!checkDropshipData()){
+                    return false;
+                }
+                else{
+                    dropship = checkDropshipData();
+                }
+            }
+            //
+            // end dropship
+            //
+
             // show overlay loading
             document.getElementById('mal-loading-overlay').style.display = 'flex';
 
@@ -615,13 +709,6 @@
             if(idAlamat == 0){
                 window.location.href = "/profil/alamat";
                 return false;
-                // Swal.fire({
-                //     icon: 'error',
-                //     title: 'Mohon isi alamat anda',
-                //     text: 'Tidak bisa melakukan checkout',
-                // }).then((result) => {
-                    
-                // })
             }
 
             let coupon = document.getElementById('kodeCoupon').value;
@@ -629,11 +716,13 @@
             let postData = {
                 'id_alamat': idAlamat,
                 'coupon': coupon,
-                'berat': berat
+                'berat': berat,
+                'dropship' : dropship
             }
-            console.log('id alamat', idAlamat);
-            console.log('coupon', coupon);
-            console.log('berat', berat);
+            // console.log('id alamat', idAlamat);
+            // console.log('coupon', coupon);
+            // console.log('berat', berat);
+            // console.log('dropship', dropship);
 
             fetch("/keranjang/checkout", {
                     headers: {

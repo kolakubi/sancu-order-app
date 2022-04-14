@@ -107,34 +107,87 @@
     @endforeach
 
     {{-- pengiriman --}}
-    <div class="row mal-list-produk-container p-3 d-flex align-items-center">
-        <table class="table">
-            <tr>
-                <td style="width: 50%">Order Id</td>
-                <td style="width: 50%">: <strong>{{$alamat->id}}</strong></td>
-            </tr>
-            <tr>
-                <td>Tanggal</td>
-                <td>: <strong>{{$items[0]->tgl_order}}</strong></td>
-            </tr>
-            <tr>
-                <td>Berat Total</td>
-                <td>: <strong>{{number_format($totalBerat, 0)}}g</strong></td>
-            </tr>
-            <tr>
-                <td>Penerima</td>
-                <td>: <strong>{{$alamat->nama_lengkap}}</strong></td>
-            </tr>
-            <tr>
-                <td>Telepon</td>
-                <td>: <strong>{{$alamat->telepon}}</strong></td>
-            </tr>
-            <tr>
-                <td>Alamat</td>
-                <td>: <strong>{{$alamat->alamat_lengkap}}, {{$alamat->kecamatan}}, {{$alamat->kota_kabupaten}}, {{$alamat->propinsi}}, {{$alamat->kode_pos}}</strong></td>
-            </tr>
-        </table>
-    </div>
+    @if($alamat->dropship)
+        <div class="row mal-list-produk-container p-3 d-flex align-items-center">
+            <table class="table">
+                <tr>
+                    <td style="width: 50%">Order Id</td>
+                    <td style="width: 50%">: <strong>{{$alamat->id}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Tanggal</td>
+                    <td>: <strong>{{$items[0]->tgl_order}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Berat Total</td>
+                    <td>: <strong>{{number_format($totalBerat, 0)}}g</strong></td>
+                </tr>
+            </table>
+        </div>
+        <div class="row mal-list-produk-container p-3 d-flex align-items-center">
+            <h5 class="text-center"><strong>Sebagai Dropship</strong></h5>
+            <h6><strong>Penerima</strong></h6>
+            <table class="table">
+                <tr>
+                    <td style="width: 50%">Penerima</td>
+                    <td style="width: 50%">: <strong>{{$alamat->dropship_nama}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Telepon</td>
+                    <td>: <strong>{{$alamat->dropship_telepon}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Alamat</td>
+                    <td>: <strong>{{$alamat->dropship_alamat}}</strong></td>
+                </tr>
+            </table>
+
+            <h6 class="mt-3"><strong>Pengirim</strong></h6>
+            <table class="table">
+                <tr>
+                    <td style="width: 50%">Pengirim</td>
+                    <td style="width: 50%">: <strong>{{$alamat->nama_lengkap}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Telepon Pengirim</td>
+                    <td>: <strong>{{$alamat->telepon}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Alamat Pengirim</td>
+                    <td>: <strong>{{$alamat->alamat_lengkap}}, {{$alamat->kecamatan}}, {{$alamat->kota_kabupaten}}, {{$alamat->propinsi}}, {{$alamat->kode_pos}}</strong></td>
+                </tr>
+            </table>
+        </div>
+    @else
+        <div class="row mal-list-produk-container p-3 d-flex align-items-center">
+            <table class="table">
+                <tr>
+                    <td style="width: 50%">Order Id</td>
+                    <td style="width: 50%">: <strong>{{$alamat->id}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Tanggal</td>
+                    <td>: <strong>{{$items[0]->tgl_order}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Berat Total</td>
+                    <td>: <strong>{{number_format($totalBerat, 0)}}g</strong></td>
+                </tr>
+                <tr>
+                    <td>Penerima</td>
+                    <td>: <strong>{{$alamat->nama_lengkap}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Telepon</td>
+                    <td>: <strong>{{$alamat->telepon}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Alamat</td>
+                    <td>: <strong>{{$alamat->alamat_lengkap}}, {{$alamat->kecamatan}}, {{$alamat->kota_kabupaten}}, {{$alamat->propinsi}}, {{$alamat->kode_pos}}</strong></td>
+                </tr>
+            </table>
+        </div>
+    @endif
 
     {{-- angka --}}
     <div class="row mal-list-produk-container p-3 d-flex align-items-center">

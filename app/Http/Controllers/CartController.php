@@ -161,6 +161,10 @@ class CartController extends Controller
             'id_user' => auth()->user()->id,
             'id_alamat' => $data->id_alamat,
             'coupon' => $data->coupon,
+            'dropship' => $data->dropship['status'],
+            'dropship_nama' => $data->dropship['nama'],
+            'dropship_telepon' => $data->dropship['telepon'],
+            'dropship_alamat' => $data->dropship['alamat'], 
             'status' => '1'
         ]);
         // 
