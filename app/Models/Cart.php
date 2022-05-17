@@ -47,6 +47,14 @@ class Cart extends Model
         }
     }
 
+    public static function get_saldo_terakhir_kartu_stok($id_item_detail){
+        return $data = DB::table('kartu_stoks')
+            ->select('*')
+            ->where('id_produk_detail', $id_item_detail)
+            ->latest('created_at')
+            ->first()->saldo;
+    }
+
     public static function get_stok_data($id){
         return $data = DB::table('produk_details')
             ->where('id', $id)

@@ -19,7 +19,7 @@
             <h6>{{$alamat->nama_lengkap}} @if($alamat->utama) <span class="text-danger">[{{'Utama'}}]</span> @endif</h6>
             <p>{{$alamat->telepon}}<br>
             {{$alamat->alamat_lengkap}}<br>
-            {{$alamat->kecamatan}}, {{$alamat->kota_kabupaten}}, {{$alamat->propinsi}}, {{$alamat->kode_pos}}</p>
+            {{$alamat->kelurahan}}, {{$alamat->kecamatan}}, {{$alamat->kota_kabupaten}}, {{$alamat->propinsi}}, {{$alamat->kode_pos}}</p>
         </div>
         <div class="col-2 d-flex align-items-center justify-content-center">
             @if($alamat->utama)

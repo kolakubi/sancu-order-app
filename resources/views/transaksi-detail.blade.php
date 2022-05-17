@@ -205,6 +205,10 @@
                 <td>: <strong>Rp {{number_format($items[0]->ongkir,0)}}</strong></td>
             </tr>
             <tr>
+                <td>Ekspedisi</td>
+                <td>: <strong>{{$alamat->ekspedisi == '' ? '-' : $alamat->ekspedisi}}</strong></td>
+            </tr>
+            <tr>
                 <td>Coupon</td>
                 <td>: <strong>{{$coupons != null ? $coupons->name : '-'}}</strong></td>
             </tr>
@@ -248,6 +252,7 @@
     @if($items[0]->status == '1')
     <div class="row mal-list-produk-container p-3 d-flex align-items-center">
         <div class="col-12 text-center">
+            {{-- <form id="batalkan_pesanan"> --}}
             <form action="{{route('transaksi_batal')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="orders_id" value="{{$alamat->id}}">
@@ -309,38 +314,56 @@
     <script src="/assets/sweet-alert/sweetalert2.all.min.js"></script>
 
     <script>
+
+        const batalkan_pesanan = document.getElementById('batalkan_pesanan');
+        if(batalkan_pesanan.addEventListener){
+            batalkan_pesanan.addEventListener('submit', (e)=>{
+                console.log('submit');
+                e.preventDefault();
+                window.history.back();
+            }, true)
+        }
+        
+
+        // function batalkan_pesanan(){
+        //     console.log('batalkan_pesanan');
+        //     return false;
+        // }
+
         const formBuktiBayar = document.getElementById('form_bukti_bayar');
-        let fileInput = formBuktiBayar.querySelector('.mal-file-input');
+        if(formBuktiBayar.addEventListener){
+            let fileInput = formBuktiBayar.querySelector('.mal-file-input');
 
-        fileInput.onchange = ({target}) => {
-            let file = target.files[0];
-            console.log(file);
-            if(file){
-                let fileName = file.name;
-                console.log(fileName);
-                // cek tipe file
-                if(file.type == 'image/png' || file.type == 'image/jpeg' || file.type == 'image/jpg' ){
+            fileInput.onchange = ({target}) => {
+                let file = target.files[0];
+                console.log(file);
+                if(file){
+                    let fileName = file.name;
+                    console.log(fileName);
+                    // cek tipe file
+                    if(file.type == 'image/png' || file.type == 'image/jpeg' || file.type == 'image/jpg' ){
 
-                    // cek size
-                    if(file.size > (1000*1000*2)){
+                        // cek size
+                        if(file.size > (1000*1000*2)){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'File Lebih Besar Dari 2MB',
+                            });
+
+                            return false;
+                        }
+                        else{
+                            uploadFile(fileName);
+                        }
+                    }
+                    else{
                         Swal.fire({
                             icon: 'error',
-                            title: 'File Lebih Besar Dari 2MB',
+                            title: 'Bukan File Image',
                         });
 
                         return false;
                     }
-                    else{
-                        uploadFile(fileName);
-                    }
-                }
-                else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Bukan File Image',
-                    });
-
-                    return false;
                 }
             }
         }

@@ -192,11 +192,15 @@ class CartController extends Controller
             Order_details::Update_stok($item);
 
             // update kartu stok
+            // ambil saldo stok terakhir
+            $data_saldo_terakhir = Cart::get_saldo_terakhir_kartu_stok($item->id_produk_detail);
+
             Kartu_stok::create([
                 'id_produk_detail' => $item->id_produk_detail,
                 'status' => 'out',
                 'jumlah' => $item->jumlah_produk,
                 'keterangan' => 'order agen nomor #'.$insertId,
+                'saldo' => $data_saldo_terakhir - (int)$item->jumlah_produk
             ]);
         }
         //

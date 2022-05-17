@@ -19,7 +19,7 @@
         </div>
         <div class="col-6 rounded">
             <a href="#">
-                <img src="assets/image/promo-pretty.jpg" alt="" class="img-fluid">
+                <img src="assets/image/promo-pretty.jpg" alt="" class="img-fluid rounded">
             </a>
         </div>
     </div>

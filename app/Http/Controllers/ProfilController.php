@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Kartu_stok;
 use App\Models\Order_details;
 use App\Models\Config;
+use App\Models\Cart;
 
 class ProfilController extends Controller
 {
@@ -146,6 +147,7 @@ class ProfilController extends Controller
             'propinsi' => 'required|not_in:0',
             'kabupaten' => 'required|not_in:0',
             'kecamatan' => 'required|not_in:0',
+            'kelurahan' => 'required|not_in:0',
             'alamat_lengkap' => 'required',
             'kode_pos' => 'required'
         ]);
@@ -199,13 +201,18 @@ class ProfilController extends Controller
             ]);
         // ambil detail produk
         $detail_item = Order::get_order_item_detail($request->orders_id);
-        // update kartu stok
+
         foreach($detail_item as $item){
+            // update kartu stok
+            // ambil saldo stok terakhir
+            $data_saldo_terakhir = Cart::get_saldo_terakhir_kartu_stok($item->id_produk_detail);
+
             Kartu_stok::create([
                 'id_produk_detail' => $item->id_produk_detail,
                 'status' => 'in',
                 'jumlah' => $item->jumlah_produk,
                 'keterangan' => 'pembatalan order agen no #'.$item->id_order,
+                'saldo' => $data_saldo_terakhir + (int)$item->jumlah_produk
             ]);
 
             // update stok items

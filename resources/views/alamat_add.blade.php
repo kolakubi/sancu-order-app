@@ -58,6 +58,14 @@
                 <option value=0>-- Kecamatan --</option>
             </select>
 
+             {{-- kelurahan --}}
+             @error('kelurahan')
+                <span class="bg-danger text-light px-2" style="margin-top: -5px">{{$message}}</span>
+            @enderror
+            <select class="form-control mb-1" name="kelurahan" id="kelurahan">
+                <option value=0>-- kelurahan --</option>
+            </select>
+
             {{-- alamat lengkap --}}
             @error('alamat_lengkap')
                 <span class="bg-danger text-light px-2" style="margin-top: -5px">{{$message}}</span>
@@ -95,6 +103,7 @@
         <input type="hidden" id="elemPropinsiHidden" name="nama_propinsi" value="">
         <input type="hidden" id="elemKabupatenHidden" name="nama_kabupaten" value="">
         <input type="hidden" id="elemKecamatanHidden" name="nama_kecamatan" value="">
+        <input type="hidden" id="elemKelurahanHidden" name="nama_kelurahan" value="">
 
         {{-- button submit --}}
         <div class="form-group">
@@ -108,9 +117,11 @@
     let elemPropinsi = document.getElementById('propinsi');
     let elemKabupaten = document.getElementById('kabupaten');
     let elemKecamatan = document.getElementById('kecamatan');
+    let elemKelurahan = document.getElementById('kelurahan');
     let elemPropinsiHidden = document.getElementById('elemPropinsiHidden');
     let elemKabupatenHidden = document.getElementById('elemKabupatenHidden');
     let elemKecamatanHidden = document.getElementById('elemKecamatanHidden');
+    let elemKelurahanHidden = document.getElementById('elemKelurahanHidden');
 
     ///////////////////////////////////////////////////
     // sumber api
@@ -118,6 +129,7 @@
     let apiUrlPropinsi = 'https://dev.farizdotid.com/api/daerahindonesia/provinsi';
     let apiUrlKabupaten = 'https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=';
     let apiUrlKecamata = 'https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=';
+    let apiUrlKelurahan = 'https://dev.farizdotid.com/api/daerahindonesia/kelurahan?id_kecamatan=';
 
     // get propinsi
     fetch(apiUrlPropinsi, {
@@ -133,7 +145,7 @@
     .then(propinsi => {
         console.log(propinsi);
         // reset option
-        elemPropinsi.innerHTML = '';
+        elemPropinsi.innerHTML = '<option value=0>-- Propinsi --</option>';;
         propinsi.provinsi.forEach(element => {
             elemPropinsi.innerHTML += 
             '<option value="'+element.id+'">'+element.nama+'</option>'
@@ -165,6 +177,7 @@
             // reset option
             elemKabupaten.innerHTML = '<option value=0>-- Kota/Kabupaten --</option>';
             elemKecamatan.innerHTML = '<option value=0>-- Kecamatan --</option>';
+            elemKelurahan.innerHTML = '<option value=0>-- Kelurahan --</option>';
             kabupaten.kota_kabupaten.forEach(element => {
                 elemKabupaten.innerHTML += 
                 '<option value="'+element.id+'">'+element.nama+'</option>'
@@ -197,6 +210,7 @@
             console.log(kecamatan);
             // reset option
             elemKecamatan.innerHTML = '<option value=0>-- Kecamatan --</option>';
+            elemKelurahan.innerHTML = '<option value=0>-- Kelurahan --</option>';
             kecamatan.kecamatan.forEach(element => {
                 elemKecamatan.innerHTML += 
                 '<option value="'+element.id+'">'+element.nama+'</option>'
@@ -208,6 +222,42 @@
 
     elemKecamatan.addEventListener('change', (e)=>{
         elemKecamatanHidden.value = elemKecamatan.options[elemKecamatan.selectedIndex].text;
+    })
+
+    //
+    // GET kelurahan
+    //
+    elemKecamatan.addEventListener('change', (e)=>{
+        // show overlay loading
+        document.getElementById('mal-loading-overlay').style.display = 'flex';
+        let idKecamatanDipilih = elemKecamatan.value;
+        elemKelurahanHidden.value = elemKecamatan.options[elemKecamatan.selectedIndex].text;
+
+        fetch(apiUrlKelurahan+''+idKecamatanDipilih, {
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json, text-plain, */*",
+                "X-Requested-With": "XMLHttpRequest",
+                },
+            method: "GET", 
+            credentials: "same-origin",
+        })
+        .then(response => response.json())
+        .then(kelurahan => {
+            console.log(kelurahan);
+            // reset option
+            elemKelurahan.innerHTML = '<option value=0>-- Kelurahan --</option>';
+            kelurahan.kelurahan.forEach(element => {
+                elemKelurahan.innerHTML += 
+                '<option value="'+element.id+'">'+element.nama+'</option>'
+            });
+            // hide overlay loading
+            document.getElementById('mal-loading-overlay').style.display = 'none';
+        });        
+    })
+
+    elemKelurahan.addEventListener('change', (e)=>{
+        elemKelurahanHidden.value = elemKelurahan.options[elemKelurahan.selectedIndex].text;
     })
 
     /////////////////////////////////////////////////
