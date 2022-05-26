@@ -46,9 +46,16 @@
                     <td>{{$pretty}}</td>
                     <td>{{$xtreme}}</td>
                 </tr>
+                <tr>
+                    <td>Rp{{number_format($pembelian_sancu, 0)}}</td>
+                    <td>Rp{{number_format($pembelian_boncu, 0)}}</td>
+                    <td>Rp{{number_format($pembelian_pretty, 0)}}</td>
+                    <td>Rp{{number_format($pembelian_xtreme, 0)}}</td>
+                </tr>
             </tbody>
         </table>
         <h3>Total Item: {{$sancu+$boncu+$pretty+$xtreme}}</h3>
+        <h3>Pembelian: Rp{{number_format($pembelian_sancu+$pembelian_boncu+$pembelian_pretty+$pembelian_xtreme, 0)}}</h3>
     </div>
 </div>
 

@@ -59,7 +59,11 @@ class ProfilController extends Controller
             'sancu' => 0,
             'boncu' => 0,
             'pretty' => 0,
-            'xtreme' => 0
+            'xtreme' => 0,
+            'pembelian_sancu' => 0,
+            'pembelian_boncu' => 0,
+            'pembelian_pretty' => 0,
+            'pembelian_xtreme' => 0
         ]);
     }
 
@@ -75,11 +79,17 @@ class ProfilController extends Controller
         $jumlah_produk_pretty = 0;
         $jumlah_produk_xtreme = 0;
 
+        $jumlah_pembelian_sancu = 0;
+        $jumlah_pembelian_boncu = 0;
+        $jumlah_pembelian_pretty = 0;
+        $jumlah_pembelian_xtreme = 0;
+
         $dataSancu = Order::get_data_order_by_category_and_date($id_user, '1', $tanggal_dari, $tanggal_sampai);
         // jika ada data sancu
         if($dataSancu->count() > 0){
             foreach($dataSancu as $sancu){
                 $jumlah_produk_sancu += $sancu->jumlah_produk;
+                $jumlah_pembelian_sancu += ($sancu->harga_produk*$sancu->jumlah_produk);
             }
         }
 
@@ -88,6 +98,7 @@ class ProfilController extends Controller
         if($data_boncu->count() > 0){
             foreach($data_boncu as $boncu){
                 $jumlah_produk_boncu += $boncu->jumlah_produk;
+                $jumlah_pembelian_boncu += ($boncu->harga_produk*$boncu->jumlah_produk);
             }
         }
 
@@ -96,6 +107,7 @@ class ProfilController extends Controller
         if($data_pretty->count() > 0){
             foreach($data_pretty as $pretty){
                 $jumlah_produk_pretty += $pretty->jumlah_produk;
+                $jumlah_pembelian_pretty += ($pretty->harga_produk*$pretty->jumlah_produk);
             }
         }
 
@@ -104,6 +116,7 @@ class ProfilController extends Controller
         if($data_xtreme->count() > 0){
             foreach($data_xtreme as $xtreme){
                 $jumlah_produk_xtreme += $xtreme->jumlah_produk;
+                $jumlah_pembelian_xtreme += ($xtreme->harga_produk*$xtreme->jumlah_produk);
             }
         }
 
@@ -113,6 +126,10 @@ class ProfilController extends Controller
             'boncu' => $jumlah_produk_boncu,
             'pretty' => $jumlah_produk_pretty,
             'xtreme' => $jumlah_produk_xtreme,
+            'pembelian_sancu' => $jumlah_pembelian_sancu,
+            'pembelian_boncu' => $jumlah_pembelian_boncu,
+            'pembelian_pretty' => $jumlah_pembelian_pretty,
+            'pembelian_xtreme' => $jumlah_pembelian_xtreme
         ]);
 
     }

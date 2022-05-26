@@ -315,21 +315,6 @@
 
     <script>
 
-        const batalkan_pesanan = document.getElementById('batalkan_pesanan');
-        if(batalkan_pesanan.addEventListener){
-            batalkan_pesanan.addEventListener('submit', (e)=>{
-                console.log('submit');
-                e.preventDefault();
-                window.history.back();
-            }, true)
-        }
-        
-
-        // function batalkan_pesanan(){
-        //     console.log('batalkan_pesanan');
-        //     return false;
-        // }
-
         const formBuktiBayar = document.getElementById('form_bukti_bayar');
         if(formBuktiBayar.addEventListener){
             let fileInput = formBuktiBayar.querySelector('.mal-file-input');
