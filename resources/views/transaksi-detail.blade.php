@@ -107,6 +107,7 @@
     @endforeach
 
     {{-- pengiriman --}}
+    {{-- jika Dropship --}}
     @if($alamat->dropship)
         <div class="row mal-list-produk-container p-3 d-flex align-items-center">
             <table class="table">
@@ -125,7 +126,7 @@
             </table>
         </div>
         <div class="row mal-list-produk-container p-3 d-flex align-items-center">
-            <h5 class="text-center"><strong>Sebagai Dropship</strong></h5>
+            <h5 class="text-center text-danger" style="border: 3px dashed red"><strong>Sebagai Dropship</strong></h5>
             <h6><strong>Penerima</strong></h6>
             <table class="table">
                 <tr>

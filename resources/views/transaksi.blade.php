@@ -52,6 +52,10 @@
                                     Dikirim
                                 </button>
                             @endif
+                            {{-- dropship --}}
+                            @if($order->dropship)
+                                <span class="text-secondary">Dropship</span>
+                            @endif
                         </div>
                         <div class="col-1 d-flex align-items-center">
                             <i class="bi bi-chevron-right" style="font-size: 1.3em"></i>

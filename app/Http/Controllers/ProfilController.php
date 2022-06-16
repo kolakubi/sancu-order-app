@@ -38,6 +38,13 @@ class ProfilController extends Controller
 
     public function transaksi_detail($id){
 
+        // cek jika id_user sesuai order
+        $id_valid = Order::where('id', $id)
+            ->first();
+        if($id_valid->id_user != auth()->user()->id){
+            return redirect('/profil/transaksi');
+        }
+
         $item_detail = Order::get_order_item_detail($id);
         $coupons = Order::get_coupon_info($id);
         // dd($coupons);
