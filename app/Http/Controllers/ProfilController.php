@@ -9,6 +9,7 @@ use App\Models\Kartu_stok;
 use App\Models\Order_details;
 use App\Models\Config;
 use App\Models\Cart;
+use App\Models\Notification;
 
 class ProfilController extends Controller
 {
@@ -203,6 +204,15 @@ class ProfilController extends Controller
                 'status' => 3
             ]);
 
+        Notification::create([
+            'id_user' => 'admin',
+            'id_order' => $request->orders_id,
+            'tipe' => 2,
+            'content' => 'Konfirmasi Pembayaran',
+            'dilihat' => 0,
+            'trash' => 0
+        ]);
+
         return redirect('/profil/transaksi');
     }
 
@@ -212,6 +222,16 @@ class ProfilController extends Controller
             ->update([
                 'status' => 5
             ]);
+        
+        // notification
+        Notification::create([
+            'id_user' => 'admin',
+            'id_order' => $request->orders_id,
+            'tipe' => 5,
+            'content' => 'Pesanan Selesai',
+            'dilihat' => 0,
+            'trash' => 0
+        ]);
 
         return redirect('/profil/transaksi');
     }
@@ -243,6 +263,18 @@ class ProfilController extends Controller
             // tambah
             Order_details::Update_stok_tambah($item);
         }
+
+         // posting ke notification
+        // buat admin
+        // id administrator = admin
+        Notification::create([
+            'id_user' => 'admin',
+            'id_order' => $request->orders_id,
+            'tipe' => 6,
+            'content' => 'Pesanan Batal',
+            'dilihat' => 0,
+            'trash' => 0
+        ]);
         
         return redirect('/profil/transaksi');
     }

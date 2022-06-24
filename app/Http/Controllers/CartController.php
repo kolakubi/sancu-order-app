@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Order_details;
 use App\Models\Kartu_stok;
 use App\Models\Config;
+use App\Models\Notification;
 
 class CartController extends Controller
 {
@@ -203,6 +204,19 @@ class CartController extends Controller
                 'saldo' => $data_saldo_terakhir - (int)$item->jumlah_produk
             ]);
         }
+
+        // posting ke notification
+        // buat admin
+        // id administrator = admin
+        Notification::create([
+            'id_user' => 'admin',
+            'id_order' => $insertId,
+            'tipe' => 1,
+            'content' => 'Order Baru',
+            'dilihat' => 0,
+            'trash' => 0
+        ]);
+
         //
         // kosongin semua cart
         //
