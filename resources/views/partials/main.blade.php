@@ -32,10 +32,14 @@
         </a>
         
         <div class="d-flex flex-row align-items-center justify-content-center p-1">
-          <h6 class="text text-light mb-0">Hi, {{auth()->user()->name}}</h6>
-          <a href="/logout" class="btn">
+          <h6 class="text text-light mb-0" style="margin-right: 15px;">Hi, {{auth()->user()->name}}</h6>
+          <a href="/notification" class="btn p-1" id="notif">
+            <i class="bi bi-bell text-light" style="font-size: 1.3em"></i>
+          </a>
+          <a href="/logout" class="btn p-1">
             <i class="bi bi-box-arrow-in-right text-light" style="font-size: 1.3em"></i>
           </a>
+          
         </div>
         
       </div>
@@ -91,6 +95,52 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
     <script src="/assets/js/floatdiv.js"></script>
     <script src="/assets/js/main.js"></script>
+
+    {{-- get notification --}}
+    <script>
+      // ambil jumlah notif yg belum terbaca
+      fetch("/notification/get_total_unread", {
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json, text-plain, */*",
+            "X-Requested-With": "XMLHttpRequest",
+            // "X-CSRF-TOKEN": token
+            },
+        method: "GET", 
+        credentials: "same-origin"
+      })
+      .then(response => response.text())
+      .then(data =>{  
+        const notif = document.getElementById('notif');
+        if(data > 0){
+          notif.innerHTML = '<i class="bi bi-bell text-light" style="font-size: 1.3em"></i><span class="badge" style="background-color: red;">'+data+'</span>';
+          
+        }
+        
+      })
+
+      // tiap 10 detik
+      setInterval(() => {
+        fetch("/notification/get_total_unread", {
+          headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json, text-plain, */*",
+              "X-Requested-With": "XMLHttpRequest",
+              // "X-CSRF-TOKEN": token
+              },
+          method: "GET", 
+          credentials: "same-origin"
+        })
+        .then(response => response.text())
+        .then(data =>{  
+          const notif = document.getElementById('notif');
+          if(data > 0){
+            notif.innerHTML = '<i class="bi bi-bell text-light" style="font-size: 1.3em"></i><span class="badge" style="background-color: red;">'+data+'</span>';
+          }
+        })
+      }, 10000);
+      
+    </script>
 
   </body>
 </html>

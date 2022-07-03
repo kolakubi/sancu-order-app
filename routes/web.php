@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,10 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/keranjang/checkout', [CartController::class, 'checkout']);
 
     Route::post('/coupon/cekdata', [CouponController::class, 'cekdata']);
+    
+    Route::get('/notification', [NotificationController::class, 'get_notif']);
+    Route::get('/notification/read/{id}', [NotificationController::class, 'read']);
+    Route::get('/notification/get_total_unread', [NotificationController::class, 'get_total_unread']);
 });
 
 

@@ -207,7 +207,7 @@ class ProfilController extends Controller
         Notification::create([
             'id_user' => 'admin',
             'id_order' => $request->orders_id,
-            'tipe' => 2,
+            'tipe' => 3,
             'content' => 'Konfirmasi Pembayaran',
             'dilihat' => 0,
             'trash' => 0
