@@ -47,6 +47,7 @@ class ProfilController extends Controller
         }
 
         $item_detail = Order::get_order_item_detail($id);
+        // dd($item_detail);
         $coupons = Order::get_coupon_info($id);
         // dd($coupons);
         $alamat = Order::get_alamat($id);

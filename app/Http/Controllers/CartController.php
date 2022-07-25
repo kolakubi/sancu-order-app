@@ -23,6 +23,23 @@ class CartController extends Controller
         // ambil id_user dari session
         // ambil data cart dari session id_user
         $cart_items = Cart::show_data(auth()->user()->id);
+
+        // jika ada selisih stok
+        foreach($cart_items as $item){
+            if($item->jumlah_stok < $item->jumlah_produk){
+                // update cart sessuai stok yg ada
+                Cart::where('id_user', auth()->user()->id)
+                    ->where('id_produk_detail', $item->id_produk_detail)
+                    ->update([
+                        'jumlah_produk' => $item->jumlah_stok
+                    ]);
+            }
+        }
+
+        // ambil id_user dari session
+        // ambil data cart dari session id_user
+        $cart_items = Cart::show_data(auth()->user()->id);
+
         $alamat = Cart::get_alamat(auth()->user()->id);
 
         return view('keranjang', [
@@ -51,6 +68,7 @@ class CartController extends Controller
 
             if(isset($data[$i])){
                 if($data[$i]['jumlah_produk'] !== null){
+                    // dd($data[$i]);
                     Cart::insert_data($data[$i]);
                 }
                 else{
@@ -146,8 +164,13 @@ class CartController extends Controller
     public static function checkout(Request $data){
         // ambil data cart yang stoknya > 0
         $cartItems = Cart::show_data_not_0(auth()->user()->id);
-        // dd($cartItems);
-        // return $cartItems;
+        $totalStokOrder = 0;
+        foreach($cartItems as $item){
+            $totalStokOrder += $item->jumlah_stok;
+        }
+        if($totalStokOrder < 1){
+            return 'stok-habis';
+        }
         // 
         // bikin variable baru untuk semua data
         $checkoutData = [
@@ -168,6 +191,7 @@ class CartController extends Controller
             'dropship_alamat' => $data->dropship['alamat'], 
             'status' => '1'
         ]);
+
         // 
         // ambil ID ORDERS nya
         $insertId = $actionInsert->id;

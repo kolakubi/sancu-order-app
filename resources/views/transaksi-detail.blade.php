@@ -62,11 +62,11 @@
         @php
             // jika stok tidak 0
             // tambahka jumlah
-            if($item->jumlah_stok > 0){
+            // if($item->jumlah_stok > 0){
                 $totalJumlahItem += $item->jumlah_produk;
                 $subTotalItem += ($item->jumlah_produk*$item->harga_produk);
                 $totalBerat += ($item->berat*$item->jumlah_produk);
-            }
+            // }
         @endphp
         <tr style="position: relative;">
             <td>{{ $item->size }}</td>

@@ -204,8 +204,8 @@
                         })
                         .then(response => response.text())
                         .then(data => {
-                            console.log(data);
-
+                            console.log(data+' abis ajax add to cart');
+                            // return false;
                             if(data == "sukses"){
                                 // reset field jd 0
                                 for(let i=0; i<listJumlahOrderPerItem.length; i++){

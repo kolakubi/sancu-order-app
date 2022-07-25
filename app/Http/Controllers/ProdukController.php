@@ -27,6 +27,9 @@ class ProdukController extends Controller
         if($cath == 'xtreme'){
             $cath = 4;
         }
+        if($cath == 'pelengkap'){
+            $cath = 5;
+        }
 
         return view('category2', [
             'title' => $cath,

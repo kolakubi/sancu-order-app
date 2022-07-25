@@ -25,13 +25,15 @@ class Cart extends Model
         // cek dlu apakah ada data dengan id_produk_detail
         $dataItem = DB::table('carts')
             ->where('id_produk_detail', '=', $item['id_produk_detail'])
+            ->where('id_user', '=', auth()->user()->id) 
             ->get();
         // $dataItem = object
         // jika ada, tambah jumlah
         if(count($dataItem) > 0){
-            // die($dataItem);
+            die($dataItem);
             return DB::table('carts')
                 ->where('id_produk_detail', $item['id_produk_detail'])
+                ->where('id_user', auth()->user()->id)
                 ->update(
                     ['jumlah_produk' => $dataItem[0]->jumlah_produk+$item['jumlah_produk']]
                 );

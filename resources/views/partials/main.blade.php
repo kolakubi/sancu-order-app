@@ -25,7 +25,7 @@
   <body style="background-color: #fafcfe">
     
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #00abc5;">
       <div class="container">
         <a class="navbar-brand" href="/">
           <img src="/assets/image/logo-sancu-mini.png" alt="logo sancu" style="max-width: 120px">

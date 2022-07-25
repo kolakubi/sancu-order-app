@@ -16,6 +16,9 @@
     @endif
 
     <h2>Keranjang Pemesanan</h2>
+    <p>refresh halaman untuk mengetahui stok terupdate</p>
+    <button class="btn btn-info text-light" onclick="refresh()">Refresh <i class="bi bi-arrow-clockwise"></i></button>
+    
     @php
         $asd = 0;
         // $no=0;
@@ -677,81 +680,113 @@
         }
 
         function checkout(){ 
+            // pengingat beli item pelengkap
+            Swal.fire({
+                icon: 'question',
+                title: 'Apakah kamu sudah membeli item pelengkap',
+                text: 'pilih "checkout" jika tidak ingin beli item pelengkap',
+                showDenyButton: true,
+                confirmButtonText: 'Checkout',
+                denyButtonText: `Beli item pelengkap`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //
+                    //
+                    //
+                    //
+                    // dropship
+                    //
+                    let dropship = {
+                        'status' : 0,
+                        'nama' : '',
+                        'telepon' : '',
+                        'alamat' : ''
+                    };
+                    const dropshipToggle = document.getElementById('dropshipToggle');
+                    
+                    if(dropshipToggle.checked){
+                        if(!checkDropshipData()){
+                            return false;
+                        }
+                        else{
+                            dropship = checkDropshipData();
+                        }
+                    }
+                    //
+                    // end dropship
+                    //
 
-            //
-            // dropship
-            //
-            let dropship = {
-                'status' : 0,
-                'nama' : '',
-                'telepon' : '',
-                'alamat' : ''
-            };
-            const dropshipToggle = document.getElementById('dropshipToggle');
-            
-            if(dropshipToggle.checked){
-                if(!checkDropshipData()){
-                    return false;
-                }
-                else{
-                    dropship = checkDropshipData();
-                }
-            }
-            //
-            // end dropship
-            //
+                    // show overlay loading
+                    document.getElementById('mal-loading-overlay').style.display = 'flex';
 
+                    let idAlamat = {{$id_alamat}};
+                    // jika belum isi alamat
+                    if(idAlamat == 0){
+                        window.location.href = "/profil/alamat";
+                        return false;
+                    }
+
+                    let coupon = document.getElementById('kodeCoupon').value;
+                    let berat = {{$totalBerat}}
+                    let postData = {
+                        'id_alamat': idAlamat,
+                        'coupon': coupon,
+                        'berat': berat,
+                        'dropship' : dropship
+                    }
+                    // console.log('id alamat', idAlamat);
+                    // console.log('coupon', coupon);
+                    // console.log('berat', berat);
+                    // console.log('dropship', dropship);
+
+                    fetch("/keranjang/checkout", {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json, text-plain, */*",
+                                "X-Requested-With": "XMLHttpRequest",
+                                "X-CSRF-TOKEN": token
+                                },
+                            method: "POST", 
+                            credentials: "same-origin",
+                            body: JSON.stringify(postData)
+                        })
+                    .then(response => response.text())
+                    .then(data => {
+                        console.log(data);
+
+                        if(data == 'stok-habis'){
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Item Habis',
+                                text: 'Stok yang kamu pesann habis',
+                            })
+                        }else{
+                            Swal.fire({
+                            icon: 'success',
+                            title: 'Order Sukses',
+                            text: 'admin kami akan menghubungi anda untuk info biaya ongkir',
+                            }).then((result) => {
+                                window.location.href = "/profil/transaksi";
+                            })
+                        }
+
+                        // hide overlay loading
+                        document.getElementById('mal-loading-overlay').style.display = 'none';
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+                    //
+                    //
+                    //
+                }
+            })
+        }
+
+        function refresh(){
             // show overlay loading
             document.getElementById('mal-loading-overlay').style.display = 'flex';
-
-            let idAlamat = {{$id_alamat}};
-            // jika belum isi alamat
-            if(idAlamat == 0){
-                window.location.href = "/profil/alamat";
-                return false;
-            }
-
-            let coupon = document.getElementById('kodeCoupon').value;
-            let berat = {{$totalBerat}}
-            let postData = {
-                'id_alamat': idAlamat,
-                'coupon': coupon,
-                'berat': berat,
-                'dropship' : dropship
-            }
-            // console.log('id alamat', idAlamat);
-            // console.log('coupon', coupon);
-            // console.log('berat', berat);
-            // console.log('dropship', dropship);
-
-            fetch("/keranjang/checkout", {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json, text-plain, */*",
-                        "X-Requested-With": "XMLHttpRequest",
-                        "X-CSRF-TOKEN": token
-                        },
-                    method: "POST", 
-                    credentials: "same-origin",
-                    body: JSON.stringify(postData)
-                })
-            .then(response => response.text())
-            .then(data => {
-                console.log(data);
-
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Order Sukses',
-                    text: 'admin kami akan menghubungi anda untuk info biaya ongkir',
-                }).then((result) => {
-                    window.location.href = "/profil/transaksi";
-                })
-                // hide overlay loading
-                document.getElementById('mal-loading-overlay').style.display = 'none';
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+            location.reload();
         }
 
     </script>
