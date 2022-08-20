@@ -72,8 +72,3 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/notification/read/{id}', [NotificationController::class, 'read']);
     Route::get('/notification/get_total_unread', [NotificationController::class, 'get_total_unread']);
 });
-
-
-
-
-

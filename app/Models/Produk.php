@@ -11,7 +11,9 @@ class Produk extends Model
     use HasFactory;
 
     public static function show_categories($cath){
-        return DB::table('produks')->where('id_category', $cath)->get();
+        return DB::table('produks')->where('id_category', $cath)
+            ->orderBy('created_at', 'DESC')
+            ->get();
     }
 
     public static function show_produk($id){
