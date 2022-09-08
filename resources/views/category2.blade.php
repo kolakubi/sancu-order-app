@@ -46,7 +46,7 @@
             <div class="col-8 d-flex justify-content-center flex-column">
                 <h6>{{ $produk->nama_produk }}</h6>
                 {{-- <h6>{{ $produk->harga_produk }}</h6> --}}
-                <p class="m-0 mb-1">Size: 24, 28, 30, 32, 34, 38</p>
+                {{-- <p class="m-0 mb-1">Size: 24, 28, 30, 32, 34, 38</p> --}}
                 <div class="row" style="display: flex; align-items: flex-end; justify-content: flex-end;">
                     <a href="/produk2/{{ $produk->id }}" class="btn btn-warning" style="max-width: 30%">Beli</a>
                 </div>

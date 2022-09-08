@@ -40,7 +40,7 @@
 @endforeach
 
 {{-- tombol add alamat --}}
-<a style="text-decoration: none; color: #000" href="{{route('add_alamat')}}">
+{{-- <a style="text-decoration: none; color: #000" href="{{route('add_alamat')}}">
     <div class="row mal-list-produk-container p-3 d-flex align-items-center">
         <div class="col-11">
             <p style="margin: 0;">Tambah Alamat Baru</p>
@@ -50,6 +50,6 @@
             <h4>+</h4>
         </div>
     </div>
-</a>
+</a> --}}
 
 @endsection

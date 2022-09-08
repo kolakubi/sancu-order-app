@@ -224,7 +224,7 @@ class CartController extends Controller
                 'id_produk_detail' => $item->id_produk_detail,
                 'status' => 'out',
                 'jumlah' => $item->jumlah_produk,
-                'keterangan' => 'order agen nomor #'.$insertId,
+                'keterangan' => 'order agen '.auth()->user()->name.' nomor #'.$insertId,
                 'saldo' => $data_saldo_terakhir - (int)$item->jumlah_produk
             ]);
         }
