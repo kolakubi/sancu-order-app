@@ -14,27 +14,30 @@ class ProdukController extends Controller
         $this->server_host=Config::where('nama', 'server_host')->get()[0]->nilai.'storage/';
     }
 
-    public function show_categories($cath){
-        if($cath == 'sancu'){
+    public function show_categories($category){
+        $cath = '';
+
+        if($category == 'sancu'){
             $cath = 1;
         }
-        if($cath == 'boncu'){
+        if($category == 'boncu'){
             $cath = 2;
         }
-        if($cath == 'pretty'){
+        if($category == 'pretty'){
             $cath = 3;
         }
-        if($cath == 'xtreme'){
+        if($category == 'xtreme'){
             $cath = 4;
         }
-        if($cath == 'pelengkap'){
+        if($category == 'pelengkap'){
             $cath = 5;
         }
 
         return view('category2', [
-            'title' => $cath,
+            'title' => 'Produk '.$category,
             'produks' => Produk::show_categories($cath),
-            'server_host' => $this->server_host
+            'server_host' => $this->server_host,
+            'nama_category' => $category
         ]);
     }
 

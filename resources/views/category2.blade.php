@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <h2 class="mb-3">Produk Sancu</h2>
+    <h2 class="mb-3 text-capitalize">Produk {{$nama_category}}</h2>
 
     <!-- search bar -->
     <div class="row">
@@ -67,17 +67,17 @@
         const elemListProduk = document.getElementsByClassName('list-produk');
 
         inputCari[0].addEventListener('keyup', (e)=>{
-            let valueCari = inputCari[0].value;
+            let valueCari = inputCari[0].value.toLowerCase();
+            console.log(valueCari);
 
             for(let i=0; i<elemListProduk.length; i++){
-                let namaProduk = elemListProduk[i].getAttribute('data-nama-produk');
+                let namaProduk = elemListProduk[i].getAttribute('data-nama-produk').toLowerCase();
                 
                 // if(namaProduk.includes(valueCari)){
                 // if(namaProduk.includes(valueCari)){
-                if(namaProduk.match(valueCari)){
+                if(namaProduk.includes(valueCari)){
                     elemListProduk[i].classList.remove('d-none');
                     console.log(namaProduk);
-                    console.log('ada');
                 }
                 else{
                     elemListProduk[i].classList.add('d-none');

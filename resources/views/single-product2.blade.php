@@ -54,7 +54,7 @@
                                 <input type="number" min=0 class="form-control jumlah_order" width="50px" value=0
                                 max={{ $stok->jumlah_stok }}  
                                 id="input-size-{{$stok->size}}" 
-                                data-id-produk-detail={{$stok->id}}
+                                data-id-produk-detail="{{$stok->id}}"
                                 data-id-produk={{$stok->id_produk}}
                                 {{$stok->jumlah_stok < 1 ? "disabled" : ""}}
                                 name="{{$stok->id}}">
@@ -144,7 +144,7 @@
                 const dataForAjax = [];
                 for(let i=0; i<listJumlahOrderPerItem.length; i++){
                     if(listJumlahOrderPerItem[i].value > 0){
-                        // console.log(listJumlahOrderPerItem[i].getAttribute('data-id-produk-detail'));
+                        console.log(listJumlahOrderPerItem[i]);
                         dataForAjax.push({
                             'id_produk_detail': listJumlahOrderPerItem[i].getAttribute('data-id-produk-detail'),
                             'id_produk': listJumlahOrderPerItem[i].getAttribute('data-id-produk'),
@@ -172,11 +172,10 @@
                 })
                 .then(response => response.text())
                 .then(data => {
-                    console.log(data);
                     // ubah string data ke array
                     let arrData = data.split(' ');
                     console.log(arrData);
-                    // cek jika array ada 'melebihi-stok
+                    // cek jika array ada 'melebihi-cek_stok
                     if(arrData.includes('melebihi-stok')){
                         // jika ada
                         // alert('item kamu melebihi stok yang ada, cek keranjang belanja!');

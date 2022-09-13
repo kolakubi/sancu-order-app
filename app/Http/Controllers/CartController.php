@@ -87,6 +87,7 @@ class CartController extends Controller
 
         $subtotal = 0;
         foreach($cart_items as $item){
+
             if($item->jumlah_stok > 0){
                 
                 $subtotal += ($item->jumlah_produk*$item->harga_produk);
