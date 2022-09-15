@@ -223,12 +223,22 @@
             </tr>
             @if($alamat->potongan_harga_langsung)
                 <tr>
-                    <td>Potongan Harga Langsung</td>
-                    <td>: <strong>Rp {{number_format($alamat->potongan_harga_langsung, 0)}}</strong></td>
+                    <td>Potongan Harga</td>
+                    <td>: <strong>(Rp {{number_format($alamat->potongan_harga_langsung, 0)}})</strong></td>
                 </tr>
                 <tr>
-                    <td>Keterangan</td>
+                    <td>Keterangan Potongan Harga</td>
                     <td>: <strong>{{$alamat->keterangan_potongan_harga_langsung}}</strong></td>
+                </tr>
+            @endif
+            @if($alamat->penambahan_harga_langsung)
+                <tr>
+                    <td>Penambahan Harga</td>
+                    <td>: <strong>Rp {{number_format($alamat->penambahan_harga_langsung, 0)}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Keterangan Penambahan Harga</td>
+                    <td>: <strong>{{$alamat->keterangan_penambahan_harga_langsung}}</strong></td>
                 </tr>
             @endif
             <tr>
@@ -240,7 +250,8 @@
                                 $totalPembelian+
                                 $items[0]->ongkir-
                                 ($coupons ? $coupons->potongan*$totalJumlahItem : 0)-
-                                $alamat->potongan_harga_langsung
+                                $alamat->potongan_harga_langsung+
+                                $alamat->penambahan_harga_langsung
                             ), 0)
                         }}
                     </strong>
