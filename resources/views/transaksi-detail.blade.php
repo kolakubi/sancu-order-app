@@ -260,6 +260,17 @@
         </table>
     </div>
 
+     {{-- keterangan Tambahan --}}
+     <div class="row mal-list-produk-container p-3 d-flex align-items-center">
+        <table class="table">
+            <tr>
+                <td style="width: 50%">Keterangan Tambahan</td>
+                <td style="width: 50%">: <strong>@if($alamat->keterangan_agen) {{$alamat->keterangan_agen}} @else - @endif</strong></td>
+            </tr>
+        </table>
+    </div>
+
+
     {{-- batalkan order --}}
     @if($items[0]->status == '1')
     <div class="row mal-list-produk-container p-3 d-flex align-items-center">

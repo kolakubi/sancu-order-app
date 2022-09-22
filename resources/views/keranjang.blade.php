@@ -233,6 +233,16 @@
         </div>
     </div>
 
+    {{-- Keterangan Tambahan --}}
+    <div class="row mal-list-produk-container p-4">
+        <div class="col-12">
+            <h6>Keterangan Tambahan</h6>
+            <div class="form-group">
+                <textarea id="keteranganAgen" class="form-control" rows="5"></textarea>
+            </div>
+        </div>
+    </div>
+
     {{-- total keranjang --}}
     <div class="row mal-list-produk-container p-4">
         <div class="col-6">
@@ -727,12 +737,14 @@
                     }
 
                     let coupon = document.getElementById('kodeCoupon').value;
+                    let keteranganAgen = document.getElementById('keteranganAgen').value;
                     let berat = {{$totalBerat}}
                     let postData = {
                         'id_alamat': idAlamat,
                         'coupon': coupon,
                         'berat': berat,
-                        'dropship' : dropship
+                        'dropship' : dropship,
+                        'keterangan_agen' : keteranganAgen
                     }
                     // console.log('id alamat', idAlamat);
                     // console.log('coupon', coupon);
