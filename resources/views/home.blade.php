@@ -56,6 +56,13 @@
             </a>
         </div>
         <div class="col-6 p-1">
+            <a href="/category/kawaru"> 
+                <div class="mal-home-shadow p-2 rounded">
+                    <img src="assets/image/kawaru-thumb-home.jpg" alt="kawaru" class="img-fluid">
+                </div>
+            </a>
+        </div>
+        <div class="col-6 p-1">
             <a href="/category/pelengkap"> 
                 <div class="mal-home-shadow p-2 rounded">
                     <img src="assets/image/pelengkap-thumb.png" alt="pelengkap" class="img-fluid">

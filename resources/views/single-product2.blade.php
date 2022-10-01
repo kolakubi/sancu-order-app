@@ -38,7 +38,7 @@
                         <tr>
                             <th>Size</th>
                             <th>Harga</th>
-                            <th>Stok<br>(Pack)</th>
+                            <th>Stok<br>@if($produk->satuan == 'pack') [Pack] @else [Pasang] @endif</th>
                             <th>Order</th>
                             <th>Total</th>
                         </tr>

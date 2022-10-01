@@ -253,6 +253,14 @@
         </div>
     </div>
 
+    {{-- Pengingat cek kembali order --}}
+    <div class="row mal-list-produk-container p-4">
+        <div class="col-12 text-center">
+            <h6 class="text-danger">Perhatian</h6>
+            <p>Harap periksa kembali pesanan anda sebelum melakukan "Checkout". Pesanan yang sudah di checkout tidak dapat diubah.</p>
+        </div>
+    </div>
+
     {{-- button Checkout --}}
     <div class="row mt-3">
         <div class="col-6">

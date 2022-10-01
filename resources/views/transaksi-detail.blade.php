@@ -429,18 +429,22 @@
 
     {{-- selesai --}}
     @if($items[0]->status == '5')
-    <div class="row mal-list-produk-container p-3 d-flex align-items-center">
-        <div class="col-12 text-center">
-            <h5>Bukti Pembayaran</h5>
-            <img class="img-thumbnail" src="/storage/{{$alamat->bukti_bayar}}" alt="bukti pembayaran distributor">
-        </div>
-    </div>
-    <div class="row mal-list-produk-container p-3 d-flex align-items-center">
-        <div class="col-12 text-center">
-            <h5>Resi Pengiriman</h5>
-            <img class="img-thumbnail" src="{{$server_host}}{{$items[0]->resi}}" alt="resi pengiriman distributor">
-        </div>
-    </div>
+        @if($alamat->bukti_bayar != '')
+            <div class="row mal-list-produk-container p-3 d-flex align-items-center">
+                <div class="col-12 text-center">
+                    <h5>Bukti Pembayaran</h5>
+                    <img class="img-thumbnail" src="/storage/{{$alamat->bukti_bayar}}" alt="bukti pembayaran distributor">
+                </div>
+            </div>
+        @endif
+        @if($items[0]->resi != '')
+            <div class="row mal-list-produk-container p-3 d-flex align-items-center">
+                <div class="col-12 text-center">
+                    <h5>Resi Pengiriman</h5>
+                    <img class="img-thumbnail" src="{{$server_host}}{{$items[0]->resi}}" alt="resi pengiriman distributor">
+                </div>
+            </div>
+        @endif
     @endif
 
 @endsection

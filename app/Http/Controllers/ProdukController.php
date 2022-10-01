@@ -32,6 +32,9 @@ class ProdukController extends Controller
         if($category == 'pelengkap'){
             $cath = 5;
         }
+        if($category == 'kawaru'){
+            $cath = 7;
+        }
 
         return view('category2', [
             'title' => 'Produk '.$category,

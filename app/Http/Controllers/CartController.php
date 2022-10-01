@@ -189,7 +189,7 @@ class CartController extends Controller
             'dropship' => $data->dropship['status'],
             'dropship_nama' => $data->dropship['nama'],
             'dropship_telepon' => $data->dropship['telepon'],
-            'dropship_alamat' => $data->dropship['alamat'],
+            'dropship_alamat' => $data->dropship['alamat'], 
             'status' => '1',
             'keterangan_agen' => $data->keterangan_agen
         ]);
