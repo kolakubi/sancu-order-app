@@ -69,10 +69,12 @@ class ProfilController extends Controller
             'boncu' => 0,
             'pretty' => 0,
             'xtreme' => 0,
+            'kawaru' => 0,
             'pembelian_sancu' => 0,
             'pembelian_boncu' => 0,
             'pembelian_pretty' => 0,
-            'pembelian_xtreme' => 0
+            'pembelian_xtreme' => 0,
+            'pembelian_kawaru' => 0
         ]);
     }
 
@@ -87,11 +89,13 @@ class ProfilController extends Controller
         $jumlah_produk_boncu = 0;
         $jumlah_produk_pretty = 0;
         $jumlah_produk_xtreme = 0;
+        $jumlah_produk_kawaru = 0;
 
         $jumlah_pembelian_sancu = 0;
         $jumlah_pembelian_boncu = 0;
         $jumlah_pembelian_pretty = 0;
         $jumlah_pembelian_xtreme = 0;
+        $jumlah_pembelian_kawaru = 0;
 
         $dataSancu = Order::get_data_order_by_category_and_date($id_user, '1', $tanggal_dari, $tanggal_sampai);
         // jika ada data sancu
@@ -129,16 +133,27 @@ class ProfilController extends Controller
             }
         }
 
+        $data_kawaru = Order::get_data_order_by_category_and_date($id_user, '7', $tanggal_dari, $tanggal_sampai);
+        // jika ada data kawary
+        if($data_kawaru->count() > 0){
+            foreach($data_kawaru as $kawaru){
+                $jumlah_produk_kawaru += $kawaru->jumlah_produk;
+                $jumlah_pembelian_kawaru += ($kawaru->harga_produk*$kawaru->jumlah_produk);
+            }
+        }
+
         return view('total_pembelian', [
             'title' => 'Total Pembelian',
             'sancu' => $jumlah_produk_sancu,
             'boncu' => $jumlah_produk_boncu,
             'pretty' => $jumlah_produk_pretty,
             'xtreme' => $jumlah_produk_xtreme,
+            'kawaru' => $jumlah_produk_kawaru,
             'pembelian_sancu' => $jumlah_pembelian_sancu,
             'pembelian_boncu' => $jumlah_pembelian_boncu,
             'pembelian_pretty' => $jumlah_pembelian_pretty,
-            'pembelian_xtreme' => $jumlah_pembelian_xtreme
+            'pembelian_xtreme' => $jumlah_pembelian_xtreme,
+            'pembelian_kawaru' => $jumlah_pembelian_kawaru
         ]);
 
     }

@@ -30,13 +30,14 @@
 
 <div class="row mal-list-produk-container p-3">
     <div class="col-12 text-center">
-        <table class="table">
+        <table class="table text-sm">
             <thead>
                 <tr>
                     <th>Sancu</th>
                     <th>Boncu</th>
                     <th>Pretty</th>
                     <th>Xtreme</th>
+                    <th>Kawaru</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,17 +46,19 @@
                     <td>{{$boncu}}</td>
                     <td>{{$pretty}}</td>
                     <td>{{$xtreme}}</td>
+                    <td>{{$kawaru}}</td>
                 </tr>
                 <tr>
                     <td>Rp{{number_format($pembelian_sancu, 0)}}</td>
                     <td>Rp{{number_format($pembelian_boncu, 0)}}</td>
                     <td>Rp{{number_format($pembelian_pretty, 0)}}</td>
                     <td>Rp{{number_format($pembelian_xtreme, 0)}}</td>
+                    <td>Rp{{number_format($pembelian_kawaru, 0)}}</td>
                 </tr>
             </tbody>
         </table>
-        <h3>Total Item: {{$sancu+$boncu+$pretty+$xtreme}}</h3>
-        <h3>Pembelian: Rp{{number_format($pembelian_sancu+$pembelian_boncu+$pembelian_pretty+$pembelian_xtreme, 0)}}</h3>
+        <h3>Total Item: {{$sancu+$boncu+$pretty+$xtreme+$kawaru}}</h3>
+        <h3>Pembelian: Rp{{number_format($pembelian_sancu+$pembelian_boncu+$pembelian_pretty+$pembelian_xtreme+$pembelian_kawaru, 0)}}</h3>
     </div>
 </div>
 

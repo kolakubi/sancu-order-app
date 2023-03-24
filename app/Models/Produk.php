@@ -12,6 +12,7 @@ class Produk extends Model
 
     public static function show_categories($cath){
         return DB::table('produks')->where('id_category', $cath)
+            ->where('produks.archive', 'no')
             ->orderBy('created_at', 'DESC')
             ->get();
     }

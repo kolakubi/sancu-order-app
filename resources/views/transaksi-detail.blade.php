@@ -25,7 +25,7 @@
     @endphp
     @foreach($items as $key=>$item)
         @php
-            $totalPembelian += ($item->jumlah_produk*$item->harga_produk);
+            $totalPembelian += ($item->jumlah_produk*$item->harga_saat_order);
         @endphp
 
         {{-- jika idproduk beda dengan var pembantu --}}
@@ -64,7 +64,7 @@
             // tambahka jumlah
             // if($item->jumlah_stok > 0){
                 $totalJumlahItem += $item->jumlah_produk;
-                $subTotalItem += ($item->jumlah_produk*$item->harga_produk);
+                $subTotalItem += ($item->jumlah_produk*$item->harga_saat_order);
                 $totalBerat += ($item->berat*$item->jumlah_produk);
             // }
         @endphp
@@ -72,7 +72,7 @@
             <td>{{ $item->size }}</td>
             <td>{{ $item->jumlah_produk }} </td>
             <td>
-                <p style="font-size: 14px;">{{ number_format($item->jumlah_produk*$item->harga_produk, 0) }}
+                <p style="font-size: 14px;">{{ number_format($item->jumlah_produk*$item->harga_saat_order, 0) }}
                 </p>
             </td>
         </tr>

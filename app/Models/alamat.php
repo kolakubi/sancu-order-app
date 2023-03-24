@@ -13,6 +13,7 @@ class alamat extends Model
     public static function get_alamat($id_user){
         return DB::table('alamats')
             ->where('id_user', $id_user)
+            ->where('archive', 'no')
             ->get();
     }
 
